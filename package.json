@@ -1,0 +1,10 @@
+{
+  "name": "red-remodels-og-v3",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static site assets for Red Remodels. Provides local dev server for previewing the site.",
+  "type": "module",
+  "scripts": {
+    "start": "node dev-server.mjs"
+  }
+}
