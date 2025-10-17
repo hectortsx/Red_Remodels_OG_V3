@@ -2,21 +2,6 @@
 
 This repository contains the static assets for the Red Remodels marketing website. A lightweight Node-based development server is included so you can preview the site locally without installing any global tooling.
 
-```
-public/
-├── assets/
-│   ├── css/
-│   ├── fonts/
-│   ├── images/
-│   └── js/
-└── pages/
-    ├── desktop/
-    ├── mobile/
-    └── tablet/
-```
-
-The `public` directory mirrors a typical modern static-site layout: HTML lives under `pages`, while shared assets such as stylesheets, scripts, and media are grouped under `assets`.
-
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/) 18 or newer (any runtime that supports ES modules will work)
@@ -33,7 +18,7 @@ The `npm install` step is a no-op because the project has no external dependenci
 The `npm start` command launches a static file server on port `4173`. Once running, open your browser to:
 
 ```
-http://localhost:4173/pages/desktop/home/
+http://localhost:4173/Pages/desktop/home/
 ```
 
 The server automatically redirects the root path (`/`) to the desktop home page, so visiting `http://localhost:4173/` also works.
