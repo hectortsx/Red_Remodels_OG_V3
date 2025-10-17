@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const ROOT_DIR = path.resolve(__dirname, 'public');
+const ROOT_DIR = path.resolve(__dirname);
 
 const DEFAULT_PORT = parseInt(process.env.PORT ?? '4173', 10);
 const DEFAULT_HOST = process.env.HOST ?? '0.0.0.0';
@@ -51,7 +51,7 @@ const server = createServer(async (req, res) => {
 
   let relativePath = normalizePath(req.url);
   if (relativePath === '/' || relativePath === '') {
-    relativePath = '/pages/desktop/home/index.html';
+    relativePath = '/Pages/desktop/home/index.html';
   }
 
   let filePath = path.join(ROOT_DIR, relativePath);
@@ -81,6 +81,6 @@ const server = createServer(async (req, res) => {
 
 server.listen(DEFAULT_PORT, DEFAULT_HOST, () => {
   console.log(`\nRed Remodels test server running on http://${DEFAULT_HOST}:${DEFAULT_PORT}`);
-  console.log('Home page: /pages/desktop/home/');
+  console.log('Home page: /Pages/desktop/home/');
   console.log('Stop the server with CTRL+C.');
 });
