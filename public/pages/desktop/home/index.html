@@ -14,8 +14,22 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Lato:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon-light.svg" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      media="(prefers-color-scheme: light)"
+      href="/assets/images/favicon-light.svg"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      media="(prefers-color-scheme: dark)"
+      href="/assets/images/favicon-dark.svg"
+    />
     <link rel="stylesheet" href="/assets/css/desktop.css" />
     <link rel="stylesheet" href="/pages/desktop/home/style.css" />
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   </head>
   <body>
     <div class="announcement-bar">
@@ -25,7 +39,7 @@
         >
         <div class="social-links">
           <a class="social-link" href="https://www.facebook.com/redremodels" target="_blank" rel="noreferrer"
-            ><span aria-hidden="true">Fb</span><span class="sr-only">Facebook</span></a
+            ><span aria-hidden="true">Fb</span><span class="sr-only">facebook.com/redremodels</span></a
           >
           <a class="social-link" href="https://www.instagram.com/red_remodels/" target="_blank" rel="noreferrer"
             ><span aria-hidden="true">Ig</span><span class="sr-only">Instagram</span></a
@@ -38,10 +52,10 @@
       <div class="container header-inner">
         <a class="logo" href="#top" aria-label="Red Remodels home">
           <img
-            src="/assets/images/284_Red_Remodels_LOGO_VR_04.png"
-            alt="Red Remodels logo"
-            width="180"
-            height="54"
+            src="/assets/images/284_Red_Remodels_LOGO_VR_02-aae74d79-640w.jpg"
+            alt="Red Remodels wordmark with icon"
+            width="220"
+            height="82"
           />
         </a>
         <nav class="site-nav" aria-label="Primary navigation">
@@ -250,29 +264,57 @@
               width="120"
               height="120"
             />
-            <span class="section-tag section-tag--light">#rdcrew</span>
+            <span class="section-tag section-tag--light">#redremodels</span>
             <h2>Want more info?</h2>
           </div>
-          <form class="more-info-form" action="#" method="post">
+          <form
+            class="more-info-form"
+            action="https://formsubmit.co/hello@redremodels.com"
+            method="post"
+            data-secure-form="more-info"
+          >
+            <input type="hidden" name="_subject" value="Red Remodels website: info request" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_cc" value="hector@savio.design" />
+            <div class="form-honeypot" aria-hidden="true">
+              <label>
+                <span>Leave this field empty</span>
+                <input type="text" name="_honey" tabindex="-1" autocomplete="off" />
+              </label>
+            </div>
             <div class="form-row">
               <label>
                 <span>Name</span>
-                <input type="text" name="info-name" placeholder="Full name" required />
+                <input type="text" name="name" placeholder="Full name" autocomplete="name" required />
               </label>
               <label>
                 <span>Email</span>
-                <input type="email" name="info-email" placeholder="you@example.com" required />
+                <input type="email" name="email" placeholder="you@example.com" autocomplete="email" required />
               </label>
               <label>
                 <span>Phone number</span>
-                <input type="tel" name="info-phone" placeholder="(000) 000-0000" />
+                <input type="tel" name="phone" placeholder="(000) 000-0000" autocomplete="tel" />
               </label>
             </div>
             <label>
               <span>Message</span>
-              <textarea name="info-message" rows="3" placeholder="How can we help?"></textarea>
+              <textarea
+                name="message"
+                rows="3"
+                placeholder="How can we help?"
+                autocomplete="off"
+              ></textarea>
             </label>
-            <button class="btn btn--light" type="submit">Send Message</button>
+            <button
+              class="btn btn--light g-recaptcha"
+              type="submit"
+              data-sitekey="6LdEmfQrAAAAANdZcp69kPN5tFxkCXXfuBoxnLDW"
+              data-callback="onMoreInfoSubmit"
+              data-action="submit"
+            >
+              Send Message
+            </button>
           </form>
         </div>
       </section>
@@ -326,7 +368,7 @@
         <div class="footer-cta">
           <a class="btn btn--primary" href="tel:+17203413133">Call us</a>
           <div class="footer-social">
-            <a href="https://www.facebook.com/redremodels" target="_blank" rel="noreferrer">Facebook</a>
+            <a href="https://www.facebook.com/redremodels" target="_blank" rel="noreferrer">facebook.com/redremodels</a>
             <a href="https://www.instagram.com/red_remodels/" target="_blank" rel="noreferrer">Instagram</a>
           </div>
         </div>
@@ -337,6 +379,13 @@
     </footer>
 
     <script>
+      function onMoreInfoSubmit() {
+        const form = document.querySelector('[data-secure-form=\"more-info\"]');
+        if (form) {
+          form.submit();
+        }
+      }
+
       const yearSpan = document.getElementById('year');
       if (yearSpan) {
         yearSpan.textContent = new Date().getFullYear();
