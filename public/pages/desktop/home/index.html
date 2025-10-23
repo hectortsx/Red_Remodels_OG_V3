@@ -29,7 +29,11 @@
     />
     <link rel="stylesheet" href="/assets/css/desktop.css" />
     <link rel="stylesheet" href="/pages/desktop/home/style.css" />
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script
+      src="https://www.google.com/recaptcha/api.js?render=6LdEmfQrAAAAANdZcp69kPN5tFxkCXXfuBoxnLDW"
+      async
+      defer
+    ></script>
   </head>
   <body>
     <div class="announcement-bar">
@@ -267,20 +271,12 @@
             <span class="section-tag section-tag--light">#redremodels</span>
             <h2>Want more info?</h2>
           </div>
-          <form
-            class="more-info-form"
-            action="https://formsubmit.co/hello@redremodels.com"
-            method="post"
-            data-secure-form="more-info"
-          >
-            <input type="hidden" name="_subject" value="Red Remodels website: info request" />
-            <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_cc" value="hector@savio.design" />
+          <form class="more-info-form" action="/api/contact" method="post" data-secure-form="more-info">
+            <input type="hidden" name="source" value="website-more-info" />
             <div class="form-honeypot" aria-hidden="true">
               <label>
                 <span>Leave this field empty</span>
-                <input type="text" name="_honey" tabindex="-1" autocomplete="off" />
+                <input type="text" name="company" tabindex="-1" autocomplete="off" />
               </label>
             </div>
             <div class="form-row">
@@ -306,15 +302,8 @@
                 autocomplete="off"
               ></textarea>
             </label>
-            <button
-              class="btn btn--light g-recaptcha"
-              type="submit"
-              data-sitekey="6LdEmfQrAAAAANdZcp69kPN5tFxkCXXfuBoxnLDW"
-              data-callback="onMoreInfoSubmit"
-              data-action="submit"
-            >
-              Send Message
-            </button>
+            <button class="btn btn--light" type="submit" data-form-submit>Send Message</button>
+            <p class="form-status" data-form-status role="status" aria-live="polite"></p>
           </form>
         </div>
       </section>
@@ -377,19 +366,6 @@
         <p>© <span id="year"></span> Red Remodels. All rights reserved.</p>
       </div>
     </footer>
-
-    <script>
-      function onMoreInfoSubmit() {
-        const form = document.querySelector('[data-secure-form=\"more-info\"]');
-        if (form) {
-          form.submit();
-        }
-      }
-
-      const yearSpan = document.getElementById('year');
-      if (yearSpan) {
-        yearSpan.textContent = new Date().getFullYear();
-      }
-    </script>
+    <script src="/assets/js/contact-form.js" defer></script>
   </body>
 </html>
