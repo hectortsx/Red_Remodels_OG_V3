@@ -165,6 +165,26 @@ p {
   pointer-events: none;
 }
 
+.form-status {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+  min-height: 1.2em;
+  color: var(--color-muted);
+  transition: color 0.2s ease;
+}
+
+.form-status[data-status='pending'] {
+  color: var(--color-muted);
+}
+
+.form-status[data-status='success'] {
+  color: var(--color-navy);
+}
+
+.form-status[data-status='error'] {
+  color: var(--color-red);
+}
+
 .btn--light:hover,
 .btn--light:focus-visible {
   transform: translateY(-2px);

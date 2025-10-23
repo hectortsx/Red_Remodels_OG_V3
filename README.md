@@ -8,33 +8,47 @@ This repository contains the static assets for the Red Remodels marketing websit
 
 ## Getting Started
 
+1. Duplicate `.env.example` and rename the copy to `.env`.
+2. Fill in the SMTP and recipient settings so outbound email works (see notes below).
+3. Populate `RECAPTCHA_SECRET` with the secret key that pairs with your Google reCAPTCHA site key.
+4. Install dependencies and start the server:
+
 ```bash
 npm install
 npm start
 ```
 
-The `npm install` step is a no-op because the project has no external dependencies, but it ensures Node initialises the project and records the lockfile if one is generated in the future.
-
-The `npm start` command launches a static file server on port `4173`. Once running, open your browser to:
+The server listens on port `4173` by default and serves the static site alongside the contact API. Visit:
 
 ```
-http://localhost:4173/Pages/desktop/home/
+http://localhost:4173/
 ```
 
-The server automatically redirects the root path (`/`) to the desktop home page, so visiting `http://localhost:4173/` also works.
+Submitting the “Want more info?” form will issue a `POST` to `/api/contact`. Successful requests return a JSON payload and send an email via your configured SMTP provider.
+
+### Local verification
+
+- Run `npm start` and open the site in a browser.
+- Complete the form with test values. If you have reCAPTCHA enabled, solve the challenge when prompted.
+- Watch the terminal for success or error logs. Failed deliveries usually indicate incorrect SMTP credentials or missing environment variables.
 
 ## Customisation
 
-Environment variables let you adapt the server without changing code:
+The server is configured through environment variables (see `.env.example` for defaults):
 
-- `PORT`: change the port (defaults to `4173`).
-- `HOST`: override the bind address (defaults to `0.0.0.0`).
-- `DEBUG`: set to any truthy value to log missing file requests to the console.
+| Variable | Purpose |
+| --- | --- |
+| `PORT` / `HOST` | Network interface (default: `4173` / `0.0.0.0`). |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS` | Credentials for your outbound mail server. |
+| `MAIL_FROM`, `MAIL_TO`, `MAIL_CC`, `MAIL_SUBJECT` | Email envelope and recipients for contact submissions. |
+| `RECAPTCHA_SECRET`, `RECAPTCHA_MIN_SCORE` | Server-side verification for Google reCAPTCHA v3 tokens (optional but recommended). |
+| `RATE_LIMIT_MAX` | Number of contact submissions allowed per minute per IP (default: `10`). |
+| `CORS_ORIGIN` | Comma-separated list of origins permitted to call the API (omit to allow all). |
 
-Example:
+Set any variable inline when starting the server, or store them in the `.env` file:
 
 ```bash
-PORT=8080 npm start
+PORT=8080 MAIL_TO=hello@redremodels.com npm start
 ```
 
 ## Stopping the Server
