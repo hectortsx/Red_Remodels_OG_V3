@@ -2,12 +2,394 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="refresh" content="0; url=/pages/desktop/home/" />
-    <title>Red Remodels</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Red Remodels | Denver Remodeling &amp; Handyman Experts</title>
+    <meta
+      name="description"
+      content="Revamp your space with Red Remodels. Trusted Denver remodelers delivering kitchens, baths, additions, and custom carpentry with craftsmanship you can feel."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Lato:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon-light.svg" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      media="(prefers-color-scheme: light)"
+      href="/assets/images/favicon-light.svg"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      media="(prefers-color-scheme: dark)"
+      href="/assets/images/favicon-dark.svg"
+    />
+    <link rel="stylesheet" href="/assets/css/desktop.css" />
+    <link rel="stylesheet" href="/pages/desktop/home/style.css" />
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   </head>
   <body>
-    <p>
-      Redirecting to the <a href="/pages/desktop/home/">Red Remodels home page</a>.
-    </p>
+    <div class="announcement-bar">
+      <div class="container announcement-content">
+        <span class="announcement-text"
+          >Stay home, save lives. Get your expert design free!</span
+        >
+        <div class="social-links">
+          <a class="social-link" href="https://www.facebook.com/redremodels" target="_blank" rel="noreferrer"
+            ><span aria-hidden="true">Fb</span><span class="sr-only">facebook.com/redremodels</span></a
+          >
+          <a class="social-link" href="https://www.instagram.com/red_remodels/" target="_blank" rel="noreferrer"
+            ><span aria-hidden="true">Ig</span><span class="sr-only">Instagram</span></a
+          >
+        </div>
+      </div>
+    </div>
+
+    <header class="main-header" id="top">
+      <div class="container header-inner">
+        <a class="logo" href="#top" aria-label="Red Remodels home">
+          <img
+            src="/assets/images/284_Red_Remodels_LOGO_VR_02-aae74d79-640w.jpg"
+            alt="Red Remodels wordmark with icon"
+            width="220"
+            height="82"
+          />
+        </a>
+        <nav class="site-nav" aria-label="Primary navigation">
+          <ul>
+            <li><a href="#top">Home</a></li>
+            <li><a href="#services">Our Services</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+        </nav>
+        <a class="header-phone" href="tel:+17203413133">(720) 341-3133</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-overlay">
+          <div class="container hero-content">
+            <span class="section-tag hero-tag">#remodels</span>
+            <h1>Revamp Your Space with Red Remodels</h1>
+            <p>
+              From kitchen refreshes to custom additions, we elevate Denver homes with craftsmanship,
+              honest communication, and a passion for great design.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn--primary" href="#contact">Contact Us</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="service-request" id="request">
+        <div class="container request-grid">
+          <div class="request-info">
+            <h2>Submit your<br />Service Request</h2>
+            <p>
+              Share a few project details and we’ll reach out within one business day to schedule your
+              consultation.
+            </p>
+            <a class="btn btn--light" href="https://redremodels.com/request" target="_blank" rel="noreferrer"
+              >Join now</a
+            >
+          </div>
+          <form class="request-form" action="#" method="post">
+            <div class="form-row">
+              <label>
+                <span>Name</span>
+                <input type="text" name="request-name" placeholder="Full name" required />
+              </label>
+              <label>
+                <span>Email</span>
+                <input type="email" name="request-email" placeholder="you@example.com" required />
+              </label>
+              <label>
+                <span>Phone</span>
+                <input type="tel" name="request-phone" placeholder="(000) 000-0000" />
+              </label>
+            </div>
+            <label>
+              <span>Service type</span>
+              <input type="text" name="service-type" placeholder="Kitchen remodel, basement finish…" />
+            </label>
+            <label>
+              <span>Project details</span>
+              <textarea name="request-details" rows="3" placeholder="Tell us about your remodel"></textarea>
+            </label>
+            <button class="btn btn--primary" type="submit">Send Message</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="services" class="services">
+        <div class="container">
+          <span class="section-tag">#handymanServices</span>
+          <h2>Services</h2>
+          <div class="services-grid">
+            <article class="service-card">
+              <img
+                src="/assets/images/stock-photo-beautiful-custom-kitchen-design-drawing-and-gradated-photo-combination-365318801-640w.jpg"
+                alt="Bright kitchen remodel"
+                width="360"
+                height="240"
+              />
+              <div class="service-card__body">
+                <h3>Kitchen Remodels</h3>
+                <p>
+                  Transform your kitchen with custom cabinetry, smart layouts, modern appliances, and premium
+                  finishes tailored to daily life.
+                </p>
+              </div>
+            </article>
+            <article class="service-card">
+              <img
+                src="/assets/images/pexels-photo-2988865-640w.jpeg"
+                alt="Renovated bathroom with soaking tub"
+                width="360"
+                height="240"
+              />
+              <div class="service-card__body">
+                <h3>Bathroom Remodeling</h3>
+                <p>
+                  Upgrade your bath with spa-worthy fixtures, luxe tile, better storage, and accessibility
+                  upgrades designed to fit your home.
+                </p>
+              </div>
+            </article>
+            <article class="service-card">
+              <img
+                src="/assets/images/stock-photo-foundation-and-first-floor-of-home-addition-framed-and-covered-with-osb-oriented-strand-board-489318001-640w.jpg"
+                alt="Home addition under construction"
+                width="360"
+                height="240"
+              />
+              <div class="service-card__body">
+                <h3>Home Additions</h3>
+                <p>
+                  Expand your living space with seamless additions that preserve architectural character while
+                  boosting square footage.
+                </p>
+              </div>
+            </article>
+            <article class="service-card">
+              <img
+                src="/assets/images/stock-photo-stylish-kitchen-interior-with-modern-furniture-combination-of-photo-and-sketch-2088124900.jpg"
+                alt="Custom carpentry drawings and finished kitchen"
+                width="360"
+                height="240"
+              />
+              <div class="service-card__body">
+                <h3>Custom Carpentry</h3>
+                <p>
+                  Add crafted built-ins, feature walls, trim, and millwork details that elevate every room in your
+                  home.
+                </p>
+              </div>
+            </article>
+            <article class="service-card">
+              <img
+                src="/assets/images/stock-photo-luxury-outdoor-relaxing-living-room-with-large-stone-fireplace-tv-rug-and-beige-sofa-1704631984-640w.jpg"
+                alt="Outdoor living room with fireplace"
+                width="360"
+                height="240"
+              />
+              <div class="service-card__body">
+                <h3>Outdoor Living Spaces</h3>
+                <p>
+                  Create beautiful decks, pergolas, and exterior upgrades that extend your home into the fresh air
+                  year-round.
+                </p>
+              </div>
+            </article>
+            <article class="service-card">
+              <img
+                src="/assets/images/stock-photo-luxury-interior-of-renovated-house-in-suburbs-montreal-canada-1606358314-640w.jpg"
+                alt="Finished basement family room"
+                width="360"
+                height="240"
+              />
+              <div class="service-card__body">
+                <h3>Basement Finishing</h3>
+                <p>
+                  Maximize your home with livable, light-filled basements ideal for media rooms, guest suites, and
+                  multi-purpose spaces.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="about">
+        <div class="container about-grid">
+          <figure class="about-media">
+            <img
+              src="/assets/images/stock-photo-luxury-house-in-vancouver-canada-708085189-640w.jpg"
+              alt="Beautiful family home at sunset"
+              width="560"
+              height="420"
+            />
+          </figure>
+          <div class="about-content">
+            <span class="section-tag">#gettoknow</span>
+            <h2>Who we are</h2>
+            <p>
+              With over 20 years of hands-on experience, Red Remodels is a locally owned design-build team serving
+              the Denver metro area. We combine quality craftsmanship with honest, friendly service—bringing every
+              project to life on time and on budget.
+            </p>
+            <p>
+              Our crew specializes in stylish renovations, smart additions, and handyman repairs that make your home
+              work better for the way you live. No matter the project size, you can expect transparent updates,
+              respectful pros, and remarkable results.
+            </p>
+            <a class="btn btn--primary" href="#contact">Contact me</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="more-info">
+        <div class="container more-info-inner">
+          <div class="more-info-content">
+            <img
+              class="more-info-logo"
+              src="/assets/images/284_Red_Remodels_LOGO_VR_04.png"
+              alt="Red Remodels icon"
+              width="120"
+              height="120"
+            />
+            <span class="section-tag section-tag--light">#redremodels</span>
+            <h2>Want more info?</h2>
+          </div>
+          <form
+            class="more-info-form"
+            action="https://formsubmit.co/hello@redremodels.com"
+            method="post"
+            data-secure-form="more-info"
+          >
+            <input type="hidden" name="_subject" value="Red Remodels website: info request" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_cc" value="hector@savio.design" />
+            <div class="form-honeypot" aria-hidden="true">
+              <label>
+                <span>Leave this field empty</span>
+                <input type="text" name="_honey" tabindex="-1" autocomplete="off" />
+              </label>
+            </div>
+            <div class="form-row">
+              <label>
+                <span>Name</span>
+                <input type="text" name="name" placeholder="Full name" autocomplete="name" required />
+              </label>
+              <label>
+                <span>Email</span>
+                <input type="email" name="email" placeholder="you@example.com" autocomplete="email" required />
+              </label>
+              <label>
+                <span>Phone number</span>
+                <input type="tel" name="phone" placeholder="(000) 000-0000" autocomplete="tel" />
+              </label>
+            </div>
+            <label>
+              <span>Message</span>
+              <textarea
+                name="message"
+                rows="3"
+                placeholder="How can we help?"
+                autocomplete="off"
+              ></textarea>
+            </label>
+            <button
+              class="btn btn--light g-recaptcha"
+              type="submit"
+              data-sitekey="6LdEmfQrAAAAANdZcp69kPN5tFxkCXXfuBoxnLDW"
+              data-callback="onMoreInfoSubmit"
+              data-action="submit"
+            >
+              Send Message
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <section class="social" aria-labelledby="social-heading">
+        <div class="container social-inner">
+          <span class="section-tag">#staysocial</span>
+          <h2 id="social-heading">Follow us @red_remodels</h2>
+          <div class="social-grid">
+            <article class="instagram-card">
+              <div class="instagram-card__header">
+                <span class="instagram-icon" aria-hidden="true">📸</span>
+                <strong>Instagram</strong>
+              </div>
+              <p>
+                Tour the projects we’re proudest of, get behind-the-scenes updates, and stay inspired with daily
+                renovation tips from the crew.
+              </p>
+              <a class="btn btn--ghost" href="https://www.instagram.com/red_remodels/" target="_blank" rel="noreferrer"
+                >Visit Instagram</a
+              >
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer">
+      <div class="container footer-top">
+        <div class="footer-brand">
+          <a class="logo" href="#top">
+            <img
+              src="/assets/images/284_Red_Remodels_LOGO_VR_04.png"
+              alt="Red Remodels"
+              width="160"
+              height="48"
+            />
+          </a>
+          <p>
+            Serving the Denver metro with custom remodels, additions, and dependable handyman services that
+            keep your home looking its best.
+          </p>
+        </div>
+        <div class="footer-details">
+          <ul>
+            <li><strong>Hours:</strong> Monday – Saturday, 8am – 6pm</li>
+            <li><strong>Email:</strong> <a href="mailto:hello@redremodels.com">hello@redremodels.com</a></li>
+            <li><strong>Phone:</strong> <a href="tel:+17203413133">(720) 341-3133</a></li>
+          </ul>
+        </div>
+        <div class="footer-cta">
+          <a class="btn btn--primary" href="tel:+17203413133">Call us</a>
+          <div class="footer-social">
+            <a href="https://www.facebook.com/redremodels" target="_blank" rel="noreferrer">facebook.com/redremodels</a>
+            <a href="https://www.instagram.com/red_remodels/" target="_blank" rel="noreferrer">Instagram</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span id="year"></span> Red Remodels. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      function onMoreInfoSubmit() {
+        const form = document.querySelector('[data-secure-form=\"more-info\"]');
+        if (form) {
+          form.submit();
+        }
+      }
+
+      const yearSpan = document.getElementById('year');
+      if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+      }
+    </script>
   </body>
 </html>

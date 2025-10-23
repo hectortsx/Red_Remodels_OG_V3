@@ -158,6 +158,13 @@ p {
   color: var(--color-navy);
 }
 
+.form-honeypot {
+  position: absolute;
+  left: -10000px;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .btn--light:hover,
 .btn--light:focus-visible {
   transform: translateY(-2px);
@@ -284,6 +291,14 @@ p {
 
 .hero-content {
   max-width: 640px;
+}
+
+.hero-content h1 {
+  color: var(--color-white);
+}
+
+.hero-content .section-tag {
+  color: var(--color-white);
 }
 
 .hero-content p {
