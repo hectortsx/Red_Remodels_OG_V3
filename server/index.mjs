@@ -143,16 +143,24 @@ const verifyRecaptcha = async (token) => {
   }
 };
 
-const buildEmailPayload = ({ name, email, phone, message, source, formId }) => {
+const buildEmailPayload = ({ name, email, phone, message, source, formId, serviceType }) => {
   const leadSource = sanitize(source) || 'website';
   const submittedAt = new Date().toLocaleString();
+  const projectType = sanitize(serviceType);
 
   const lines = [
     'New contact request from the Red Remodels website.',
     '',
     `Name: ${sanitize(name)}`,
     `Email: ${sanitize(email)}`,
-    `Phone: ${sanitize(phone) || 'N/A'}`,
+    `Phone: ${sanitize(phone) || 'N/A'}`
+  ];
+
+  if (projectType) {
+    lines.push(`Project Type: ${projectType}`);
+  }
+
+  lines.push(
     '',
     'Message:',
     sanitize(message) || 'N/A',
@@ -160,31 +168,48 @@ const buildEmailPayload = ({ name, email, phone, message, source, formId }) => {
     `Form ID: ${formId || 'more-info'}`,
     `Source: ${leadSource}`,
     `Submitted At: ${submittedAt}`
+  );
+
+  const htmlSections = [
+    '<h2>New contact request</h2>',
+    `<p><strong>Name:</strong> ${escapeHtml(name)}</p>`,
+    `<p><strong>Email:</strong> ${escapeHtml(email)}</p>`,
+    `<p><strong>Phone:</strong> ${escapeHtml(phone || '') || 'N/A'}</p>`
   ];
 
-  const html = `
-    <h2>New contact request</h2>
-    <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-    <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-    <p><strong>Phone:</strong> ${escapeHtml(phone || '') || 'N/A'}</p>
-    <p><strong>Message:</strong></p>
-    <p>${escapeHtml(message || '').replace(/\n/g, '<br>') || 'N/A'}</p>
-    <hr />
-    <p><strong>Form ID:</strong> ${escapeHtml(formId || 'more-info')}</p>
-    <p><strong>Source:</strong> ${escapeHtml(leadSource)}</p>
-    <p><strong>Submitted At:</strong> ${escapeHtml(submittedAt)}</p>
-  `;
+  if (projectType) {
+    htmlSections.push(`<p><strong>Project Type:</strong> ${escapeHtml(projectType)}</p>`);
+  }
+
+  htmlSections.push(
+    '<p><strong>Message:</strong></p>',
+    `<p>${escapeHtml(message || '').replace(/\n/g, '<br>') || 'N/A'}</p>`,
+    '<hr />',
+    `<p><strong>Form ID:</strong> ${escapeHtml(formId || 'more-info')}</p>`,
+    `<p><strong>Source:</strong> ${escapeHtml(leadSource)}</p>`,
+    `<p><strong>Submitted At:</strong> ${escapeHtml(submittedAt)}</p>`
+  );
 
   return {
     subject: process.env.MAIL_SUBJECT ?? 'Red Remodels website: info request',
     text: lines.join('\n'),
-    html
+    html: htmlSections.join('\n')
   };
 };
 
 app.post(CONTACT_ROUTE, async (req, res) => {
-  const { name, email, phone, message, recaptchaToken, _honey, company, source, formId } =
-    req.body ?? {};
+  const {
+    name,
+    email,
+    phone,
+    message,
+    recaptchaToken,
+    _honey,
+    company,
+    source,
+    formId,
+    serviceType
+  } = req.body ?? {};
 
   if (_honey || company) {
     return res.status(400).json({ ok: false, error: 'Spam detected.' });
@@ -194,6 +219,7 @@ app.post(CONTACT_ROUTE, async (req, res) => {
   const cleanedEmail = sanitize(email);
   const cleanedMessage = sanitize(message);
   const cleanedPhone = sanitize(phone);
+  const cleanedServiceType = sanitize(serviceType);
 
   if (!cleanedName || !cleanedEmail || !cleanedMessage) {
     return res
@@ -238,7 +264,8 @@ app.post(CONTACT_ROUTE, async (req, res) => {
       phone: cleanedPhone,
       message: cleanedMessage,
       source,
-      formId
+      formId,
+      serviceType: cleanedServiceType
     });
 
     await mailTransporter.sendMail({
