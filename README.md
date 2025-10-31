@@ -41,6 +41,7 @@ The server is configured through environment variables (see `.env.example` for d
 | `PORT` / `HOST` | Network interface (default: `4173` / `0.0.0.0`). |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS` | Credentials for your outbound mail server. |
 | `MAIL_FROM`, `MAIL_TO`, `MAIL_CC`, `MAIL_SUBJECT` | Email envelope and recipients for contact submissions. |
+| `MAIL_CONFIRMATION_ENABLED`, `MAIL_CONFIRMATION_SUBJECT`, `MAIL_CONFIRMATION_MESSAGE` | Controls the automatic confirmation email visitors receive after submitting a form. Disable by setting `MAIL_CONFIRMATION_ENABLED=false`. |
 | `RECAPTCHA_SECRET`, `RECAPTCHA_MIN_SCORE` | Server-side verification for Google reCAPTCHA v3 tokens (optional but recommended). |
 | `RATE_LIMIT_MAX` | Number of contact submissions allowed per minute per IP (default: `10`). |
 | `CORS_ORIGIN` | Comma-separated list of origins permitted to call the API (omit to allow all). |
