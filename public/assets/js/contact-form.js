@@ -43,6 +43,8 @@ const setupSecureForm = (form) => {
     return;
   }
 
+  statusElement.hidden = true;
+
   let isSubmitting = false;
 
   form.addEventListener('submit', async (event) => {
@@ -53,8 +55,10 @@ const setupSecureForm = (form) => {
 
     statusElement.textContent = '';
     statusElement.dataset.status = '';
+    statusElement.hidden = true;
     isSubmitting = true;
     submitButton.disabled = true;
+    form.dataset.submitting = 'true';
 
     try {
       const token = await requestRecaptchaToken();
@@ -64,9 +68,11 @@ const setupSecureForm = (form) => {
       statusElement.textContent =
         sanitizeText(error?.message) || 'Something went wrong. Please try again.';
       statusElement.dataset.status = 'error';
+      statusElement.hidden = false;
     } finally {
       submitButton.disabled = false;
       isSubmitting = false;
+      delete form.dataset.submitting;
     }
   });
 };
@@ -84,6 +90,7 @@ const submitContactForm = async (form, statusElement, recaptchaToken) => {
 
   statusElement.textContent = 'Sending your request...';
   statusElement.dataset.status = 'pending';
+  statusElement.hidden = false;
 
   const response = await fetch(form.getAttribute('action') || CONTACT_ENDPOINT, {
     method: 'POST',
@@ -100,9 +107,11 @@ const submitContactForm = async (form, statusElement, recaptchaToken) => {
     throw new Error(result.error || 'We could not send your message.');
   }
 
-  statusElement.textContent =
-    sanitizeText(result.message) || 'Thanks! We will reach out soon.';
+  const successMessage =
+    sanitizeText(result.message) || 'Message sent! We will reach out shortly.';
+  statusElement.textContent = successMessage;
   statusElement.dataset.status = 'success';
+  statusElement.hidden = false;
   form.reset();
 };
 

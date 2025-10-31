@@ -168,21 +168,78 @@ p {
 .form-status {
   margin-top: 0.75rem;
   font-size: 0.95rem;
-  min-height: 1.2em;
+  font-weight: 600;
+  min-height: 2.5rem;
   color: var(--color-muted);
-  transition: color 0.2s ease;
+  background: rgba(84, 96, 116, 0.12);
+  border-radius: 12px;
+  padding: 0.65rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 .form-status[data-status='pending'] {
-  color: var(--color-muted);
+  background: rgba(3, 26, 54, 0.1);
+  color: var(--color-navy);
 }
 
-.form-status[data-status='success'] {
+body .form-status[data-status='success'] {
+  background: rgba(3, 26, 54, 0.12);
   color: var(--color-navy);
 }
 
 .form-status[data-status='error'] {
+  background: rgba(195, 18, 47, 0.12);
   color: var(--color-red);
+}
+
+.form-status::before {
+  content: '';
+  display: none;
+}
+
+.form-status[data-status='pending']::before {
+  display: inline-block;
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: form-spinner 0.75s linear infinite;
+}
+
+body .form-status[data-status='success']::before {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  background: var(--color-navy);
+  color: var(--color-white);
+  font-size: 0.85rem;
+  content: '✓';
+}
+
+.form-status[data-status='error']::before {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  background: var(--color-red);
+  color: var(--color-white);
+  font-size: 0.9rem;
+  content: '!';
+}
+
+@keyframes form-spinner {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .btn--light:hover,
@@ -373,6 +430,10 @@ label span {
   font-weight: 600;
   margin-bottom: 0.35rem;
   color: inherit;
+}
+
+.request-form label span {
+  color: var(--color-white);
 }
 
 .request-form input,
@@ -711,4 +772,13 @@ label span {
   .instagram-card {
     padding: 1.8rem;
   }
+}
+.more-info .form-status[data-status='success'] {
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--color-white);
+}
+
+.more-info .form-status[data-status='success']::before {
+  background: var(--color-white);
+  color: var(--color-red);
 }

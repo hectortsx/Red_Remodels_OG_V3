@@ -16,6 +16,7 @@ const PORT = Number(process.env.PORT ?? process.env.SERVER_PORT ?? 4173);
 const HOST = process.env.HOST ?? '0.0.0.0';
 const RATE_LIMIT_MAX = Number(process.env.RATE_LIMIT_MAX ?? 10);
 const RECAPTCHA_MIN_SCORE = Number(process.env.RECAPTCHA_MIN_SCORE ?? 0.5);
+const MAIL_CONFIRMATION_ENABLED = process.env.MAIL_CONFIRMATION_ENABLED !== 'false';
 
 const REQUIRED_MAIL_ENV = ['SMTP_HOST', 'SMTP_PORT', 'SMTP_USER', 'SMTP_PASS', 'MAIL_TO'];
 const missingEnvVars = REQUIRED_MAIL_ENV.filter((key) => !process.env[key]);
@@ -96,15 +97,49 @@ const mailTransporter = (() => {
 const sanitize = (value) =>
   typeof value === 'string' ? value.trim().replace(/\s+/g, ' ').slice(0, 2000) : '';
 
-const escapeHtml = (value) =>
-  sanitize(value)
+const sanitizeMultiline = (value) =>
+  typeof value === 'string' ? value.replace(/\r\n?/g, '\n').slice(0, 4000) : '';
+
+const encodeHtml = (value) =>
+  (typeof value === 'string' ? value : '')
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
 
+const escapeHtml = (value) => encodeHtml(sanitize(value));
+
+const escapeHtmlPreserve = (value) =>
+  typeof value === 'string' ? encodeHtml(value) : '';
+
 const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sanitize(value));
+
+const normalizeTemplate = (value, fallback) => {
+  if (typeof value === 'string' && value.trim()) {
+    return value.replace(/\\n/g, '\n');
+  }
+  return fallback;
+};
+
+const renderTemplate = (template, context) => {
+  if (typeof template !== 'string') {
+    return '';
+  }
+  return template.replace(/\{\{\s*(\w+)\s*\}\}/g, (_match, key) => {
+    const replacement = context[key];
+    return typeof replacement === 'string' ? replacement : '';
+  });
+};
+
+const formatAddress = (name, email) => {
+  const trimmedEmail = sanitize(email);
+  if (!trimmedEmail) {
+    return '';
+  }
+  const trimmedName = sanitize(name);
+  return trimmedName ? `${trimmedName} <${trimmedEmail}>` : trimmedEmail;
+};
 
 const verifyRecaptcha = async (token) => {
   if (!process.env.RECAPTCHA_SECRET) {
@@ -197,6 +232,40 @@ const buildEmailPayload = ({ name, email, phone, message, source, formId, servic
   };
 };
 
+const buildConfirmationEmail = ({ name, formId }) => {
+  const context = {
+    name: sanitize(name) || 'there',
+    formId: sanitize(formId) || 'contact'
+  };
+
+  const subjectTemplate = normalizeTemplate(
+    process.env.MAIL_CONFIRMATION_SUBJECT,
+    'Thanks for contacting Red Remodels'
+  );
+  const messageTemplate = normalizeTemplate(
+    process.env.MAIL_CONFIRMATION_MESSAGE,
+    'Hi {{name}},\n\nThanks for reaching out to Red Remodels. We received your message and will be in touch soon.\n\nTalk soon,\nThe Red Remodels Team'
+  );
+
+  const rawSubject = renderTemplate(subjectTemplate, context);
+  const rawMessage = renderTemplate(messageTemplate, context);
+  const fallbackMessage =
+    'Thanks for reaching out to Red Remodels. We received your message and will be in touch soon.';
+
+  const subject = sanitize(rawSubject).slice(0, 200);
+  const text = sanitizeMultiline(rawMessage || fallbackMessage).trim() || fallbackMessage;
+  const html = text
+    .split(/\n{2,}/)
+    .map((paragraph) => `<p>${escapeHtmlPreserve(paragraph).replace(/\n/g, '<br>')}</p>`)
+    .join('\n');
+
+  return {
+    subject: subject || 'Thanks for contacting Red Remodels',
+    text,
+    html
+  };
+};
+
 app.post(CONTACT_ROUTE, async (req, res) => {
   const {
     name,
@@ -220,11 +289,15 @@ app.post(CONTACT_ROUTE, async (req, res) => {
   const cleanedMessage = sanitize(message);
   const cleanedPhone = sanitize(phone);
   const cleanedServiceType = sanitize(serviceType);
+  const cleanedFormId = sanitize(formId);
 
-  if (!cleanedName || !cleanedEmail || !cleanedMessage) {
+  if (!cleanedName || !cleanedEmail || !cleanedPhone || !cleanedMessage) {
     return res
       .status(400)
-      .json({ ok: false, error: 'Please fill out your name, email, and a short message.' });
+      .json({
+        ok: false,
+        error: 'Please fill out your name, email, phone number, and a short message.'
+      });
   }
 
   if (!isValidEmail(cleanedEmail)) {
@@ -264,7 +337,7 @@ app.post(CONTACT_ROUTE, async (req, res) => {
       phone: cleanedPhone,
       message: cleanedMessage,
       source,
-      formId,
+      formId: cleanedFormId,
       serviceType: cleanedServiceType
     });
 
@@ -272,11 +345,36 @@ app.post(CONTACT_ROUTE, async (req, res) => {
       from: process.env.MAIL_FROM ?? process.env.SMTP_USER,
       to: recipients,
       cc: ccRecipients.length ? ccRecipients : undefined,
-      replyTo: `${cleanedName} <${cleanedEmail}>`,
+      replyTo: formatAddress(cleanedName, cleanedEmail),
       subject,
       text,
       html
     });
+
+    if (MAIL_CONFIRMATION_ENABLED) {
+      try {
+        const confirmationFrom =
+          process.env.MAIL_CONFIRMATION_FROM ?? process.env.MAIL_FROM ?? process.env.SMTP_USER;
+        const {
+          subject: confirmationSubject,
+          text: confirmationText,
+          html: confirmationHtml
+        } = buildConfirmationEmail({
+          name: cleanedName,
+          formId: cleanedFormId
+        });
+
+        await mailTransporter.sendMail({
+          from: confirmationFrom,
+          to: formatAddress(cleanedName, cleanedEmail),
+          subject: confirmationSubject,
+          text: confirmationText,
+          html: confirmationHtml
+        });
+      } catch (error) {
+        console.warn('[contact-api] Failed to send confirmation email:', error);
+      }
+    }
 
     return res.json({ ok: true, message: CONTACT_SUCCESS_MESSAGE });
   } catch (error) {
