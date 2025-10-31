@@ -103,30 +103,61 @@
               >Join now</a
             >
           </div>
-          <form class="request-form" action="#" method="post">
+          <form
+            class="request-form"
+            action="/api/contact"
+            method="post"
+            data-secure-form="service-request"
+          >
+            <input type="hidden" name="source" value="website-service-request" />
+            <input type="hidden" name="formId" value="service-request" />
+            <div class="form-honeypot" aria-hidden="true">
+              <label>
+                <span>Leave this field empty</span>
+                <input type="text" name="company" tabindex="-1" autocomplete="off" />
+              </label>
+            </div>
             <div class="form-row">
               <label>
                 <span>Name</span>
-                <input type="text" name="request-name" placeholder="Full name" required />
+                <input type="text" name="name" placeholder="Full name" autocomplete="name" required />
               </label>
               <label>
                 <span>Email</span>
-                <input type="email" name="request-email" placeholder="you@example.com" required />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="you@example.com"
+                  autocomplete="email"
+                  required
+                />
               </label>
               <label>
                 <span>Phone</span>
-                <input type="tel" name="request-phone" placeholder="(000) 000-0000" />
+                <input type="tel" name="phone" placeholder="(000) 000-0000" autocomplete="tel" />
               </label>
             </div>
             <label>
               <span>Service type</span>
-              <input type="text" name="service-type" placeholder="Kitchen remodel, basement finish…" />
+              <input
+                type="text"
+                name="serviceType"
+                placeholder="Kitchen remodel, basement finish…"
+                autocomplete="off"
+              />
             </label>
             <label>
               <span>Project details</span>
-              <textarea name="request-details" rows="3" placeholder="Tell us about your remodel"></textarea>
+              <textarea
+                name="message"
+                rows="3"
+                placeholder="Tell us about your remodel"
+                autocomplete="off"
+                required
+              ></textarea>
             </label>
-            <button class="btn btn--primary" type="submit">Send Message</button>
+            <button class="btn btn--primary" type="submit" data-form-submit>Send Message</button>
+            <p class="form-status" data-form-status role="status" aria-live="polite"></p>
           </form>
         </div>
       </section>

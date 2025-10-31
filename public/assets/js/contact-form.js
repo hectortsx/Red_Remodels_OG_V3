@@ -3,6 +3,8 @@ const RECAPTCHA_SITE_KEY = '6LdEmfQrAAAAANdZcp69kPN5tFxkCXXfuBoxnLDW';
 
 const sanitizeText = (value) => (typeof value === 'string' ? value.trim() : '');
 
+const getFormIdentifier = (form) => form.dataset.secureForm || form.getAttribute('name') || 'contact';
+
 const updateYearStamp = () => {
   const yearSpan = document.getElementById('year');
   if (yearSpan) {
@@ -33,12 +35,7 @@ const toPayload = (formData) => {
   return payload;
 };
 
-const initContactForm = () => {
-  const form = document.querySelector('[data-secure-form="more-info"]');
-  if (!form) {
-    return;
-  }
-
+const setupSecureForm = (form) => {
   const statusElement = form.querySelector('[data-form-status]');
   const submitButton = form.querySelector('[data-form-submit]');
 
@@ -63,7 +60,7 @@ const initContactForm = () => {
       const token = await requestRecaptchaToken();
       await submitContactForm(form, statusElement, token);
     } catch (error) {
-      console.error('[contact-form] Submission error:', error);
+      console.error(`[contact-form] Submission error (${getFormIdentifier(form)}):`, error);
       statusElement.textContent =
         sanitizeText(error?.message) || 'Something went wrong. Please try again.';
       statusElement.dataset.status = 'error';
@@ -76,7 +73,10 @@ const initContactForm = () => {
 
 const submitContactForm = async (form, statusElement, recaptchaToken) => {
   const formData = new FormData(form);
-  formData.append('formId', form.dataset.secureForm ?? 'more-info');
+
+  if (!formData.has('formId')) {
+    formData.append('formId', form.dataset.secureForm ?? 'more-info');
+  }
 
   if (recaptchaToken) {
     formData.append('recaptchaToken', recaptchaToken);
@@ -106,7 +106,12 @@ const submitContactForm = async (form, statusElement, recaptchaToken) => {
   form.reset();
 };
 
+const initSecureForms = () => {
+  const forms = document.querySelectorAll('[data-secure-form]');
+  forms.forEach((form) => setupSecureForm(form));
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   updateYearStamp();
-  initContactForm();
+  initSecureForms();
 });
