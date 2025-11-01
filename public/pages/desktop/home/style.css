@@ -291,6 +291,12 @@ body .form-status[data-status='success']::before {
   font-size: 0.85rem;
 }
 
+.social-link .social-icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
 .social-link:hover,
 .social-link:focus-visible {
   background: rgba(255, 255, 255, 0.35);
