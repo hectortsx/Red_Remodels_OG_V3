@@ -289,12 +289,16 @@ body .form-status[data-status='success']::before {
   background: rgba(255, 255, 255, 0.2);
   font-weight: 600;
   font-size: 0.85rem;
+  overflow: hidden;
 }
 
 .social-link .social-icon {
   display: block;
-  width: 18px;
-  height: 18px;
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  transform: scale(1.25);
+  transform-origin: center;
 }
 
 .social-link:hover,
