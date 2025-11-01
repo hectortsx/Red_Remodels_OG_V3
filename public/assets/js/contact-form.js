@@ -1,5 +1,5 @@
 const CONTACT_ENDPOINT = '/api/contact';
-const RECAPTCHA_SITE_KEY = '6LdEmfQrAAAAANdZcp69kPN5tFxkCXXfuBoxnLDW';
+const RECAPTCHA_SITE_KEY = '6Lffxv0rAAAAAKjd7Uad2BYO-Mnuc82m0k7j9w3Z';
 
 const sanitizeText = (value) => (typeof value === 'string' ? value.trim() : '');
 
