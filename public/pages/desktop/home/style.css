@@ -289,21 +289,29 @@ body .form-status[data-status='success']::before {
   background: rgba(255, 255, 255, 0.2);
   font-weight: 600;
   font-size: 0.85rem;
-  overflow: hidden;
+}
+
+.social-link--icon {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
 }
 
 .social-link .social-icon {
   display: block;
-  width: 26px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
-  transform: scale(1.25);
-  transform-origin: center;
 }
 
 .social-link:hover,
 .social-link:focus-visible {
   background: rgba(255, 255, 255, 0.35);
+}
+
+.social-link--icon:hover,
+.social-link--icon:focus-visible {
+  background: transparent;
 }
 
 .main-header {
@@ -663,17 +671,22 @@ label span {
 
 .footer-social {
   display: flex;
-  gap: 1rem;
-  font-weight: 600;
+  gap: 0.75rem;
+  align-items: center;
 }
 
-.footer-social a {
-  color: rgba(255, 255, 255, 0.82);
+.footer-social .social-link {
+  background: transparent;
 }
 
-.footer-social a:hover,
-.footer-social a:focus-visible {
-  color: var(--color-white);
+.footer-social .social-link .social-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.footer-social .social-link:hover .social-icon,
+.footer-social .social-link:focus-visible .social-icon {
+  transform: scale(1.05);
 }
 
 .footer-bottom {
