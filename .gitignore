@@ -26,4 +26,7 @@ yarn-error.log
 
 # Build output
 dist/
-build/ 
+build/
+
+# Deployment artifacts
+red-remodels-site.zip
