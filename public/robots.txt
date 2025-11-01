@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://redremodels.com/sitemap.xml
+Sitemap: https://www.redremodels.com/sitemap.xml
