@@ -41,7 +41,22 @@ const corsOrigins = process.env.CORS_ORIGIN
 app.disable('x-powered-by');
 app.use(
   helmet({
-    crossOriginEmbedderPolicy: false
+    crossOriginEmbedderPolicy: false,
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: [
+          "'self'",
+          'https://www.google.com/recaptcha/',
+          'https://www.gstatic.com/recaptcha/'
+        ],
+        styleSrc: ["'self'", 'https://fonts.googleapis.com', "'unsafe-inline'"],
+        fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+        imgSrc: ["'self'", 'data:', 'https://www.google.com', 'https://www.gstatic.com'],
+        connectSrc: ["'self'", 'https://www.google.com/recaptcha/'],
+        frameSrc: ["'self'", 'https://www.google.com/recaptcha/']
+      }
+    }
   })
 );
 
