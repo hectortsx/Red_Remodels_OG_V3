@@ -119,6 +119,11 @@
 
     <header class="main-header" id="top">
       <div class="container header-inner">
+        <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="site-nav">
+          <span class="menu-toggle__bar"></span>
+          <span class="menu-toggle__bar"></span>
+          <span class="menu-toggle__bar"></span>
+        </button>
         <a class="logo" href="#top" aria-label="Red Remodels home">
           <img
             src="/assets/images/284_Red_Remodels_LOGO_VR_02-aae74d79-640w.jpg"
@@ -127,7 +132,7 @@
             height="82"
           />
         </a>
-        <nav class="site-nav" aria-label="Primary navigation">
+        <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
           <ul>
             <li><a href="#top">Home</a></li>
             <li><a href="#services">Our Services</a></li>
@@ -488,5 +493,24 @@
       </div>
     </footer>
     <script src="/assets/js/contact-form.js" defer></script>
+    <script>
+      (function () {
+        var toggle = document.querySelector('.menu-toggle');
+        var nav = document.getElementById('site-nav');
+        if (!toggle || !nav) return;
+        toggle.addEventListener('click', function () {
+          var open = nav.classList.toggle('is-open');
+          toggle.setAttribute('aria-expanded', open);
+          toggle.classList.toggle('is-open', open);
+        });
+        nav.querySelectorAll('a').forEach(function (link) {
+          link.addEventListener('click', function () {
+            nav.classList.remove('is-open');
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.classList.remove('is-open');
+          });
+        });
+      })();
+    </script>
   </body>
 </html>

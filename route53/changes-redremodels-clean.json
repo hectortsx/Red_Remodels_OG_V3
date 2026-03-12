@@ -1,0 +1,88 @@
+{
+  "Comment": "Essential DNS records for redremodels.com: CloudFront aliases, Google MX, SPF, DMARC, ACM validation",
+  "Changes": [
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "redremodels.com.",
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z2FDTNDATAQYW2",
+          "DNSName": "d3g1vwpy0d42gr.cloudfront.net.",
+          "EvaluateTargetHealth": false
+        }
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "www.redremodels.com.",
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z2FDTNDATAQYW2",
+          "DNSName": "d3g1vwpy0d42gr.cloudfront.net.",
+          "EvaluateTargetHealth": false
+        }
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "redremodels.com.",
+        "Type": "MX",
+        "TTL": 300,
+        "ResourceRecords": [
+          { "Value": "1 aspmx.l.google.com." },
+          { "Value": "5 alt1.aspmx.l.google.com." },
+          { "Value": "5 alt2.aspmx.l.google.com." },
+          { "Value": "10 alt3.aspmx.l.google.com." },
+          { "Value": "10 alt4.aspmx.l.google.com." }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "redremodels.com.",
+        "Type": "TXT",
+        "TTL": 300,
+        "ResourceRecords": [
+          { "Value": "\"v=spf1 include:_spf.google.com include:sendgrid.net ~all\"" }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "_dmarc.redremodels.com.",
+        "Type": "TXT",
+        "TTL": 300,
+        "ResourceRecords": [
+          { "Value": "\"v=DMARC1; p=none; rua=mailto:postmaster@redremodels.com\"" }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "_ca31436bde428e63c21e962380a8f879.www.redremodels.com.",
+        "Type": "CNAME",
+        "TTL": 300,
+        "ResourceRecords": [
+          { "Value": "_db7ab7fa1975992c50b6754cb00c22e8.jkddzztszm.acm-validations.aws." }
+        ]
+      }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "_f40524d3901bbd911fb33d54b4a2ca02.redremodels.com.",
+        "Type": "CNAME",
+        "TTL": 300,
+        "ResourceRecords": [
+          { "Value": "_4998714e3add4fc6b9c717790757997c.jkddzztszm.acm-validations.aws." }
+        ]
+      }
+    }
+  ]
+}

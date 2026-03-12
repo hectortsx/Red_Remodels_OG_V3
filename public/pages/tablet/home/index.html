@@ -133,19 +133,32 @@
 </a> 
 </div> 
  <div class="u_1464473036 dmRespCol small-12 large-7 medium-7" id="1464473036"> <div class="dmform default native-inputs u_1762399777" data-element-type="dContactUsRespId" captcha="true" data-require-captcha="true" data-captcha-position="bottomleft" id="1762399777" data-layout="layout-4"> <h3 class="dmform-title dmwidget-title" id="1682673704">Contact Us</h3> 
- <div class="dmform-wrapper" id="1409340258" captcha-lang="en"> <form method="post" class="dmRespDesignRow" locale="ENGLISH" id="1333025644" action=""> <div class="spacing-container" id="1940334446"> <div class="dmforminput required  small-12 medium-4 large-4  dmRespDesignCol" id="1280744869"> <label for="dmform-0" id="1128869782">Name:</label> 
-<input type="text" class="" name="dmform-0" id="1261657323"/><input type="hidden" name="label-dmform-0" value="Name" id="1530214915"/></div> 
- <div class="dmforminput required  small-12 medium-4 large-4  dmRespDesignCol" id="1209457246"> <label for="dmform-1" id="1572253748">Email:</label> 
-<input type="email" class="" name="dmform-1" id="1677818508"/><input type="hidden" name="label-dmform-1" value="Email" id="1513506884"/></div> 
- <div class="dmforminput required  small-12 medium-4 large-4  dmRespDesignCol" id="1531655167"> <label for="dmform-2" id="1234827246">Phone:</label> 
-<input type="tel" class="" name="dmform-2" id="1202849671"/><input type="hidden" name="label-dmform-2" value="Phone" id="1195969462"/></div> 
- <div class="dmforminput large-12 medium-12 dmRespDesignCol" id="1693664013"> <label for="dmform-3" id="1728615914">Service type:</label> 
- <textarea name="dmform-3" id="1951149801"></textarea> 
-<input type="hidden" name="label-dmform-3" value="Service type:" id="1224844322" class=""/></div> 
-</div> 
- <div class="dmformsubmit dmWidget R" id="1800870177"><input class="" name="submit" type="submit" value="Send Message" id="1121789606"/></div> 
-<input name="dmformsendto" type="hidden" value="O0wrseIfFLtTO3yn9xj6GeHMUMtnINp2IJeQrmsBCDH9qzMEcmcbJBSD+CCuxNJslYLMj4nHEnk=" id="1606748629" data-dec="true"/><input class="dmActionInput" type="hidden" name="action" value="/_dm/s/rt/widgets/dmform.submit.jsp" id="1271983857"/><input name="dmformsubject" type="hidden" value="" id="1666282662"/><input name="dmformfrom" type="hidden" value="" id="1291392356"/><input name="dmformautoreplyenabled" type="hidden" value="true" id="1025680541"/><input name="dmformautoreplyfrom" type="hidden" value="form-processor" id="1945520365"/><input name="dmformautoreplysubject" type="hidden" value="Thank you for your submission" id="1606113765"/><input name="dmformautoreplymsg" type="hidden" value="V2UndmUgcmVjZWl2ZWQgeW91ciBtZXNzYWdlIC0gdGhhbmsgeW91LiBPbmUgb2Ygb3VyIHRlYW0gbWVtYmVycyB3aWxsIGdldCBiYWNrIHRvIHlvdSBzb29uLg==" id="1960746664"/><input name="dmformautoreplyincludeformcopy" type="hidden" value="true" id="1045880494"/><input name="dmformsubmitparams" type="hidden" value="8mpKnCSiNQXK/d9M7IDrS4ub6LLcvCYWskvlANKzvLreMobFw3xKCz8+q3xEhZ787ycH42Ept+D1DeqSs1deGTRndSDnOmf2sBEoyFKx2Sa/KCOqlYzOMuufRWgRmY7csfP/44Df6nMIcN1pH0iILsbxuKKEkt2NkyLOnmZaBfYiaWTLkceS85c95LrdFW7TCOta+TWc27OQGJLDXEN4fN9Bvju8oYehftFNagxrSdqYFN8w9aWJd3JNjtCb3Afwq88J8ZzfIeFoIDARQZTckoRtgT69Qvz2/8GN1M+DDAAVsCxVpPIACVYxUpNEW4olJFkai5/avuep8NugDPLkyPDQOadqbZwzMtx3E3/gWz0JH4lY+hgQt52yggW3KAkvMKFdjwDaRSAISJtnQlkbZxllcUXi2SWKAxCQkpazLwQJ1gdOsDTVrT4xLdhgrB/+w2flcUGZlrJmjq7aRTzReT4xLdhgrB/+1uvwB2D+Ay6cK8aBAlFRDRuTTwDQgZKYuLcvUbpsAUA=" data-dec="true"/><input type="hidden" name="page_uuid" value="22e3972b2cec4bdea25d19396572cb65"/></form> 
-</div> 
+ <div class="dmform-wrapper" id="1409340258" captcha-lang="en"> <form class="request-form" action="/api/contact" method="post" data-secure-form="contact-home">
+  <input type="hidden" name="source" value="website-home" />
+  <input type="hidden" name="formId" value="contact-home" />
+  <div class="form-honeypot" aria-hidden="true" style="display:none">
+    <label><span>Leave this field empty</span><input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+  </div>
+  <div class="dmforminput">
+    <label>Name<input type="text" name="name" placeholder="Full name" autocomplete="name" required /></label>
+  </div>
+  <div class="dmforminput">
+    <label>Email<input type="email" name="email" placeholder="you@example.com" autocomplete="email" required /></label>
+  </div>
+  <div class="dmforminput">
+    <label>Phone<input type="tel" name="phone" placeholder="(000) 000-0000" autocomplete="tel" required /></label>
+  </div>
+  <div class="dmforminput">
+    <label>Service type<input type="text" name="serviceType" placeholder="Kitchen remodel, bathroom finish…" autocomplete="off" /></label>
+  </div>
+  <div class="dmforminput">
+    <label>Project details<textarea name="message" rows="3" placeholder="Tell us about your project" autocomplete="off" required></textarea></label>
+  </div>
+  <div class="dmformsubmit">
+    <button type="submit" data-form-submit>Send Message</button>
+  </div>
+  <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+</form> 
  <div class="dmform-success" style="display:none" id="1401975450">Thank you for contacting us.<br id="1011627585"/>We will get back to you as soon as possible.</div> 
  <div class="dmform-error" style="display:none" id="1976781651">Oops, there was an error sending your message.<br id="1431476008"/>Please try again later.</div> 
 </div> 
@@ -261,19 +274,32 @@
 </h2> 
 </div> 
  <div class="u_1643527531 dmform default native-inputs" data-element-type="dContactUsRespId" data-captcha-position="bottomleft" id="1643527531" data-layout="layout-3" captcha="true" data-require-captcha="true"> <h3 class="dmform-title dmwidget-title" id="1687560028" hide="true">Contact Us</h3> 
- <div class="dmform-wrapper" id="1036829156" captcha-lang="en"> <form method="post" class="dmRespDesignRow" locale="ENGLISH" id="1158532724" action=""> <div class="dmforminput small-12 medium-4 large-4 dmRespDesignCol" id="1871765852"> <label for="dmform-2" id="1404491362">Name</label> 
-<input type="text" name="dmform-2" id="1540143985"/><input type="hidden" name="label-dmform-2" value="Name" id="1524943576" class=""/></div> 
- <div class="dmforminput required  small-12 dmRespDesignCol medium-4 large-4" id="1441961803"> <label for="dmform-1" id="1038909994">Email</label> 
-<input type="email" class="" name="dmform-1" id="1537195084"/><input type="hidden" name="label-dmform-1" value="Email" id="1958052414" class=""/></div> 
- <div class="dmforminput small-12 medium-4 large-4 dmRespDesignCol" id="1340728685"> <label for="dmform-3" id="1802680921">Phone number</label> 
-<input type="tel" name="dmform-3" placeholder="" id="1101748412"/><input type="hidden" name="label-dmform-3" value="Phone number" id="1751395001" class=""/></div> 
- <div class="dmforminput small-12 dmRespDesignCol medium-12 large-12" id="1081895261"> <label for="dmform-4" id="1759378823">Message</label> 
- <textarea name="dmform-4" id="1444677339"></textarea> 
-<input type="hidden" name="label-dmform-4" value="Message" id="1379712846" class=""/></div> 
- <span id="1441961803_clear" class="dmWidgetClear"></span> 
- <div class="dmformsubmit dmWidget R" id="1831390457"><input class="" name="submit" type="submit" value="Send Message" id="1118937504"/></div> 
-<input name="dmformsendto" type="hidden" value="O0wrseIfFLtTO3yn9xj6GeHMUMtnINp2IJeQrmsBCDH9qzMEcmcbJBSD+CCuxNJslYLMj4nHEnk=" id="1986492921" class="" data-dec="true"/><input class="dmActionInput" type="hidden" name="action" value="/_dm/s/rt/widgets/dmform.submit.jsp" id="1307578921"/><input name="dmformsubject" type="hidden" value="Form Message" id="1962486647"/><input name="dmformfrom" type="hidden" value="redremodels.com" id="1672439656" class=""/><input name="dmformsubmitparams" type="hidden" value="8mpKnCSiNQXK/d9M7IDrS4ub6LLcvCYWskvlANKzvLreMobFw3xKCz8+q3xEhZ787ycH42Ept+DiPerCwUSt4ls2HfzYdqnGjlJVPALZJG4dS8QYzueM/oS1ROvCRl06diDvWKhodpz9y7S/dpqp/uVfK9tbpanAQ6PdbGkIDAkngdOJaBGsqOOk+vW/FB5M2l7bbXKB8NkHwkP6o+SaUKuVfRAFKg6DI/WcTry9sHJx+8goeq/f9jeJayB34YqR" data-dec="true"/><input type="hidden" name="page_uuid" value="22e3972b2cec4bdea25d19396572cb65"/></form> 
-</div> 
+ <div class="dmform-wrapper" id="1036829156" captcha-lang="en"> <form class="request-form" action="/api/contact" method="post" data-secure-form="more-info">
+  <input type="hidden" name="source" value="website-home" />
+  <input type="hidden" name="formId" value="more-info" />
+  <div class="form-honeypot" aria-hidden="true" style="display:none">
+    <label><span>Leave this field empty</span><input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+  </div>
+  <div class="dmforminput">
+    <label>Name<input type="text" name="name" placeholder="Full name" autocomplete="name" required /></label>
+  </div>
+  <div class="dmforminput">
+    <label>Email<input type="email" name="email" placeholder="you@example.com" autocomplete="email" required /></label>
+  </div>
+  <div class="dmforminput">
+    <label>Phone<input type="tel" name="phone" placeholder="(000) 000-0000" autocomplete="tel" required /></label>
+  </div>
+  <div class="dmforminput">
+    <label>Service type<input type="text" name="serviceType" placeholder="Kitchen remodel, bathroom finish…" autocomplete="off" /></label>
+  </div>
+  <div class="dmforminput">
+    <label>Project details<textarea name="message" rows="3" placeholder="Tell us about your project" autocomplete="off" required></textarea></label>
+  </div>
+  <div class="dmformsubmit">
+    <button type="submit" data-form-submit>Send Message</button>
+  </div>
+  <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+</form> 
  <div class="dmform-success" style="display:none" id="1690596585"> <p class="rteBlock">Thanks for your message!</p> 
  <p class="rteBlock">I'll get back to you as soon as I can.&nbsp;</p> 
 </div> 
@@ -630,5 +656,6 @@ Share by:</div>
 <!--  End Script tags --><!--  Site Wide Html Markup --><!--  Site Wide Html Markup --> <div> <script> window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create', 'UA-7265702-55', 'auto');ga('send', 'pageview');</script> 
  <script async="" src="https://www.google-analytics.com/analytics.js"></script> 
 </div> 
+    <script src="/assets/js/contact-form.js" defer></script>
 </body> 
 </html> 

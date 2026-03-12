@@ -123,20 +123,29 @@
 </p> 
 </div> 
  <div class="u_1020516983 dmform default native-inputs" data-element-type="dContactUsRespId" captcha="true" data-captcha-position="bottomleft" id="1020516983" data-layout="layout-1" data-require-captcha="true"> <h3 class="dmform-title dmwidget-title" id="1976226988" hide="true">Contact Us</h3> 
- <div class="dmform-wrapper" id="1439583287" captcha-lang="en"> <form method="post" class="dmRespDesignRow" locale="ENGLISH" id="1066312074" action=""> <div class="dmforminput required  small-12 dmRespDesignCol medium-12 large-12" id="1641488440"> <label for="dmform-0" id="1202441209" class="" hide="true">Name:</label> 
-<input type="text" class="" name="dmform-0" id="1912489313" placeholder="Name" data-placeholder-original="Name"/><input type="hidden" name="label-dmform-0" value="Name" id="1392210608"/></div> 
- <div class="dmforminput small-12 dmRespDesignCol medium-12 large-12" id="1336405382"> <label for="dmform-5" id="1704954802" class="" hide="true">Phone Number:</label> 
-<input type="tel" name="dmform-5" placeholder="Phone Number:" id="1780538835" class="" data-placeholder-original="Phone Number:"/><input type="hidden" name="label-dmform-5" value="Phone Number:" id="1436749503" class=""/></div> 
- <div class="dmforminput required  small-12 dmRespDesignCol medium-12 large-12" id="1917991804"> <label for="dmform-1" id="1941896049" class="" hide="true">Email:</label> 
-<input type="email" class="" name="dmform-1" id="1887539165" placeholder="Email" data-placeholder-original="Email"/><input type="hidden" name="label-dmform-1" value="Email" id="1146068075"/></div> 
- <div class="dmforminput small-12 dmRespDesignCol medium-12 large-12" id="1773417972"> <label for="dmform-4" id="1780866914" class="" hide="true">City</label> 
-<input type="text" name="dmform-4" placeholder="Location: City" id="1092700997" data-placeholder-original="Location: City"/><input type="hidden" name="label-dmform-4" value="City" id="1033159175" class=""/></div> 
- <div class="dmforminput large-12 medium-12 dmRespDesignCol small-12" id="1093861938"> <label for="dmform-3" id="1112908695" class="" hide="true">Message:</label> 
- <textarea name="dmform-3" id="1882029499" class="" placeholder="Project: No project is too big or too small" data-placeholder-original="Project: No project is too big or too small"></textarea> 
-<input type="hidden" name="label-dmform-3" value="Message" id="1067369867"/></div> 
- <div class="dmformsubmit dmWidget R" id="1364106598"><input class="" name="submit" type="submit" value="Send Message" id="1610495064"/></div> 
-<input name="dmformsendto" type="hidden" value="O0wrseIfFLtTO3yn9xj6GeHMUMtnINp2IJeQrmsBCDH9qzMEcmcbJBSD+CCuxNJslYLMj4nHEnk=" id="1251342744" class="" data-dec="true"/><input class="dmActionInput" type="hidden" name="action" value="/_dm/s/rt/widgets/dmform.submit.jsp" id="1687071797"/><input name="dmformsubject" type="hidden" value="Form Message" id="1304021148"/><input name="dmformfrom" type="hidden" value="RedRemodels.com" id="1057933169" class=""/><input name="dmformsubmitparams" type="hidden" value="8mpKnCSiNQXK/d9M7IDrS4ub6LLcvCYWskvlANKzvLreMobFw3xKCz8+q3xEhZ787ycH42Ept+AuMUWewFNdhRWTd2NDpSumjlJVPALZJG4dS8QYzueM/oS1ROvCRl06diDvWKhodpz9y7S/dpqp/vGbIdhUGxMfGRPh5G/JmgMYayzTbeYuWHNdsA+Qll9nY2wFe1G35JVh/dUn/kjiRxRAHg1n0KYvyrmbdQksjyJ/ug7VzLAbWGZxyWcyj2nP" data-dec="true"/><input type="hidden" name="page_uuid" value="5ed6a1c4f2e44fbc873b8870b859498a"/></form> 
-</div> 
+ <div class="dmform-wrapper" id="1439583287" captcha-lang="en"> <form class="dmRespDesignRow" action="/api/contact" method="post" data-secure-form="contact-us">
+  <input type="hidden" name="source" value="website-contact" />
+  <input type="hidden" name="formId" value="contact-us" />
+  <div class="form-honeypot" aria-hidden="true" style="display:none">
+    <label><span>Leave this field empty</span><input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+  </div>
+  <div class="dmforminput">
+    <label>Name<input type="text" name="name" placeholder="Full name" autocomplete="name" required /></label>
+  </div>
+  <div class="dmforminput">
+    <label>Phone<input type="tel" name="phone" placeholder="(000) 000-0000" autocomplete="tel" required /></label>
+  </div>
+  <div class="dmforminput">
+    <label>Email<input type="email" name="email" placeholder="you@example.com" autocomplete="email" required /></label>
+  </div>
+  <div class="dmforminput">
+    <label>Message<textarea name="message" rows="4" placeholder="Tell us about your project" autocomplete="off" required></textarea></label>
+  </div>
+  <div class="dmformsubmit">
+    <button type="submit" data-form-submit>Send Message</button>
+  </div>
+  <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+</form> 
  <div class="dmform-success" style="display:none" id="1100403290">Thank you for contacting us.<br id="1265922572"/>We will get back to you as soon as possible.</div> 
  <div class="dmform-error" style="display:none" id="1236060610">Oops, there was an error sending your message.<br id="1480535522"/>Please try again later.</div> 
 </div> 
@@ -492,5 +501,6 @@ Share by:</div>
 <!--  End Script tags --><!--  Site Wide Html Markup --><!--  Site Wide Html Markup --> <div> <script> window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create', 'UA-7265702-55', 'auto');ga('send', 'pageview');</script> 
  <script async="" src="https://www.google-analytics.com/analytics.js"></script> 
 </div> 
+    <script src="/assets/js/contact-form.js" defer></script>
 </body> 
 </html> 

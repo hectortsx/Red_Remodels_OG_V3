@@ -1,0 +1,14 @@
+[
+  {
+    "Notification": { "NotificationType": "ACTUAL", "ComparisonOperator": "GREATER_THAN", "Threshold": 50, "ThresholdType": "PERCENTAGE" },
+    "Subscribers": [ { "SubscriptionType": "SNS", "Address": "arn:aws:sns:us-east-1:365608889294:billing-alerts-redremodels" } ]
+  },
+  {
+    "Notification": { "NotificationType": "ACTUAL", "ComparisonOperator": "GREATER_THAN", "Threshold": 80, "ThresholdType": "PERCENTAGE" },
+    "Subscribers": [ { "SubscriptionType": "SNS", "Address": "arn:aws:sns:us-east-1:365608889294:billing-alerts-redremodels" } ]
+  },
+  {
+    "Notification": { "NotificationType": "ACTUAL", "ComparisonOperator": "GREATER_THAN", "Threshold": 100, "ThresholdType": "PERCENTAGE" },
+    "Subscribers": [ { "SubscriptionType": "SNS", "Address": "arn:aws:sns:us-east-1:365608889294:billing-alerts-redremodels" } ]
+  }
+]
