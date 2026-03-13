@@ -1,57 +1,121 @@
-# Red Remodels Test Environment
+# Red Remodels — redremodels.com
 
-This repository contains the static assets for the Red Remodels marketing website. A lightweight Node-based development server is included so you can preview the site locally without installing any global tooling.
+Production marketing website for Red Remodels, live at **[https://www.redremodels.com](https://www.redremodels.com)**.
 
-## Prerequisites
+## Architecture
 
-- [Node.js](https://nodejs.org/) 18 or newer (any runtime that supports ES modules will work)
+| Layer | Service |
+|---|---|
+| Static hosting | AWS S3 + CloudFront (`EKTYEDHVURFWC`) |
+| SSL | AWS ACM (covers `www` + apex) |
+| DNS | AWS Route 53 |
+| Contact form API | AWS Lambda + API Gateway |
+| Email | AWS SES (`redremodels.com`) |
+| URL routing | CloudFront Function (`redremodels-url-rewrite`) |
+| Monitoring | CloudWatch alarms + SNS → `hector@savio.design` |
+| Analytics | Google Analytics 4 (`G-SP8EDYP71R`) |
 
-## Getting Started
+Full infrastructure details: [docs/INFRASTRUCTURE.md](docs/INFRASTRUCTURE.md)
 
-1. Duplicate `.env.example` and rename the copy to `.env`.
-2. Fill in the SMTP and recipient settings so outbound email works (see notes below).
-3. Populate `RECAPTCHA_SECRET` with the secret key that pairs with your Google reCAPTCHA site key.
-4. Install dependencies and start the server:
+---
+
+## Local Development
+
+A local dev server is included for previewing the site and testing the contact form without touching AWS.
+
+### Prerequisites
+
+- Node.js 18+
+- A `.env` file (copy from `.env.example`)
+
+### Setup
 
 ```bash
+cp .env.example .env   # fill in RECAPTCHA_SECRET and email settings
 npm install
-npm start
+npm start              # http://localhost:4173
 ```
 
-The server listens on port `4173` by default and serves the static site alongside the contact API. Visit:
+The local server uses Nodemailer/SMTP for email. In production, Lambda uses AWS SES — behaviour is identical from the front-end's perspective.
 
-```
-http://localhost:4173/
-```
+---
 
-Submitting the “Want more info?” form will issue a `POST` to `/api/contact`. Successful requests return a JSON payload and send an email via your configured SMTP provider.
+## Deploying to Production
 
-### Local verification
-
-- Run `npm start` and open the site in a browser.
-- Complete the form with test values. If you have reCAPTCHA enabled, solve the challenge when prompted.
-- Watch the terminal for success or error logs. Failed deliveries usually indicate incorrect SMTP credentials or missing environment variables.
-
-## Customisation
-
-The server is configured through environment variables (see `.env.example` for defaults):
-
-| Variable | Purpose |
-| --- | --- |
-| `PORT` / `HOST` | Network interface (default: `4173` / `0.0.0.0`). |
-| `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS` | Credentials for your outbound mail server. |
-| `MAIL_FROM`, `MAIL_TO`, `MAIL_CC`, `MAIL_SUBJECT` | Email envelope and recipients for contact submissions. |
-| `MAIL_CONFIRMATION_ENABLED`, `MAIL_CONFIRMATION_SUBJECT`, `MAIL_CONFIRMATION_MESSAGE` | Controls the automatic confirmation email visitors receive after submitting a form. Disable by setting `MAIL_CONFIRMATION_ENABLED=false`. |
-| `RECAPTCHA_SECRET`, `RECAPTCHA_MIN_SCORE` | Server-side verification for Google reCAPTCHA v3 tokens (optional but recommended). |
-| `RATE_LIMIT_MAX` | Number of contact submissions allowed per minute per IP (default: `10`). |
-| `CORS_ORIGIN` | Comma-separated list of origins permitted to call the API (omit to allow all). |
-
-Set any variable inline when starting the server, or store them in the `.env` file:
+### 1. Make changes on a feature branch
 
 ```bash
-PORT=8080 MAIL_TO=hello@redremodels.com npm start
+git checkout -b my-feature
+# ... make changes ...
+git add <files>
+git commit -m "describe change"
 ```
 
-## Stopping the Server
+### 2. Merge to main and push to GitHub
 
-Press `Ctrl+C` in the terminal where the server is running to stop it.
+```bash
+git checkout main
+git merge my-feature
+git push origin main
+```
+
+### 3. Sync to S3 and bust the CloudFront cache
+
+```bash
+aws s3 sync public/ s3://www.redremodels.com/ --delete --profile red-remodels-deployer
+
+aws cloudfront create-invalidation \
+  --distribution-id EKTYEDHVURFWC \
+  --paths "/*" \
+  --profile red-remodels-deployer
+```
+
+Changes are live within ~30 seconds after the invalidation completes.
+
+### Updating the Lambda (contact form)
+
+```bash
+cd lambda/contact-handler
+zip -r ../contact-handler.zip .
+aws lambda update-function-code \
+  --function-name red-remodels-contact-handler \
+  --zip-file fileb://../contact-handler.zip \
+  --profile red-remodels-deployer
+```
+
+---
+
+## Repository Structure
+
+```
+public/               # Static site files (deployed to S3)
+  index.html          # Homepage
+  pages/
+    desktop/          # Desktop pages (Duda export, cleaned up)
+    mobile/           # Mobile pages
+    tablet/           # Tablet pages
+  assets/             # Shared CSS, JS, images
+
+lambda/
+  contact-handler/    # AWS Lambda — contact form handler (Node.js 20)
+
+server/               # Local dev server (Node.js + Express + Nodemailer)
+
+infra/
+  cloudfront-functions/url-rewrite.js   # CloudFront URL rewrite rules
+  setup-alarms.sh                       # CloudWatch alarm setup script
+
+docs/                 # Project documentation
+  INFRASTRUCTURE.md   # All AWS resource IDs, endpoints, and commands
+  DEPLOYMENT_CHECKLIST.md
+  phase2-static-hosting.md
+  phase3-serverless-contact.md
+  phase4-dns-cutover.md
+  phase5-qa-and-monitoring.md
+```
+
+---
+
+## Pending
+
+- **SES production access** — submitted to AWS, pending approval. Once approved, customers will receive a confirmation email after submitting the contact form. No code changes needed.
