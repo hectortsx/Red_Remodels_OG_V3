@@ -27,7 +27,13 @@ marked.setOptions({ gfm: true, breaks: false });
 const homeHtml = fs.readFileSync(path.join(ROOT, 'public', 'index.html'), 'utf8');
 const headerMatch = homeHtml.match(/<div class="announcement-bar">[\s\S]*?<\/header>/);
 if (!headerMatch) throw new Error('Could not find header block in public/index.html');
-const SITE_HEADER = headerMatch[0];
+// Rewrite homepage anchor links so they work from any page
+const SITE_HEADER = headerMatch[0]
+  .replace(/href="#top"/g,      'href="/"')
+  .replace(/href="#services"/g, 'href="/#services"')
+  .replace(/href="#about"/g,    'href="/#about"')
+  .replace(/href="#contact"/g,  'href="/#contact"')
+  .replace(/href="#request"/g,  'href="/#request"');
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
