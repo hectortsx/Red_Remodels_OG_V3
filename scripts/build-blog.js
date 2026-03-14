@@ -44,6 +44,13 @@ const SITE_HEADER = headerMatch[0]
   .replace(/href="#contact"/g,  'href="/#contact"')
   .replace(/href="#request"/g,  'href="/#request"');
 
+// Extract the footer block from the homepage body
+const footerMatch = homeHtml.match(/<footer class="main-footer">[\s\S]*?<\/footer>/);
+if (!footerMatch) throw new Error('Could not find footer block in public/index.html');
+// Rewrite logo/footer anchor links so they work from any page
+const SITE_FOOTER = footerMatch[0]
+  .replace(/href="#top"/g, 'href="/"');
+
 // ── Helpers ────────────────────────────────────────────────────────────────
 
 function slugify(filename) {
@@ -60,16 +67,6 @@ function formatDateISO(dateStr) {
   return new Date(dateStr).toISOString();
 }
 
-
-function footer() {
-  return `
-<footer class="site-footer">
-  <p>&copy; ${new Date().getFullYear()} Red Remodels &mdash; Denver, CO &nbsp;|&nbsp;
-    <a href="tel:+17205192606">(720) 519-2606</a> &nbsp;|&nbsp;
-    <a href="mailto:hello@redremodels.com">hello@redremodels.com</a>
-  </p>
-</footer>`.trim();
-}
 
 function ga() {
   return `
@@ -181,8 +178,8 @@ for (const post of files) {
       </div>
     </main>
   </div>
-  ${footer()}
-  <script>(function(){var t=document.querySelector('.menu-toggle'),n=document.getElementById('site-nav');if(!t||!n)return;t.addEventListener('click',function(){var o=n.classList.toggle('is-open');t.setAttribute('aria-expanded',o);t.classList.toggle('is-open',o);});n.querySelectorAll('a').forEach(function(l){l.addEventListener('click',function(){n.classList.remove('is-open');t.setAttribute('aria-expanded','false');t.classList.remove('is-open');});});})();</script>
+  ${SITE_FOOTER}
+  <script>(function(){document.getElementById('year').textContent=new Date().getFullYear();var t=document.querySelector('.menu-toggle'),n=document.getElementById('site-nav');if(!t||!n)return;t.addEventListener('click',function(){var o=n.classList.toggle('is-open');t.setAttribute('aria-expanded',o);t.classList.toggle('is-open',o);});n.querySelectorAll('a').forEach(function(l){l.addEventListener('click',function(){n.classList.remove('is-open');t.setAttribute('aria-expanded','false');t.classList.remove('is-open');});});})();</script>
 </body>
 </html>`;
 
@@ -263,8 +260,8 @@ const indexPage = `<!DOCTYPE html>
       </div>
     </main>
   </div>
-  ${footer()}
-  <script>(function(){var t=document.querySelector('.menu-toggle'),n=document.getElementById('site-nav');if(!t||!n)return;t.addEventListener('click',function(){var o=n.classList.toggle('is-open');t.setAttribute('aria-expanded',o);t.classList.toggle('is-open',o);});n.querySelectorAll('a').forEach(function(l){l.addEventListener('click',function(){n.classList.remove('is-open');t.setAttribute('aria-expanded','false');t.classList.remove('is-open');});});})();</script>
+  ${SITE_FOOTER}
+  <script>(function(){document.getElementById('year').textContent=new Date().getFullYear();var t=document.querySelector('.menu-toggle'),n=document.getElementById('site-nav');if(!t||!n)return;t.addEventListener('click',function(){var o=n.classList.toggle('is-open');t.setAttribute('aria-expanded',o);t.classList.toggle('is-open',o);});n.querySelectorAll('a').forEach(function(l){l.addEventListener('click',function(){n.classList.remove('is-open');t.setAttribute('aria-expanded','false');t.classList.remove('is-open');});});})();</script>
 </body>
 </html>`;
 

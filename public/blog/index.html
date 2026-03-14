@@ -132,7 +132,7 @@
             <li><a href="/#services">Our Services</a></li>
             <li><a href="/#about">About Us</a></li>
             <li><a href="/blog">Tips &amp; Ideas</a></li>
-            <li><a href="/#contact">Contact Us</a></li>
+            <li><a href="/contact-us">Contact Us</a></li>
           </ul>
         </nav>
         <a class="header-phone" href="tel:+17205192606">(720) 519-2606</a>
@@ -157,12 +157,46 @@
       </div>
     </main>
   </div>
-  <footer class="site-footer">
-  <p>&copy; 2026 Red Remodels &mdash; Denver, CO &nbsp;|&nbsp;
-    <a href="tel:+17205192606">(720) 519-2606</a> &nbsp;|&nbsp;
-    <a href="mailto:hello@redremodels.com">hello@redremodels.com</a>
-  </p>
-</footer>
-  <script>(function(){var t=document.querySelector('.menu-toggle'),n=document.getElementById('site-nav');if(!t||!n)return;t.addEventListener('click',function(){var o=n.classList.toggle('is-open');t.setAttribute('aria-expanded',o);t.classList.toggle('is-open',o);});n.querySelectorAll('a').forEach(function(l){l.addEventListener('click',function(){n.classList.remove('is-open');t.setAttribute('aria-expanded','false');t.classList.remove('is-open');});});})();</script>
+  <footer class="main-footer">
+      <div class="container footer-top">
+        <div class="footer-brand">
+          <a class="logo" href="/">
+            <img
+              src="/assets/images/284_Red_Remodels_LOGO_VR_04.png"
+              alt="Red Remodels"
+              width="160"
+              height="48"
+              loading="lazy"
+            />
+          </a>
+          <p>
+            Serving the Denver metro with custom remodels, additions, and dependable handyman services that
+            keep your home looking its best.
+          </p>
+        </div>
+        <div class="footer-details">
+          <ul>
+            <li><strong>Hours:</strong> Monday – Saturday, 8am – 6pm</li>
+            <li><strong>Email:</strong> <a href="mailto:hello@redremodels.com">hello@redremodels.com</a></li>
+            <li><strong>Phone:</strong> <a href="tel:+17205192606">(720) 519-2606</a></li>
+          </ul>
+        </div>
+        <div class="footer-cta">
+          <a class="btn btn--primary" href="tel:+17205192606">Call us</a>
+          <div class="footer-social">
+            <a class="social-link social-link--icon" href="https://www.facebook.com/redremodels" target="_blank" rel="noreferrer"
+              ><img class="social-icon" src="/assets/images/facebookIcon.png" alt="" width="32" height="32" /><span class="sr-only">facebook.com/redremodels</span></a
+            >
+            <a class="social-link social-link--icon" href="https://www.instagram.com/red_remodels/" target="_blank" rel="noreferrer"
+              ><img class="social-icon" src="/assets/images/instagramIcon.png" alt="" width="32" height="32" /><span class="sr-only">instagram.com/red_remodels</span></a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span id="year"></span> Red Remodels. All rights reserved.</p>
+      </div>
+    </footer>
+  <script>(function(){document.getElementById('year').textContent=new Date().getFullYear();var t=document.querySelector('.menu-toggle'),n=document.getElementById('site-nav');if(!t||!n)return;t.addEventListener('click',function(){var o=n.classList.toggle('is-open');t.setAttribute('aria-expanded',o);t.classList.toggle('is-open',o);});n.querySelectorAll('a').forEach(function(l){l.addEventListener('click',function(){n.classList.remove('is-open');t.setAttribute('aria-expanded','false');t.classList.remove('is-open');});});})();</script>
 </body>
 </html>
