@@ -25,6 +25,15 @@ marked.setOptions({ gfm: true, breaks: false });
 // the blog nav is always identical to the main site — no manual syncing needed.
 
 const homeHtml = fs.readFileSync(path.join(ROOT, 'public', 'index.html'), 'utf8');
+
+// Extract the shared CSS + font links from the homepage <head>
+// (preconnect, Google Fonts, desktop.css, style.css — everything except
+//  canonical, recaptcha, and page-specific tags)
+const sharedHeadMatch = homeHtml.match(/<link rel="preconnect"[\s\S]*?<link rel="stylesheet" href="\/pages\/desktop\/home\/style\.css" \/>/);
+if (!sharedHeadMatch) throw new Error('Could not find shared head assets in public/index.html');
+const SHARED_HEAD = sharedHeadMatch[0];
+
+// Extract the header block from the homepage body
 const headerMatch = homeHtml.match(/<div class="announcement-bar">[\s\S]*?<\/header>/);
 if (!headerMatch) throw new Error('Could not find header block in public/index.html');
 // Rewrite homepage anchor links so they work from any page
@@ -141,8 +150,7 @@ for (const post of files) {
   <!-- Structured data -->
   <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
 
-  <link rel="stylesheet" href="/assets/css/desktop.css" />
-  <link rel="stylesheet" href="/pages/desktop/home/style.css" />
+  ${SHARED_HEAD}
   <link rel="stylesheet" href="/assets/css/blog.css" />
   <link rel="icon" type="image/svg+xml" href="/assets/images/favicon-light.svg" />
 </head>
@@ -238,8 +246,7 @@ const indexPage = `<!DOCTYPE html>
 
   <script type="application/ld+json">${JSON.stringify(blogJsonLd)}</script>
 
-  <link rel="stylesheet" href="/assets/css/desktop.css" />
-  <link rel="stylesheet" href="/pages/desktop/home/style.css" />
+  ${SHARED_HEAD}
   <link rel="stylesheet" href="/assets/css/blog.css" />
   <link rel="icon" type="image/svg+xml" href="/assets/images/favicon-light.svg" />
 </head>
