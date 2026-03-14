@@ -135,9 +135,7 @@ for (const post of files) {
   <!-- Structured data -->
   <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/desktop.css" />
   <link rel="stylesheet" href="/pages/desktop/home/style.css" />
   <link rel="stylesheet" href="/assets/css/blog.css" />
   <link rel="icon" type="image/svg+xml" href="/assets/images/favicon-light.svg" />
@@ -170,6 +168,7 @@ for (const post of files) {
     </main>
   </div>
   ${footer()}
+  <script>(function(){var t=document.querySelector('.menu-toggle'),n=document.getElementById('site-nav');if(!t||!n)return;t.addEventListener('click',function(){var o=n.classList.toggle('is-open');t.setAttribute('aria-expanded',o);t.classList.toggle('is-open',o);});n.querySelectorAll('a').forEach(function(l){l.addEventListener('click',function(){n.classList.remove('is-open');t.setAttribute('aria-expanded','false');t.classList.remove('is-open');});});})();</script>
 </body>
 </html>`;
 
@@ -233,9 +232,7 @@ const indexPage = `<!DOCTYPE html>
 
   <script type="application/ld+json">${JSON.stringify(blogJsonLd)}</script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/desktop.css" />
   <link rel="stylesheet" href="/pages/desktop/home/style.css" />
   <link rel="stylesheet" href="/assets/css/blog.css" />
   <link rel="icon" type="image/svg+xml" href="/assets/images/favicon-light.svg" />
@@ -254,6 +251,7 @@ const indexPage = `<!DOCTYPE html>
     </main>
   </div>
   ${footer()}
+  <script>(function(){var t=document.querySelector('.menu-toggle'),n=document.getElementById('site-nav');if(!t||!n)return;t.addEventListener('click',function(){var o=n.classList.toggle('is-open');t.setAttribute('aria-expanded',o);t.classList.toggle('is-open',o);});n.querySelectorAll('a').forEach(function(l){l.addEventListener('click',function(){n.classList.remove('is-open');t.setAttribute('aria-expanded','false');t.classList.remove('is-open');});});})();</script>
 </body>
 </html>`;
 
