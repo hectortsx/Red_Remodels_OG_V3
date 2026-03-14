@@ -20,6 +20,15 @@ const SITE_URL  = 'https://www.redremodels.com';
 // Configure marked for clean, semantic output
 marked.setOptions({ gfm: true, breaks: false });
 
+// ── Extract header from homepage ───────────────────────────────────────────
+// Reads the announcement bar + <header> block directly from index.html so
+// the blog nav is always identical to the main site — no manual syncing needed.
+
+const homeHtml = fs.readFileSync(path.join(ROOT, 'public', 'index.html'), 'utf8');
+const headerMatch = homeHtml.match(/<div class="announcement-bar">[\s\S]*?<\/header>/);
+if (!headerMatch) throw new Error('Could not find header block in public/index.html');
+const SITE_HEADER = headerMatch[0];
+
 // ── Helpers ────────────────────────────────────────────────────────────────
 
 function slugify(filename) {
@@ -36,44 +45,6 @@ function formatDateISO(dateStr) {
   return new Date(dateStr).toISOString();
 }
 
-function nav(activePath = '') {
-  return `
-<div class="announcement-bar">
-  <div class="container announcement-content">
-    <span class="announcement-text">Denver homeowners: lock in expert remodel plans with a free design session</span>
-    <div class="social-links">
-      <a class="social-link social-link--icon" href="https://www.facebook.com/redremodels" target="_blank" rel="noreferrer">
-        <img class="social-icon" src="/assets/images/facebookIcon.png" alt="" width="32" height="32" /><span class="sr-only">facebook.com/redremodels</span>
-      </a>
-      <a class="social-link social-link--icon" href="https://www.instagram.com/red_remodels/" target="_blank" rel="noreferrer">
-        <img class="social-icon" src="/assets/images/instagramIcon.png" alt="" width="32" height="32" /><span class="sr-only">instagram.com/red_remodels</span>
-      </a>
-    </div>
-  </div>
-</div>
-<header class="main-header" id="top">
-  <div class="container header-inner">
-    <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="site-nav">
-      <span class="menu-toggle__bar"></span>
-      <span class="menu-toggle__bar"></span>
-      <span class="menu-toggle__bar"></span>
-    </button>
-    <a class="logo" href="/" aria-label="Red Remodels home">
-      <img src="/assets/images/284_Red_Remodels_LOGO_VR_02-aae74d79-640w.jpg" alt="Red Remodels wordmark with icon" width="220" height="82" />
-    </a>
-    <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/our-services">Our Services</a></li>
-        <li><a href="/#about">About Us</a></li>
-        <li><a href="/blog"${activePath === 'blog' ? ' aria-current="page"' : ''}>Blog</a></li>
-        <li><a href="/contact-us">Contact Us</a></li>
-      </ul>
-    </nav>
-    <a class="header-phone" href="tel:+17205192606">(720) 519-2606</a>
-  </div>
-</header>`.trim();
-}
 
 function footer() {
   return `
@@ -172,7 +143,7 @@ for (const post of files) {
   <link rel="icon" type="image/svg+xml" href="/assets/images/favicon-light.svg" />
 </head>
 <body>
-  ${nav()}
+  ${SITE_HEADER}
   <div class="page-wrap">
     <header class="post-header">
       <div class="post-header-inner">
@@ -270,7 +241,7 @@ const indexPage = `<!DOCTYPE html>
   <link rel="icon" type="image/svg+xml" href="/assets/images/favicon-light.svg" />
 </head>
 <body>
-  ${nav('blog')}
+  ${SITE_HEADER}
   <div class="page-wrap">
     <header class="blog-hero">
       <h1>Red Remodels Blog</h1>
