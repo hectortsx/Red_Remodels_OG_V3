@@ -127,6 +127,31 @@
   box-shadow: var(--shadow-card);
 }
 
+/* Override home/style.css form styles — those are designed for dark navy bg */
+.contact-form-wrap .request-form label span {
+  color: var(--color-navy);
+}
+
+.contact-form-wrap .request-form input,
+.contact-form-wrap .request-form textarea {
+  background: var(--color-cream);
+  border: 1px solid #d1d5db;
+  color: var(--color-text);
+}
+
+.contact-form-wrap .request-form input::placeholder,
+.contact-form-wrap .request-form textarea::placeholder {
+  color: var(--color-muted);
+  opacity: 1;
+}
+
+.contact-form-wrap .request-form input:focus,
+.contact-form-wrap .request-form textarea:focus {
+  background: var(--color-white);
+  border-color: var(--color-red);
+  box-shadow: 0 0 0 3px rgba(195, 18, 47, 0.15);
+}
+
 /* ── Trust strip ───────────────────────────────────────────── */
 .contact-trust {
   background: var(--color-red);
