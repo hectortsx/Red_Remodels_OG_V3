@@ -126,7 +126,7 @@ for (const post of files) {
   ${ga()}
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${data.title} | Red Remodels Blog</title>
+  <title>${data.title} | Red Remodels Tips &amp; Ideas</title>
   <meta name="description" content="${data.description}" />
   <link rel="canonical" href="${url}" />
 
@@ -160,7 +160,7 @@ for (const post of files) {
     <header class="post-header">
       <div class="post-header-inner">
         <p class="post-breadcrumb">
-          <a href="/">Home</a> &rsaquo; <a href="/blog">Blog</a> &rsaquo; ${data.title}
+          <a href="/">Home</a> &rsaquo; <a href="/blog">Tips &amp; Ideas</a> &rsaquo; ${data.title}
         </p>
         ${tags ? `<div class="post-tags">${tags}</div>` : ''}
         <h1>${data.title}</h1>
@@ -212,7 +212,7 @@ const cards = files.map(({ slug, data }) => {
 const blogJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Blog',
-  name: 'Red Remodels Blog',
+  name: 'Red Remodels Tips & Ideas',
   url: `${SITE_URL}/blog`,
   description: 'Remodeling tips, cost guides, and inspiration for Denver homeowners.',
   publisher: { '@type': 'Organization', name: 'Red Remodels', url: SITE_URL }
@@ -224,13 +224,13 @@ const indexPage = `<!DOCTYPE html>
   ${ga()}
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Blog | Red Remodels — Denver Remodeling Tips &amp; Guides</title>
+  <title>Tips &amp; Ideas | Red Remodels — Denver Remodeling Guides</title>
   <meta name="description" content="Remodeling tips, cost guides, and inspiration for Denver homeowners from the team at Red Remodels." />
   <link rel="canonical" href="${SITE_URL}/blog" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Blog | Red Remodels" />
+  <meta property="og:title" content="Tips &amp; Ideas | Red Remodels" />
   <meta property="og:description" content="Remodeling tips, cost guides, and inspiration for Denver homeowners." />
   <meta property="og:url" content="${SITE_URL}/blog" />
   <meta property="og:image" content="${SITE_URL}/assets/images/redRemodelsOpenGraph.png" />
@@ -240,7 +240,7 @@ const indexPage = `<!DOCTYPE html>
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Blog | Red Remodels" />
+  <meta name="twitter:title" content="Tips &amp; Ideas | Red Remodels" />
   <meta name="twitter:description" content="Remodeling tips, cost guides, and inspiration for Denver homeowners." />
   <meta name="twitter:image" content="${SITE_URL}/assets/images/redRemodelsOpenGraph.png" />
 
@@ -254,8 +254,8 @@ const indexPage = `<!DOCTYPE html>
   ${SITE_HEADER}
   <div class="page-wrap">
     <header class="blog-hero">
-      <h1>Red Remodels Blog</h1>
-      <p>Remodeling tips, cost guides, and inspiration for Denver homeowners.</p>
+      <h1>Tips &amp; Ideas</h1>
+      <p>Remodeling guides, cost breakdowns, and inspiration for Denver homeowners.</p>
     </header>
     <main id="main-content">
       <div class="post-grid" role="list">
