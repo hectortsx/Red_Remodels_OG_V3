@@ -1,0 +1,450 @@
+/* ============================================================
+   Service pages — Red Remodels
+   Shared across all /services/* pages
+   Extends /assets/css/desktop.css + /pages/desktop/home/style.css
+   ============================================================ */
+
+/* ── Nav dropdown ──────────────────────────────────────────── */
+.has-dropdown {
+  position: relative;
+}
+
+.nav-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-white);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-soft);
+  min-width: 230px;
+  padding: 8px 0;
+  z-index: 100;
+  flex-direction: column;
+  gap: 0;
+}
+
+.nav-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid var(--color-white);
+}
+
+.has-dropdown:hover .nav-dropdown,
+.has-dropdown:focus-within .nav-dropdown {
+  display: flex;
+}
+
+.nav-dropdown li {
+  list-style: none;
+}
+
+.nav-dropdown a {
+  display: block;
+  padding: 9px 20px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-navy);
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+
+.nav-dropdown a:hover {
+  background: var(--color-cream);
+  color: var(--color-red);
+}
+
+.nav-dropdown a::after { display: none; }
+
+/* ── Service hero ──────────────────────────────────────────── */
+.svc-hero {
+  background:
+    linear-gradient(rgba(3, 26, 54, 0.72), rgba(3, 26, 54, 0.72)),
+    url('/assets/images/stock-photo-beautiful-custom-kitchen-design-drawing-and-gradated-photo-combination-365318801-640w.jpg')
+    center / cover no-repeat;
+  color: var(--color-white);
+  padding: 100px 0 80px;
+}
+
+.svc-hero-inner {
+  max-width: 740px;
+}
+
+.svc-breadcrumb {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 16px;
+}
+
+.svc-breadcrumb a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+}
+
+.svc-breadcrumb a:hover { color: #fff; }
+
+.svc-hero h1 {
+  color: var(--color-white);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  margin-bottom: 1rem;
+}
+
+.svc-hero p {
+  color: rgba(255,255,255,0.88);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+
+.svc-hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* ── Highlights bar ────────────────────────────────────────── */
+.svc-highlights {
+  background: var(--color-navy);
+  padding: 32px 24px;
+}
+
+.svc-highlights-inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  text-align: center;
+}
+
+.highlight-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--color-white);
+}
+
+.highlight-item strong {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.highlight-item span {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* ── Overview section ──────────────────────────────────────── */
+.svc-overview {
+  padding: 80px 24px;
+  background: var(--color-white);
+}
+
+.svc-overview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.svc-overview-text h2 {
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  color: var(--color-navy);
+  margin-bottom: 1rem;
+}
+
+.svc-overview-text p { margin-bottom: 1.2rem; }
+
+.svc-overview-img img {
+  width: 100%;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  object-fit: cover;
+}
+
+/* ── Scope / What's included ───────────────────────────────── */
+.svc-scope {
+  background: var(--color-cream);
+  padding: 80px 24px;
+}
+
+.svc-scope h2 {
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  color: var(--color-navy);
+  margin-bottom: 48px;
+}
+
+.svc-scope-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.scope-card {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-card);
+}
+
+.scope-icon {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+  line-height: 1;
+}
+
+.scope-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-navy);
+  margin-bottom: 8px;
+}
+
+.scope-card p {
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ── Process ───────────────────────────────────────────────── */
+.svc-process {
+  background: var(--color-white);
+  padding: 80px 24px;
+}
+
+.svc-process h2 {
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  color: var(--color-navy);
+  margin-bottom: 48px;
+}
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  counter-reset: steps;
+}
+
+.process-step {
+  position: relative;
+  padding-top: 16px;
+}
+
+.step-number {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-red);
+  color: var(--color-white);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.process-step h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-navy);
+  margin-bottom: 8px;
+}
+
+.process-step p {
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ── Cost section ──────────────────────────────────────────── */
+.svc-cost {
+  background: var(--color-cream);
+  padding: 80px 24px;
+}
+
+.svc-cost-inner {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 56px;
+  align-items: start;
+}
+
+.svc-cost-text h2 {
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  color: var(--color-navy);
+  margin-bottom: 1rem;
+}
+
+.cost-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cost-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  font-size: 0.95rem;
+}
+
+.cost-list li strong {
+  color: var(--color-navy);
+  font-weight: 700;
+}
+
+.cost-list li span {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: var(--color-red);
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+.cost-note {
+  font-size: 0.88rem;
+  color: var(--color-muted);
+  margin-bottom: 1.6rem;
+}
+
+.svc-cost-callout {
+  background: var(--color-navy);
+  color: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: 36px 32px;
+  align-self: start;
+}
+
+.svc-cost-callout h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-white);
+  margin-bottom: 16px;
+}
+
+.svc-cost-callout ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.svc-cost-callout li {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  padding-left: 18px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.svc-cost-callout li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--color-red);
+  font-weight: 700;
+}
+
+/* ── CTA section ───────────────────────────────────────────── */
+.svc-cta {
+  background: var(--color-navy);
+  color: var(--color-white);
+  padding: 80px 24px;
+  text-align: center;
+}
+
+.svc-cta-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.svc-cta-logo {
+  margin: 0 auto 24px;
+  opacity: 0.9;
+}
+
+.svc-cta h2 {
+  color: var(--color-white);
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  margin-bottom: 1rem;
+}
+
+.svc-cta p {
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 2rem;
+}
+
+.svc-cta-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .svc-highlights-inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .svc-overview-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .svc-overview-img { order: -1; }
+
+  .process-steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .svc-cost-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .svc-hero { padding: 72px 24px 60px; }
+  .svc-hero h1 { font-size: 1.8rem; }
+
+  .svc-highlights-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .process-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-dropdown {
+    position: static;
+    transform: none;
+    box-shadow: none;
+    background: var(--color-cream);
+    border-radius: 0;
+    padding: 0;
+  }
+
+  .nav-dropdown a {
+    padding: 10px 24px;
+    font-size: 0.9rem;
+  }
+}

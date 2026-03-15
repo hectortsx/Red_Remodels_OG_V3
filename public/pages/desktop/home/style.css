@@ -366,6 +366,55 @@ body .form-status[data-status='success']::before {
   color: var(--color-red);
 }
 
+/* ── Nav dropdown (shared with service pages) ──────────────── */
+.has-dropdown { position: relative; }
+
+.nav-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-white);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-soft);
+  min-width: 230px;
+  padding: 8px 0;
+  z-index: 100;
+  flex-direction: column;
+}
+
+.nav-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid var(--color-white);
+}
+
+.has-dropdown:hover .nav-dropdown,
+.has-dropdown:focus-within .nav-dropdown {
+  display: flex;
+}
+
+.nav-dropdown li { list-style: none; }
+
+.nav-dropdown a {
+  display: block;
+  padding: 9px 20px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-navy);
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+
+.nav-dropdown a:hover { background: var(--color-cream); color: var(--color-red); }
+.nav-dropdown a::after { display: none; }
+
 .hero {
   background: url('/assets/images/pexels-photo-1396122-2880w.jpeg') center/cover no-repeat;
   position: relative;
