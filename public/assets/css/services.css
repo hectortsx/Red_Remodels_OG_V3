@@ -85,6 +85,41 @@
     center / cover no-repeat;
 }
 
+.svc-hero--custom-carpentry {
+  background:
+    linear-gradient(rgba(3, 26, 54, 0.72), rgba(3, 26, 54, 0.72)),
+    url('/assets/images/stock-photo-stylish-kitchen-interior-with-modern-furniture-combination-of-photo-and-sketch-2088124900.jpg')
+    center / cover no-repeat;
+}
+
+.svc-hero--outdoor-living {
+  background:
+    linear-gradient(rgba(3, 26, 54, 0.72), rgba(3, 26, 54, 0.72)),
+    url('/assets/images/stock-photo-luxury-outdoor-relaxing-living-room-with-large-stone-fireplace-tv-rug-and-beige-sofa-1704631984-1920w.jpg')
+    center / cover no-repeat;
+}
+
+.svc-hero--basement-finishing {
+  background:
+    linear-gradient(rgba(3, 26, 54, 0.72), rgba(3, 26, 54, 0.72)),
+    url('/assets/images/stock-photo-luxury-interior-of-renovated-house-in-suburbs-montreal-canada-1606358314-1920w.jpg')
+    center / cover no-repeat;
+}
+
+.svc-hero--flooring {
+  background:
+    linear-gradient(rgba(3, 26, 54, 0.72), rgba(3, 26, 54, 0.72)),
+    url('/assets/images/pexels-photo-1396122-2880w.jpeg')
+    center / cover no-repeat;
+}
+
+.svc-hero--garage-adu {
+  background:
+    linear-gradient(rgba(3, 26, 54, 0.72), rgba(3, 26, 54, 0.72)),
+    url('/assets/images/stock-photo-garage-construction-2458255-2880w.jpg')
+    center / cover no-repeat;
+}
+
 .svc-hero-inner {
   max-width: 740px;
 }
