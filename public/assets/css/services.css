@@ -74,7 +74,14 @@
 .svc-hero--bathroom {
   background:
     linear-gradient(rgba(3, 26, 54, 0.72), rgba(3, 26, 54, 0.72)),
-    url('/assets/images/pexels-photo-259588-640w.jpeg')
+    url('/assets/images/pexels-photo-2988865-2880w.jpeg')
+    center / cover no-repeat;
+}
+
+.svc-hero--home-additions {
+  background:
+    linear-gradient(rgba(3, 26, 54, 0.72), rgba(3, 26, 54, 0.72)),
+    url('/assets/images/stock-photo-foundation-and-first-floor-of-home-addition-framed-and-covered-with-osb-oriented-strand-board-489318001-1920w.jpg')
     center / cover no-repeat;
 }
 
