@@ -330,7 +330,7 @@ body .form-status[data-status='success']::before {
   gap: 2rem;
 }
 
-.site-nav ul {
+.site-nav ul:not(.nav-dropdown) {
   display: flex;
   gap: 2.2rem;
   font-weight: 600;
@@ -395,8 +395,7 @@ body .form-status[data-status='success']::before {
   border-bottom: 7px solid var(--color-white);
 }
 
-.has-dropdown:hover .nav-dropdown,
-.has-dropdown:focus-within .nav-dropdown {
+.has-dropdown.is-open .nav-dropdown {
   display: flex;
 }
 
@@ -558,6 +557,11 @@ label span {
   gap: 1.8rem;
   margin-top: 3rem;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+a.service-card {
+  text-decoration: none;
+  color: inherit;
 }
 
 .service-card {
