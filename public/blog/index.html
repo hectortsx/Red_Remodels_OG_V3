@@ -129,7 +129,19 @@
         <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
           <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/#services">Our Services</a></li>
+            <li class="has-dropdown">
+              <a href="/#services">Our Services</a>
+              <ul class="nav-dropdown">
+                <li><a href="/services/kitchen-remodels">Kitchen Remodels</a></li>
+                <li><a href="/services/bathroom-remodeling">Bathroom Remodeling</a></li>
+                <li><a href="/#services">Home Additions</a></li>
+                <li><a href="/#services">Custom Carpentry</a></li>
+                <li><a href="/#services">Outdoor Living Spaces</a></li>
+                <li><a href="/#services">Basement Finishing</a></li>
+                <li><a href="/#services">Flooring Installation</a></li>
+                <li><a href="/#services">Garage Conversions &amp; ADUs</a></li>
+              </ul>
+            </li>
             <li><a href="/#about">About Us</a></li>
             <li><a href="/blog">Tips &amp; Ideas</a></li>
             <li><a href="/contact-us">Contact Us</a></li>
@@ -197,6 +209,6 @@
         <p>© <span id="year"></span> Red Remodels. All rights reserved.</p>
       </div>
     </footer>
-  <script>(function(){document.getElementById('year').textContent=new Date().getFullYear();var t=document.querySelector('.menu-toggle'),n=document.getElementById('site-nav');if(!t||!n)return;t.addEventListener('click',function(){var o=n.classList.toggle('is-open');t.setAttribute('aria-expanded',o);t.classList.toggle('is-open',o);});n.querySelectorAll('a').forEach(function(l){l.addEventListener('click',function(){n.classList.remove('is-open');t.setAttribute('aria-expanded','false');t.classList.remove('is-open');});});})();</script>
+  <script>(function(){document.getElementById('year').textContent=new Date().getFullYear();var t=document.querySelector('.menu-toggle'),n=document.getElementById('site-nav');if(!t||!n)return;t.addEventListener('click',function(){var o=n.classList.toggle('is-open');t.setAttribute('aria-expanded',o);t.classList.toggle('is-open',o);});n.querySelectorAll('a').forEach(function(l){if(l.parentElement&&l.parentElement.classList.contains('has-dropdown'))return;l.addEventListener('click',function(){n.classList.remove('is-open');t.setAttribute('aria-expanded','false');t.classList.remove('is-open');});});n.querySelectorAll('.has-dropdown').forEach(function(d){var p=d.querySelector(':scope>a');p.addEventListener('click',function(e){e.preventDefault();d.classList.toggle('is-open');});d.querySelectorAll('.nav-dropdown a').forEach(function(l){l.addEventListener('click',function(){d.classList.remove('is-open');n.classList.remove('is-open');t.setAttribute('aria-expanded','false');t.classList.remove('is-open');});});});document.addEventListener('click',function(e){n.querySelectorAll('.has-dropdown.is-open').forEach(function(d){if(!d.contains(e.target))d.classList.remove('is-open');});});})();</script>
 </body>
 </html>
