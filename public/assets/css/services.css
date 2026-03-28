@@ -59,6 +59,12 @@
   color: var(--color-red);
 }
 
+.nav-dropdown a[aria-current="page"] {
+  color: var(--color-red);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .nav-dropdown a::after { display: none; }
 
 /* ── Service hero ──────────────────────────────────────────── */

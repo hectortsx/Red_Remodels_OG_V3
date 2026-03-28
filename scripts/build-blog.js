@@ -31,7 +31,8 @@ const homeHtml = fs.readFileSync(path.join(ROOT, 'public', 'index.html'), 'utf8'
 //  canonical, recaptcha, and page-specific tags)
 const sharedHeadMatch = homeHtml.match(/<link rel="preconnect"[\s\S]*?<link rel="stylesheet" href="\/pages\/desktop\/home\/style\.css" \/>/);
 if (!sharedHeadMatch) throw new Error('Could not find shared head assets in public/index.html');
-const SHARED_HEAD = sharedHeadMatch[0];
+const SHARED_HEAD = sharedHeadMatch[0]
+  .replace(/<link rel="canonical"[^>]*\/?>/g, '');
 
 // Extract the header block from the homepage body
 const headerMatch = homeHtml.match(/<div class="announcement-bar">[\s\S]*?<\/header>/);
@@ -135,6 +136,7 @@ for (const post of files) {
   <meta property="og:image" content="${SITE_URL}${image}" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="${data.imageAlt || data.title}" />
   <meta property="og:site_name" content="Red Remodels" />
   <meta property="article:published_time" content="${formatDateISO(data.date)}" />
 
