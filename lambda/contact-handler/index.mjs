@@ -35,6 +35,32 @@ const escapeHtml = (value) => encodeHtml(sanitize(value));
 const escapeHtmlPreserve = (value) => (typeof value === 'string' ? encodeHtml(value) : '');
 const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sanitize(value));
 
+// Keywords checked against the email local-part and the submitted name.
+// Matches anywhere in the string, case-insensitive.
+const SPAM_EMAIL_KEYWORDS = [
+  'lead', 'leads', 'virtual', 'helper', 'cache', 'scripts',
+  'marketing', 'seo', 'agency', 'promo', 'promotion', 'bulk', 'blast', 'campaign',
+  'bot', 'robot', 'noreply', 'no-reply', 'auto',
+  'outsource', 'offshore', 'freelance',
+  'sales', 'growth', 'digital', 'webmaster', 'backlink', 'traffic',
+  'temp', 'throwaway',
+];
+
+const SPAM_NAME_KEYWORDS = [
+  'virtual assistant', 'lead generation', 'lead gen', 'digital marketing',
+  'seo', 'marketing agency', 'marketing team', 'marketing services',
+  'outsourcing', 'offshore', 'freelance', 'backlink', 'bulk email',
+  'ai assistant', 'ai agent',
+];
+
+const isSpam = (email, name) => {
+  const localPart = sanitize(email).split('@')[0].toLowerCase();
+  const lowerName = sanitize(name).toLowerCase();
+  if (SPAM_EMAIL_KEYWORDS.some((kw) => localPart.includes(kw))) return true;
+  if (SPAM_NAME_KEYWORDS.some((kw) => lowerName.includes(kw))) return true;
+  return false;
+};
+
 const normalizeTemplate = (value, fallback) =>
   typeof value === 'string' && value.trim() ? value.replace(/\\n/g, '\n') : fallback;
 
@@ -148,6 +174,8 @@ export const handler = async (event) => {
 
   const cleanName = sanitize(name);
   const cleanEmail = sanitize(email);
+
+  if (isSpam(cleanEmail, cleanName)) return json(400, { ok: false, error: 'We were unable to process your request.' });
   const cleanPhone = sanitize(phone);
   const cleanMessage = sanitize(message);
 
