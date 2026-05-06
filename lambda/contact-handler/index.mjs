@@ -53,10 +53,17 @@ const SPAM_NAME_KEYWORDS = [
   'ai assistant', 'ai agent',
 ];
 
+const SPAM_EMAIL_DOMAINS = [
+  'cachehelper.com',
+];
+
 const isSpam = (email, name) => {
-  const localPart = sanitize(email).split('@')[0].toLowerCase();
+  const parts = sanitize(email).toLowerCase().split('@');
+  const localPart = parts[0];
+  const domain = parts[1] ?? '';
   const lowerName = sanitize(name).toLowerCase();
   if (SPAM_EMAIL_KEYWORDS.some((kw) => localPart.includes(kw))) return true;
+  if (SPAM_EMAIL_DOMAINS.some((d) => domain === d)) return true;
   if (SPAM_NAME_KEYWORDS.some((kw) => lowerName.includes(kw))) return true;
   return false;
 };
