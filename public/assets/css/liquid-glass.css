@@ -1,0 +1,116 @@
+/* Liquid Glass mobile UI — header, nav menu, floating CTA bar.
+   Scoped to phone-size screens (≤780px), matches the existing mobile breakpoint. */
+
+.glass-cta-bar {
+  display: none;
+}
+
+@media (max-width: 780px) {
+  /* ---- Floating bottom CTA bar ---- */
+  .glass-cta-bar {
+    display: flex;
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    z-index: 40;
+    border-radius: 999px;
+    overflow: hidden;
+    text-decoration: none;
+  }
+
+  .glass-cta-bar__item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.95rem 0;
+    color: var(--color-white);
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+
+  .glass-cta-bar__item + .glass-cta-bar__item {
+    border-left: 1px solid rgba(255, 255, 255, 0.35);
+  }
+
+  .glass-cta-bar__icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  /* Hide the floating CTA bar while the mobile nav menu is open */
+  .main-header:has(#site-nav.is-open) ~ .glass-cta-bar {
+    display: none;
+  }
+
+  /* Room for the floating CTA bar so it never covers footer content */
+  body {
+    padding-bottom: calc(82px + env(safe-area-inset-bottom));
+  }
+
+  /* ---- Floating nav menu becomes a detached glass card ---- */
+  .site-nav.is-open {
+    left: 12px;
+    right: 12px;
+    top: calc(100% + 8px);
+    border-radius: 20px;
+    padding: 0.5rem;
+  }
+
+  .site-nav.is-open ul li a {
+    border-bottom: none;
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+  }
+
+  .site-nav.is-open ul li a:hover,
+  .site-nav.is-open ul li a:active {
+    background: rgba(255, 255, 255, 0.4);
+  }
+
+  /* ---- Glass surfaces (with backdrop-filter) ---- */
+  @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .main-header {
+      background: rgba(255, 255, 255, 0.55);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      backdrop-filter: blur(18px) saturate(160%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 8px 32px rgba(6, 23, 44, 0.12);
+    }
+
+    .site-nav.is-open {
+      background: rgba(255, 255, 255, 0.45);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 12px 40px rgba(6, 23, 44, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    .glass-cta-bar {
+      background: rgba(192, 57, 43, 0.75);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      backdrop-filter: blur(18px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 10px 30px rgba(6, 23, 44, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  /* ---- Fallback: opaque surfaces when backdrop-filter is unsupported ---- */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .main-header {
+      background: var(--color-white);
+    }
+
+    .site-nav.is-open {
+      background: var(--color-white);
+    }
+
+    .glass-cta-bar {
+      background: var(--color-red);
+    }
+  }
+}
