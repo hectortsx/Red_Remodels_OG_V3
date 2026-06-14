@@ -30,3 +30,4 @@ build/
 
 # Deployment artifacts
 red-remodels-site.zip
+.superpowers/
