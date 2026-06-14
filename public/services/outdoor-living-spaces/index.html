@@ -119,16 +119,21 @@
         <a class="header-phone" href="tel:+17205192606">(720) 519-2606</a>
       </div>
     </header>
-    <div class="glass-cta-bar" aria-label="Quick actions">
-      <a class="glass-cta-bar__item" href="tel:+17205192606">
-        <svg class="glass-cta-bar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    <nav class="glass-tabbar" aria-label="Quick actions">
+      <div class="glass-tabbar__indicator"></div>
+      <a class="glass-tabbar__item" href="/#services">
+        <svg class="glass-tabbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        Services
+      </a>
+      <a class="glass-tabbar__item" href="tel:+17205192606">
+        <svg class="glass-tabbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         Call
       </a>
-      <a class="glass-cta-bar__item" href="/contact-us">
-        <svg class="glass-cta-bar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg>
-        Get a Quote
+      <a class="glass-tabbar__item" href="/contact-us">
+        <svg class="glass-tabbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg>
+        Quote
       </a>
-    </div>
+    </nav>
 
     <main>
 
@@ -333,5 +338,6 @@
         document.addEventListener('click', function (e) { nav.querySelectorAll('.has-dropdown.is-open').forEach(function (item) { if (!item.contains(e.target)) item.classList.remove('is-open'); }); });
       })();
     </script>
+    <script src="/assets/js/glass-tabbar.js" defer></script>
   </body>
 </html>
