@@ -252,6 +252,7 @@ const indexPage = `<!DOCTYPE html>
   <meta property="og:image" content="${SITE_URL}/assets/images/redRemodelsOpenGraph.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Red Remodels — Denver's Trusted Remodeling Experts" />
   <meta property="og:site_name" content="Red Remodels" />
 
   <!-- Twitter -->
