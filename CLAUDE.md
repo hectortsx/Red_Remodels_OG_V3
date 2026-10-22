@@ -65,11 +65,11 @@ infra/                # CloudFront function, infrastructure notes
 - Service pages maintain their own nav copy and must be updated manually when nav changes.
 
 ## Service pages
-All 8 service pages live in `public/services/<slug>/index.html`:
-- kitchen-remodels, bathroom-remodeling, home-additions, custom-carpentry
+All service pages live in `public/services/<slug>/index.html`:
+- kitchen-remodels, bathroom-remodeling, home-additions, custom-home-building, custom-carpentry
 - outdoor-living-spaces, basement-finishing, flooring-installation, garage-conversions-adus
 
-Each follows the same structure: hero → highlights bar → scope grid → process steps → cost guide → CTA section.
+Service pages generally follow a shared structure: hero → highlights bar → scope grid → process steps → cost guide → CTA section. Do not add cost estimates unless they are approved for that specific service.
 Hero background image set via `.svc-hero--<slug>` CSS class in `services.css`.
 
 ## Lambda / contact form

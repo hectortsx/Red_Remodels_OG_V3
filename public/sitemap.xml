@@ -2,61 +2,61 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.redremodels.com/</loc>
-    <lastmod>2025-11-01</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.redremodels.com/our-services</loc>
-    <lastmod>2025-11-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://www.redremodels.com/services/kitchen-remodels</loc>
-    <lastmod>2026-03-15</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.redremodels.com/services/bathroom-remodeling</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.redremodels.com/services/home-additions</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.redremodels.com/services/custom-home-building</loc>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.redremodels.com/services/custom-carpentry</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.redremodels.com/services/outdoor-living-spaces</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.redremodels.com/services/basement-finishing</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.redremodels.com/services/flooring-installation</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.redremodels.com/services/garage-conversions-adus</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -67,7 +67,7 @@
     <priority>0.7</priority>
   </url>
   <url><loc>https://www.redremodels.com/blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.redremodels.com/blog/bathroom-remodel-cost-denver-2026</loc><lastmod>2026-04-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.redremodels.com/blog/what-are-the-steps-to-build-a-custom-home</loc><lastmod>2026-03-20</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.redremodels.com/blog/how-much-does-a-kitchen-remodel-cost-in-denver</loc><lastmod>2026-03-13</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.redremodels.com/blog/bathroom-remodel-cost-denver-2026</loc><lastmod>2026-10-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.redremodels.com/blog/what-are-the-steps-to-build-a-custom-home</loc><lastmod>2026-10-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.redremodels.com/blog/how-much-does-a-kitchen-remodel-cost-in-denver</loc><lastmod>2026-10-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

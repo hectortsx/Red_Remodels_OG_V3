@@ -6,11 +6,20 @@ function handler(event) {
   var request = event.request;
   var uri = request.uri;
 
-  // --- Clean URL redirects ---
-  // Map friendly paths to actual S3 page locations
+  // --- Legacy URL redirects ---
+  if (uri === '/our-services' || uri === '/our-services/') {
+    return {
+      statusCode: 301,
+      statusDescription: 'Moved Permanently',
+      headers: {
+        location: { value: 'https://www.redremodels.com/#services' },
+      },
+    };
+  }
+
+  // --- Clean URL rewrites ---
+  // Map contact paths to their current S3 page locations
   var cleanUrls = {
-    '/our-services': '/pages/desktop/our-services/index.html',
-    '/our-services/': '/pages/desktop/our-services/index.html',
     '/contact-us': '/pages/desktop/contact-us/index.html',
     '/contact-us/': '/pages/desktop/contact-us/index.html',
   };
