@@ -91,6 +91,10 @@
     center / cover no-repeat;
 }
 
+.svc-hero--custom-home-building {
+  background: linear-gradient(135deg, #031a36, #17436b);
+}
+
 .svc-hero--custom-carpentry {
   background:
     linear-gradient(rgba(3, 26, 54, 0.72), rgba(3, 26, 54, 0.72)),

@@ -26,13 +26,14 @@ marked.setOptions({ gfm: true, breaks: false });
 
 const homeHtml = fs.readFileSync(path.join(ROOT, 'public', 'index.html'), 'utf8');
 
-// Extract the shared CSS + font links from the homepage <head>
-// (preconnect, Google Fonts, desktop.css, style.css — everything except
-//  canonical, recaptcha, and page-specific tags)
+// Extract shared asset links but leave the homepage's business schema to the
+// homepage and each generated page's own structured data.
 const sharedHeadMatch = homeHtml.match(/<link rel="preconnect"[\s\S]*?<link rel="stylesheet" href="\/pages\/desktop\/home\/style\.css" \/>/);
 if (!sharedHeadMatch) throw new Error('Could not find shared head assets in public/index.html');
 const SHARED_HEAD = sharedHeadMatch[0]
-  .replace(/<link rel="canonical"[^>]*\/?>/g, '');
+  .replace(/<link rel="canonical"[^>]*\/?>/g, '')
+  .replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, '')
+  .replace(/^[ \t]+$/gm, '');
 
 // Extract the header block from the homepage body
 const headerMatch = homeHtml.match(/<div class="announcement-bar">[\s\S]*?<\/header>/);
@@ -100,6 +101,9 @@ for (const post of files) {
   const url    = `${SITE_URL}/blog/${slug}`;
   const tags   = (data.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
   const image  = data.image || '/assets/images/redRemodelsOpenGraph.png';
+  const imageWidth = data.imageWidth || 1200;
+  const imageHeight = data.imageHeight || 630;
+  const modifiedDate = data.updated || data.date;
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -108,7 +112,7 @@ for (const post of files) {
     description: data.description,
     image: `${SITE_URL}${image}`,
     datePublished: formatDateISO(data.date),
-    dateModified: formatDateISO(data.date),
+    dateModified: formatDateISO(modifiedDate),
     author: { '@type': 'Organization', name: data.author || 'Red Remodels', url: SITE_URL },
     publisher: {
       '@type': 'Organization',
@@ -134,11 +138,12 @@ for (const post of files) {
   <meta property="og:description" content="${data.description}" />
   <meta property="og:url" content="${url}" />
   <meta property="og:image" content="${SITE_URL}${image}" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
+  <meta property="og:image:width" content="${imageWidth}" />
+  <meta property="og:image:height" content="${imageHeight}" />
   <meta property="og:image:alt" content="${data.imageAlt || data.title}" />
   <meta property="og:site_name" content="Red Remodels" />
   <meta property="article:published_time" content="${formatDateISO(data.date)}" />
+  <meta property="article:modified_time" content="${formatDateISO(modifiedDate)}" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -180,6 +185,7 @@ for (const post of files) {
         ${tags ? `<div class="post-tags">${tags}</div>` : ''}
         <h1>${data.title}</h1>
         <p class="post-meta">By ${data.author || 'Red Remodels'} &nbsp;&middot;&nbsp; ${formatDate(data.date)}</p>
+        ${data.updated ? `<p class="post-meta">Updated ${formatDate(data.updated)}${data.reviewed ? ` &nbsp;&middot;&nbsp; Cost estimates reviewed by Red Remodels` : ''}.</p>` : ''}
       </div>
     </header>
 
@@ -187,6 +193,7 @@ for (const post of files) {
       <article class="post-content" itemscope itemtype="https://schema.org/BlogPosting">
         <meta itemprop="headline" content="${data.title}" />
         <meta itemprop="datePublished" content="${formatDateISO(data.date)}" />
+        <meta itemprop="dateModified" content="${formatDateISO(modifiedDate)}" />
         ${html}
       </article>
       <div class="post-cta" role="complementary" aria-label="Call to action">
@@ -313,7 +320,7 @@ let sitemap = fs.existsSync(sitemapPath) ? fs.readFileSync(sitemapPath, 'utf8') 
 const blogUrls = [
   `  <url><loc>${SITE_URL}/blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>`,
   ...files.map(({ slug, data }) =>
-    `  <url><loc>${SITE_URL}/blog/${slug}</loc><lastmod>${new Date(data.date).toISOString().split('T')[0]}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>`
+    `  <url><loc>${SITE_URL}/blog/${slug}</loc><lastmod>${new Date(data.updated || data.date).toISOString().split('T')[0]}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>`
   )
 ].join('\n');
 
