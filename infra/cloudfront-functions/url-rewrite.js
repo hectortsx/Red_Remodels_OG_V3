@@ -5,6 +5,33 @@
 function handler(event) {
   var request = event.request;
   var uri = request.uri;
+  var host = request.headers.host && request.headers.host.value;
+
+  // Keep the apex domain on the canonical www host.
+  if (host && host.toLowerCase() === 'redremodels.com') {
+    var queryParams = [];
+    var querystring = request.querystring || {};
+    for (var key in querystring) {
+      if (Object.prototype.hasOwnProperty.call(querystring, key)) {
+        var parameter = querystring[key];
+        var values = parameter.multiValue || [parameter];
+        for (var i = 0; i < values.length; i++) {
+          queryParams.push(
+            encodeURIComponent(key) + '=' + encodeURIComponent(values[i].value)
+          );
+        }
+      }
+    }
+
+    var query = queryParams.length ? '?' + queryParams.join('&') : '';
+    return {
+      statusCode: 301,
+      statusDescription: 'Moved Permanently',
+      headers: {
+        location: { value: 'https://www.redremodels.com' + uri + query },
+      },
+    };
+  }
 
   // --- Legacy URL redirects ---
   if (uri === '/our-services' || uri === '/our-services/') {
@@ -20,8 +47,8 @@ function handler(event) {
   // --- Clean URL rewrites ---
   // Map contact paths to their current S3 page locations
   var cleanUrls = {
-    '/contact-us': '/pages/desktop/contact-us/index.html',
-    '/contact-us/': '/pages/desktop/contact-us/index.html',
+    '/contact-us': '/contact-us/index.html',
+    '/contact-us/': '/contact-us/index.html',
   };
 
   if (cleanUrls[uri]) {

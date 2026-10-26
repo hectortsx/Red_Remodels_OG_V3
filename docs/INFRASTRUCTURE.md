@@ -63,8 +63,9 @@ aws cloudfront create-invalidation \
 | Source | `infra/cloudfront-functions/url-rewrite.js` |
 
 Handles:
-- `/our-services` → `/pages/desktop/our-services/index.html`
-- `/contact-us` → `/pages/desktop/contact-us/index.html`
+- `redremodels.com` → `www.redremodels.com` (preserves path and query string)
+- `/our-services` and `/our-services/` → `/#services`
+- `/contact-us` → `/contact-us/index.html`
 - Directory paths (no extension) → appends `/index.html`
 
 ---

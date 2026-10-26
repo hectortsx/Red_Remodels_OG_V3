@@ -8,8 +8,9 @@
 
 Deployed a CloudFront Function (`redremodels-url-rewrite`) on the `viewer-request` event that:
 
-- Rewrites `/our-services` and `/our-services/` → `/pages/desktop/our-services/index.html`
-- Rewrites `/contact-us` and `/contact-us/` → `/pages/desktop/contact-us/index.html`
+- Redirects `redremodels.com` to `www.redremodels.com`, preserving the path and query string
+- Redirects `/our-services` and `/our-services/` → `/#services`
+- Rewrites `/contact-us` and `/contact-us/` → `/contact-us/index.html`
 - Appends `/index.html` to any path with no file extension (directory-style URLs)
 
 Source: `infra/cloudfront-functions/url-rewrite.js`
