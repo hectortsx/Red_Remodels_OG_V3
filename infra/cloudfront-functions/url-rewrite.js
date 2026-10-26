@@ -16,9 +16,7 @@ function handler(event) {
         var parameter = querystring[key];
         var values = parameter.multiValue || [parameter];
         for (var i = 0; i < values.length; i++) {
-          queryParams.push(
-            encodeURIComponent(key) + '=' + encodeURIComponent(values[i].value)
-          );
+          queryParams.push(key + '=' + values[i].value);
         }
       }
     }
