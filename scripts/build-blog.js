@@ -44,7 +44,11 @@ const SITE_HEADER = headerMatch[0]
   .replace(/href="#services"/g, 'href="/#services"')
   .replace(/href="#about"/g,    'href="/#about"')
   .replace(/href="#contact"/g,  'href="/#contact"')
-  .replace(/href="#request"/g,  'href="/#request"');
+  .replace(/href="#request"/g,  'href="/#request"')
+  // The homepage marks Home as current; blog pages mark Tips & Ideas instead.
+  .replace(/ aria-current="page"/g, '');
+if (SITE_HEADER.split('<a href="/blog">').length !== 2) throw new Error('Expected one /blog link in the site header');
+const blogHeader = (current) => SITE_HEADER.replace('<a href="/blog">', `<a href="/blog" aria-current="${current}">`);
 
 // Extract the footer block from the homepage body
 const footerMatch = homeHtml.match(/<footer class="main-footer">[\s\S]*?<\/footer>/);
@@ -160,7 +164,7 @@ for (const post of files) {
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
-  ${SITE_HEADER}
+  ${blogHeader('true')}
   <nav class="glass-tabbar" aria-label="Quick actions">
     <div class="glass-tabbar__indicator"></div>
     <a class="glass-tabbar__item" href="/#services">
@@ -279,7 +283,7 @@ const indexPage = `<!DOCTYPE html>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
-  ${SITE_HEADER}
+  ${blogHeader('page')}
   <nav class="glass-tabbar" aria-label="Quick actions">
     <div class="glass-tabbar__indicator"></div>
     <a class="glass-tabbar__item" href="/#services">

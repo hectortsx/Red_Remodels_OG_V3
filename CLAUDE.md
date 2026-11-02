@@ -13,8 +13,11 @@ No build framework — plain HTML/CSS/JS. Blog posts are Markdown → compiled t
 
 ## Deploying
 ```bash
-# 1. Sync files to S3
-aws s3 sync public/ s3://www.redremodels.com --delete --profile red-remodels-deployer
+# 0. Check the release (needs Google Chrome; about a minute). Fix any ✗ first.
+npm run check:release
+
+# 1. Sync files to S3 (never upload macOS .DS_Store files)
+aws s3 sync public/ s3://www.redremodels.com --delete --exclude "*.DS_Store" --profile red-remodels-deployer
 
 # 2. Invalidate CloudFront cache (use specific paths, not /*)
 aws cloudfront create-invalidation \
@@ -25,6 +28,7 @@ aws cloudfront create-invalidation \
 - S3 bucket: `s3://www.redremodels.com`
 - CloudFront distribution ID: `EKTYEDHVURFWC`
 - AWS profile: `red-remodels-deployer`
+- After the invalidation completes, run `npm run check:live` to confirm the live site (accessibility, security rules, keyboard, cookies, private files).
 
 ## Blog system
 - Write posts as Markdown in `blog/posts/<slug>.md` with frontmatter (title, description, date, tags, image, imageAlt).
