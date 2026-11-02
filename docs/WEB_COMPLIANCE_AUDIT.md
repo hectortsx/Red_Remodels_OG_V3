@@ -11,13 +11,13 @@ _Last updated: November 2, 2026. Detailed evidence is in the work register below
 
 **Done and live**
 - Contact forms: Cloudflare Turnstile spam protection, server-side limits, safe error messages, phone/email fallback, alerting on verification failures.
-- Analytics: Google Analytics only runs after a visitor accepts cookies; visitors can reject or change their choice later. Fonts are served from the site itself.
+- Analytics: Google Analytics only runs after a visitor accepts cookies; visitors can reject or change their choice later. Fonts are served from the site itself. A clean-browser check (November 2, 2026) confirmed nothing is stored or sent to Google before a choice, and withdrawing deletes the Google cookies. See [COOKIE_INVENTORY.md](./COOKIE_INVENTORY.md).
 - Accessibility fixes: skip-to-content link, keyboard-friendly menus (Escape closes them), better text contrast, narrow-screen layout fixes, reduced-motion support, form field limits. The cookie banner no longer covers the phone menu. An automated WCAG 2.2 AA scan of all 15 pages (November 2, 2026) now finds zero problems; its findings (faint text, colour-only links, screen-reader structure on the blog/contact pages) were fixed and are live.
 - Security: security headers (HSTS, nosniff, frame, referrer, permissions), S3 public-access block, API rate limit, 90-day log retention, old Duda pages redirect to current pages.
 - Content Security Policy enforced (November 2, 2026): pages may only load code from the site itself, Cloudflare Turnstile, and Google Analytics/Tag Manager. Live checks on every page and all three forms passed with zero blocks.
 
 **In progress**
-- Nothing in progress.
+- Cookie hardening (November 2, 2026): Google Analytics cookies will be secure-only and expire after 180 days to match the consent period (they currently last 400 days). Tested; waiting for the owner to run the upload: `.local/waf-baselines/cookie-flags-a1eb03f6/deploy.sh .local/waf-baselines/cookie-flags-a1eb03f6`.
 
 **If the site breaks because of the security rules** (Content Security Policy) (forms, menus, analytics, or anything else stops working), undo it by running this from the project folder. It puts the rules back in test mode, where they only watch and never block:
 
@@ -29,12 +29,13 @@ The change reaches visitors within a few minutes. The `.local/` folder is privat
 
 **Left — can be done by engineering**
 - Accessibility: manual screen-reader testing (VoiceOver on Mac/iPhone, NVDA on Windows) on every page type. The automated scan, contrast measurements and keyboard checks are done.
-- Clean-browser cookie check before and after consent; review Google Analytics property settings.
+- Pre-release checklist (one command that runs the accessibility, security-rule, cookie and form checks before each update).
 - Pre-release checklist (accessibility, privacy links, forms, headers, exposed files).
 
 **Left — needs the owner, counsel, or an AWS admin**
 - Privacy Policy (counsel) and links next to every form and in the footer; finish the data inventory (mailbox owners, retention, deletion).
 - Accessibility Statement and confirming the WCAG 2.2 AA target.
+- Google Analytics account settings (data retention, data sharing, Signals/Ads links) and whether the browser privacy signal (Global Privacy Control) needs extra handling — see [COOKIE_INVENTORY.md](./COOKIE_INVENTORY.md).
 - Evidence for marketing claims ("20+ years", "on time and on budget", licensing), photo/media rights.
 - Narrow the contact-form Lambda's email permissions; review deployer permissions and backups (AWS admin).
 - Retention schedule, privacy-request process, incident-response process, and a decision on Terms of Use.
@@ -96,7 +97,8 @@ These controls are useful but do not establish legal compliance or complete secu
 
 - [x] Perform an initial live-browser observation of cookies, storage, third-party request hosts, and consent controls on the homepage and contact page.
 <!-- Browser observation (2026-10-27): Opened the live homepage and contact page in fresh browser pages and inspected after load. Both set first-party cookie names _ga and _ga_SP8EDYP71R; no values were recorded. No localStorage/sessionStorage keys or visible consent controls were found in this check. Observed third-party request hosts were fonts.googleapis.com, www.googletagmanager.com, www.google-analytics.com, www.google.com, and www.gstatic.com; the contact page also rendered a reCAPTCHA frame. This was a single browser/session inspection, not a clean-profile before/after-consent experiment, full request/cookie inventory, tag-purpose verification, or measurement of retention. There is no on-site consent control to test. Keep open pending broader browser checks and account-side vendor configuration review. -->
-- [ ] Complete a clean-profile before/after-consent cookie and request inventory, including tag purposes and retention.
+- [x] Complete a clean-profile before/after-consent cookie and request inventory, including tag purposes and retention.
+<!-- Clean-profile inventory (2026-11-02): Seven scenarios in new, empty browser contexts on the live site (no choice; no choice + form focus; reject + Turnstile-executed submission; reject + browse; accept + browse; withdraw; Global Privacy Control on). Before a choice: zero cookies, zero storage keys, zero third-party requests across home/service/blog. Form focus loads only challenges.cloudflare.com; a Turnstile-executed submission sets no cookies and one Cloudflare-partitioned localStorage key (cf.turnstile.u). Reject stores only the preference record. Accept sets _ga and _ga_SP8EDYP71R on .redremodels.com (measured 400 days, not Secure, SameSite=Lax) and contacts googletagmanager.com, google-analytics.com and google.com/g/collect. Withdrawal deletes both cookies, reloads, and no further Google requests or tag load occur. GPC-on visitors see identical opt-in behavior; the script does not read the signal. Names/attributes only; no values kept; GA collection and /api/contact were blocked in the test browser. Remediation prepared: gtag config now sets cookie_flags 'SameSite=Lax;Secure' and cookie_expires = 180 days (verified in a browser on the release candidate: Secure, 180 days, deleted on withdrawal; privacy test updated, 12/12 pass). Full inventory: COOKIE_INVENTORY.md. -->
 - [x] Document established GA4 cookie use and recheck live third-party requests before/after form focus.
 <!-- Cookie review (2026-10-28): See COOKIE_INVENTORY.md. Prior browser evidence observed _ga and _ga_SP8EDYP71R names; the fresh live network check confirms GA4 page_view before form interaction and Cloudflare SDK loading on empty-field focus. The current DOM tool does not expose cookies/localStorage/sessionStorage; Chrome internal settings were blocked by browser policy and no workaround was attempted. No current cookie attributes/values or clean-profile results are claimed. No form submission or settings change occurred. Full clean-profile inventory remains open. -->
 - [ ] Get counsel to determine which visitors require prior opt-in consent, opt-out controls, or other notices. EU/UK cookie rules and U.S. state privacy laws are conditional; do not infer universal consent requirements from the presence of GA4 alone.
