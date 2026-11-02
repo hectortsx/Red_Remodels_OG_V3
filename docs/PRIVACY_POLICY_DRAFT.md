@@ -111,7 +111,9 @@ Questions or requests: **hello@redremodels.com** or **(720) 519-2606**.
 
 ## After approval (engineering)
 
-- Build `public/privacy-policy/index.html` from the approved text, with the site's standard title, description, canonical link and share tags.
-- Add a "Privacy Policy" link to every footer and a short "See our Privacy Policy" note next to each form's submit button.
-- Add the Privacy Policy link check to `npm run check:release`.
-- Add the page to `public/sitemap.xml`.
+The page, links and checks are already built on branch `feature/privacy-policy-page` (`public/privacy-policy/index.html`). Remaining steps:
+
+- Replace every `[COUNSEL: …]` note in `public/privacy-policy/index.html` with the approved wording (the release check fails until none remain).
+- Apply any wording changes to this file too, so the two stay the same.
+- Run `npm run check:release`, merge, and upload with the usual deploy steps. Invalidate `/privacy-policy`, `/sitemap.xml`, `/pages/desktop/home/style.css`, `/assets/css/contact-verification.css` and every page whose footer changed.
+- After upload, click "I acknowledge" in Google Analytics (Admin → Data collection → User Data Collection Acknowledgement).

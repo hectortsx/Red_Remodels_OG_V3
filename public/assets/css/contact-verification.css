@@ -8,7 +8,8 @@
 .contact-verification[hidden] {
   display: none;
 }
-body [data-secure-form] .form-fallback {
+body [data-secure-form] .form-fallback,
+body [data-secure-form] .form-privacy {
   grid-column: 1 / -1;
   margin-block: 0.75rem 0;
   font-size: 0.875rem;
@@ -16,10 +17,13 @@ body [data-secure-form] .form-fallback {
   color: #334155;
 }
 body .more-info [data-secure-form] .form-fallback,
-body .service-request [data-secure-form] .form-fallback {
+body .service-request [data-secure-form] .form-fallback,
+body .more-info [data-secure-form] .form-privacy,
+body .service-request [data-secure-form] .form-privacy {
   color: #fff;
 }
-.form-fallback a {
+.form-fallback a,
+.form-privacy a {
   color: inherit;
   text-decoration: underline;
   text-underline-offset: 0.15em;

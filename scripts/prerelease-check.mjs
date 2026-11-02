@@ -49,7 +49,7 @@ const pageFiles = () => {
   const dirs = (rel) => fs.readdirSync(path.join(PUBLIC, rel), { withFileTypes: true })
     .filter((d) => d.isDirectory() && fs.existsSync(path.join(PUBLIC, rel, d.name, 'index.html')))
     .map((d) => `${rel}/${d.name}/index.html`);
-  return ['index.html', 'contact-us/index.html', ...dirs('services'), 'blog/index.html', ...dirs('blog')];
+  return ['index.html', 'contact-us/index.html', ...dirs('services'), 'blog/index.html', ...dirs('blog'), 'privacy-policy/index.html'];
 };
 const urlPath = (file) => `/${file.replace(/index\.html$/, '')}`;
 const PAGES = pageFiles();
@@ -101,10 +101,11 @@ function fileChecks() {
   };
   check('Titles and descriptions are unique', [...dupes((s) => attr(s, /<title>([^<]+)<\/title>/), 'title'), ...dupes(description, 'description')]);
 
-  check('Every page marks its own menu link as current and has a skip link, one main area and one H1', each((s) => {
+  check('Every page marks its own menu link as current and has a skip link, one main area and one H1', each((s, f) => {
     const p = [];
     const nav = (s.match(/<nav class="site-nav"[\s\S]*?<\/nav>/) || [''])[0];
-    if (count(nav, /aria-current="(page|true)"/g) !== 1) p.push(`${count(nav, /aria-current="(page|true)"/g)} current-page marks in the menu`);
+    const inMenu = f !== 'privacy-policy/index.html'; // linked from the footer, not the menu
+    if (count(nav, /aria-current="(page|true)"/g) !== (inMenu ? 1 : 0)) p.push(`${count(nav, /aria-current="(page|true)"/g)} current-page marks in the menu`);
     if (!/<a class="skip-link" href="#main-content">/.test(s)) p.push('missing skip link');
     if (count(s, /<main\b[^>]*id="main-content"/g) !== 1) p.push('needs exactly one <main id="main-content">');
     if (count(s, /<h1\b/g) !== 1) p.push(`${count(s, /<h1\b/g)} H1 headings`);
@@ -153,6 +154,18 @@ function fileChecks() {
     }
     return p;
   }));
+
+  check('Every footer and contact form links to the Privacy Policy', each((s) => {
+    const p = [];
+    const footer = (s.match(/<footer class="main-footer">[\s\S]*?<\/footer>/) || [''])[0];
+    if (!/<a href="\/privacy-policy"/.test(footer)) p.push('footer has no Privacy Policy link');
+    for (const form of s.match(/<form\b[\s\S]*?<\/form>/g) || []) {
+      if (/name="name"/.test(form) && !/class="form-privacy"[^>]*>[\s\S]*?<a href="\/privacy-policy">/.test(form)) p.push('contact form has no Privacy Policy link');
+    }
+    return p;
+  }));
+
+  check('Privacy Policy has no unapproved notes for counsel', each((s) => (/\[COUNSEL/.test(s) ? ['still contains [COUNSEL: …] placeholders — publish only the counsel-approved text'] : [])));
 
   const exposed = [];
   const walk = (dir) => {

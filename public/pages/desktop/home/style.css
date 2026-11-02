@@ -717,6 +717,13 @@ a.service-card {
   color: rgba(255, 255, 255, 0.76);
 }
 
+.footer-bottom a {
+  white-space: nowrap;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
 .footer-details ul {
   display: grid;
   gap: 0.6rem;
