@@ -102,7 +102,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-size: .78rem; color: #595959; margin-bottom: 16px;
 }
-.post-breadcrumb a { color: var(--red); text-decoration: none; }
+.post-breadcrumb a { color: var(--red); text-decoration: underline; text-underline-offset: .15em; }
 .post-breadcrumb a:hover { text-decoration: underline; }
 .post-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
 .post-header h1 {
@@ -136,7 +136,7 @@ body {
   margin: 0 0 1.2rem 1.4rem;
 }
 .post-content li { margin-bottom: .4rem; }
-.post-content a { color: var(--red); }
+.post-content a { color: var(--red); text-decoration: underline; text-underline-offset: .15em; }
 .post-content a:hover { color: var(--red-dk); }
 .post-content strong { font-weight: 700; color: #1a1a1a; }
 .post-content table {
@@ -188,7 +188,7 @@ body {
 }
 .post-cta h3 {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.35rem; font-weight: 700; margin-bottom: 10px;
+  font-size: 1.35rem; font-weight: 700; margin-bottom: 10px; color: #fff;
 }
 .post-cta p { color: #fff; margin-bottom: 20px; opacity: .92; }
 .post-cta a {
