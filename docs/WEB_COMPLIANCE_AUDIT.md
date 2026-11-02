@@ -19,6 +19,14 @@ _Last updated: November 2, 2026. Detailed evidence is in the work register below
 **In progress**
 - Switch the Content Security Policy from report-only to enforced (release script and one-command rollback prepared; awaiting owner run).
 
+**If the site breaks after the security rules are switched on** (forms, menus, analytics, or anything else stops working), undo it by running this from the project folder. It puts the rules back in test mode, where they only watch and never block:
+
+```
+.local/waf-baselines/csp-enforce-6585b607/rollback.sh
+```
+
+The change reaches visitors within a few minutes. The `.local/` folder is private and not in git; if it is ever missing, re-apply the report-only header saved in git history (commit `22b23b3`, file `infra/cloudfront-response-headers-policy.json`) to CloudFront response headers policy `7517fc76-39c0-4019-a1c7-7fe40fc2f038`.
+
 **Left — can be done by engineering**
 - Full accessibility audit: automated scan plus manual screen-reader and keyboard testing on every page type.
 - Clean-browser cookie check before and after consent; review Google Analytics property settings.
