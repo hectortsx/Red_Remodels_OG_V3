@@ -26,7 +26,7 @@ When you use a contact form on this site, we collect:
 - your message; and
 - optionally, the type of project you are interested in.
 
-We use this information only to respond to your inquiry and to discuss and provide the remodeling services you ask about. [OWNER: confirm you do not add form contacts to a mailing list, CRM, or marketing campaigns. If you do, say so here.]
+We use this information only to respond to your inquiry and to discuss and provide the remodeling services you ask about. We do not add it to mailing lists or marketing campaigns.
 
 The form also records which form you used and when you sent it, so we can route your message.
 
@@ -44,23 +44,23 @@ The form also records which form you used and when you sent it, so we can route 
 
 ### How we share information
 
-We do not sell your personal information, and we do not share it for targeted advertising. [OWNER: confirm Google Analytics is not linked to Google Ads and Google Signals is off; if not, counsel must revise this sentence.]
+We do not sell your personal information, and we do not share it for targeted advertising. [OWNER: before publishing, turn off "Ads personalization" in Google Analytics (Admin → Data collection → Advanced settings to allow for ads personalization) and confirm Product links shows no Google Ads link. Google Signals is already off. If either cannot be done, counsel must revise this sentence.]
 
 We share information only with service providers who help us run the website and respond to you:
 
 - **Amazon Web Services** — website hosting, form processing and email delivery.
 - **Cloudflare** — spam protection on our forms.
 - **Google** — website analytics, only if you accept.
-- **Our website service provider** — receives a copy of form messages to keep the contact form working. [OWNER: confirm this is the purpose of the `hector@savio.design` copy and that it should continue.]
-- **Our email provider** — stores the messages we receive. [OWNER: name the provider for `hello@redremodels.com`, e.g. Google Workspace or Microsoft 365.]
+- **Our website designer** — receives a copy of form messages only to check that the contact form is working.
+- **Google (Google Workspace)** — our business email provider, which stores the messages we receive.
 
 We may also disclose information if required by law or to protect our rights, or as part of a sale or reorganization of the business. [COUNSEL: confirm this standard wording.]
 
 ### How long we keep information
 
-- **Contact form messages:** [OWNER and COUNSEL: set a period, e.g. "for as long as needed to respond and, if you become a customer, for the duration of your project plus N years for warranty and tax records". Do not publish a period until the mailboxes can actually follow it.]
+- **Contact form messages:** [OWNER and COUNSEL: no retention structure exists yet. Suggested starting point for counsel to confirm: inquiries from people who do not hire us are deleted after 2 years; customer correspondence is kept for the project plus the warranty period plus the tax-record period counsel or the accountant advises. Do not publish until the business can actually follow it in Google Workspace and in the designer's copy.]
 - **Server and error logs:** up to 90 days.
-- **Analytics data:** [OWNER: the data-retention setting in the Google Analytics account — 2 or 14 months.]
+- **Analytics data:** [OWNER: read Admin → Data collection and modification → Data retention in Google Analytics — 2 or 14 months — and put that number here.]
 - **Your cookie choice:** 180 days in your browser.
 
 ### Your choices and rights
@@ -89,15 +89,20 @@ Questions or requests: **hello@redremodels.com** or **(720) 519-2606**.
 
 ---
 
-## Owner questions (short list)
+## Owner answers (November 2, 2026)
 
-1. Who can read `hello@redremodels.com`, and which company hosts it?
-2. Should `hector@savio.design` keep getting a copy of every form message?
-3. Do form contacts ever go into a mailing list, CRM or ad audience?
-4. How long do you want to keep inquiry emails from people who do not become customers? And for customers?
-5. In Google Analytics (Admin → Data collection and retention): what is the retention setting, and are Google Signals and any Google Ads links on or off?
-6. Does the phone number need to be required on the forms, and is the project-type question useful?
-7. Who will answer privacy requests sent to `hello@redremodels.com`?
+1. **Email host:** Google Workspace (`hello@redremodels.com`).
+2. **`hector@savio.design` copy:** the website designer; receives form messages only to verify the form works. Kept for now. Consider stopping the copy once monitoring alerts are trusted, and have the designer delete old copies on the same schedule as the business mailbox.
+3. **Marketing use:** form contacts are not added to a CRM, mailing list or ad audience.
+4. **Retention:** no structure yet. Suggested starting point is in the policy text above for counsel to confirm.
+5. **Google Analytics** (screenshots of Admin → Data collection): Google Signals off; user-provided data collection off; granular location and device data on; ads personalization allowed in 307 of 307 regions; the User Data Collection Acknowledgement has not been clicked. Still to check: Data retention period and Product links (Google Ads).
+6. **Phone number:** stays required. Project type: unchanged (optional).
+7. **Privacy requests:** Juan Rojas, owner of Red Remodels, answers requests sent to `hello@redremodels.com`.
+
+**Still open for the owner**
+- Turn off ads personalization in Google Analytics (recommended — the site does not advertise with Analytics data, and this lets the policy say plainly that data is not used for ads).
+- Read the Data retention period and check Product links.
+- Click "I acknowledge" on the User Data Collection Acknowledgement only after the Privacy Policy is published, since it confirms the site has the required disclosures.
 
 ## Counsel questions (short list)
 
