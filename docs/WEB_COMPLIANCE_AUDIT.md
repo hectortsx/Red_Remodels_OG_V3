@@ -13,6 +13,7 @@ _Last updated: November 2, 2026. Detailed evidence is in the work register below
 - Contact forms: Cloudflare Turnstile spam protection, server-side limits, safe error messages, phone/email fallback, alerting on verification failures.
 - Analytics: Google Analytics only runs after a visitor accepts cookies; visitors can reject or change their choice later. Fonts are served from the site itself. A clean-browser check (November 2, 2026) confirmed nothing is stored or sent to Google before a choice, and withdrawing deletes the Google cookies. The Google cookies are now secure-only and expire after 180 days, matching the consent period. See [COOKIE_INVENTORY.md](./COOKIE_INVENTORY.md).
 - Accessibility fixes: skip-to-content link, keyboard-friendly menus (Escape closes them), better text contrast, narrow-screen layout fixes, reduced-motion support, form field limits. The cookie banner no longer covers the phone menu. A screen-reader review of all 15 pages (November 2, 2026) shortened the homepage service-card link names and made blog tags read as a list; both fixes are live. An automated WCAG 2.2 AA scan of all 15 pages (November 2, 2026) now finds zero problems; its findings (faint text, colour-only links, screen-reader structure on the blog/contact pages) were fixed and are live.
+- Contact-form logs (November 2, 2026): error logs record only the kind of error, never visitor names, emails or messages. Before this, failed emails (most visitor confirmations, while Amazon's email service is in sandbox mode) wrote the visitor's name and email to a 90-day log; those old entries expire on their own.
 - Security: security headers (HSTS, nosniff, frame, referrer, permissions), S3 public-access block, API rate limit, 90-day log retention, old Duda pages redirect to current pages.
 - Content Security Policy enforced (November 2, 2026): pages may only load code from the site itself, Cloudflare Turnstile, and Google Analytics/Tag Manager. Live checks on every page and all three forms passed with zero blocks.
 
@@ -27,9 +28,6 @@ _Last updated: November 2, 2026. Detailed evidence is in the work register below
 ```
 
 The change reaches visitors within a few minutes. The `.local/` folder is private and not in git; if it is ever missing, re-apply the report-only header saved in git history (commit `22b23b3`, file `infra/cloudfront-response-headers-policy.json`) to CloudFront response headers policy `7517fc76-39c0-4019-a1c7-7fe40fc2f038`.
-
-**Waiting for the owner to upload**
-- Contact-form log cleanup (November 2, 2026). When an email failed to send — which happens to most visitor confirmation emails while Amazon's email service is in its restricted sandbox mode — the error log recorded the visitor's name and email address. It now records only the kind of error. Three new tests cover it. Upload: `.local/waf-baselines/log-trim-d6d548c1/deploy.sh` (undo: `rollback.sh` in the same folder). Old log entries expire on their own within 90 days.
 
 **Left — can be done by engineering**
 - Accessibility: hands-on VoiceOver test on a Mac and an iPhone using [SCREEN_READER_TEST_PLAN.md](./SCREEN_READER_TEST_PLAN.md) (about 75 minutes, no technical background needed). The automated scan, contrast measurements, keyboard checks and screen-reader dry run are done.
