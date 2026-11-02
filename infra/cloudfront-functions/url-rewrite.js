@@ -2,6 +2,20 @@
 // Handles clean URLs, directory index rewrites, and legacy path redirects
 // Runtime: cloudfront-js-2.0
 
+function buildQueryString(querystring) {
+  var queryParams = [];
+  for (var key in querystring) {
+    if (Object.prototype.hasOwnProperty.call(querystring, key)) {
+      var parameter = querystring[key];
+      var values = parameter.multiValue || [parameter];
+      for (var i = 0; i < values.length; i++) {
+        queryParams.push(key + '=' + values[i].value);
+      }
+    }
+  }
+  return queryParams.length ? '?' + queryParams.join('&') : '';
+}
+
 function handler(event) {
   var request = event.request;
   var uri = request.uri;
@@ -9,19 +23,7 @@ function handler(event) {
 
   // Keep the apex domain on the canonical www host.
   if (host && host.toLowerCase() === 'redremodels.com') {
-    var queryParams = [];
-    var querystring = request.querystring || {};
-    for (var key in querystring) {
-      if (Object.prototype.hasOwnProperty.call(querystring, key)) {
-        var parameter = querystring[key];
-        var values = parameter.multiValue || [parameter];
-        for (var i = 0; i < values.length; i++) {
-          queryParams.push(key + '=' + values[i].value);
-        }
-      }
-    }
-
-    var query = queryParams.length ? '?' + queryParams.join('&') : '';
+    var query = buildQueryString(request.querystring || {});
     return {
       statusCode: 301,
       statusDescription: 'Moved Permanently',
@@ -31,13 +33,42 @@ function handler(event) {
     };
   }
 
-  // --- Legacy URL redirects ---
-  if (uri === '/our-services' || uri === '/our-services/') {
+  // Redirect legacy Duda pages and their directory-style variants.
+  var legacyRedirects = {
+    '/our-services': 'https://www.redremodels.com/#services',
+    '/pages/desktop/home': 'https://www.redremodels.com/',
+    '/pages/mobile/home': 'https://www.redremodels.com/',
+    '/pages/tablet/home': 'https://www.redremodels.com/',
+    '/pages/desktop/contact-us': 'https://www.redremodels.com/contact-us',
+    '/pages/mobile/contact-us': 'https://www.redremodels.com/contact-us',
+    '/pages/tablet/contact-us': 'https://www.redremodels.com/contact-us',
+    '/pages/desktop/our-services': 'https://www.redremodels.com/#services',
+    '/pages/mobile/our-services': 'https://www.redremodels.com/#services',
+    '/pages/tablet/our-services': 'https://www.redremodels.com/#services',
+  };
+
+  var redirectDestination;
+  for (var legacyPath in legacyRedirects) {
+    if (Object.prototype.hasOwnProperty.call(legacyRedirects, legacyPath)
+      && (uri === legacyPath || uri === legacyPath + '/' || uri === legacyPath + '/index.html')) {
+      redirectDestination = legacyRedirects[legacyPath];
+      break;
+    }
+  }
+
+  if (redirectDestination) {
+    var legacyQuery = buildQueryString(request.querystring || {});
+    var hashIndex = redirectDestination.indexOf('#');
+    if (legacyQuery) {
+      redirectDestination = hashIndex === -1
+        ? redirectDestination + legacyQuery
+        : redirectDestination.substring(0, hashIndex) + legacyQuery + redirectDestination.substring(hashIndex);
+    }
     return {
       statusCode: 301,
       statusDescription: 'Moved Permanently',
       headers: {
-        location: { value: 'https://www.redremodels.com/#services' },
+        location: { value: redirectDestination },
       },
     };
   }

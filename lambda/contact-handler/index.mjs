@@ -1,12 +1,21 @@
+import { timingSafeEqual } from 'node:crypto';
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
+import { verifyTurnstile } from './turnstile.mjs';
 
 const ses = new SESClient({ region: process.env.AWS_REGION ?? 'us-east-1' });
 
-const RECAPTCHA_MIN_SCORE = Number(process.env.RECAPTCHA_MIN_SCORE ?? 0.5);
 const MAIL_CONFIRMATION_ENABLED = process.env.MAIL_CONFIRMATION_ENABLED !== 'false';
 const CONTACT_SUCCESS_MESSAGE = process.env.CONTACT_SUCCESS_MESSAGE ?? 'Thanks! We will be in touch shortly.';
 const CONTACT_ERROR_MESSAGE = process.env.CONTACT_ERROR_MESSAGE ?? 'We were unable to process your request.';
 const CORS_ORIGIN = process.env.CORS_ORIGIN ?? 'https://www.redremodels.com';
+const CLOUDFRONT_ORIGIN_HEADER = 'x-red-remodels-origin-verify';
+const MAX_REQUEST_BYTES = 16 * 1024;
+const MAX_NAME_LENGTH = 120;
+const MAX_EMAIL_LENGTH = 254;
+const MAX_PHONE_LENGTH = 40;
+const MAX_MESSAGE_LENGTH = 2000;
+const MAX_SERVICE_TYPE_LENGTH = 120;
+const exceedsLimit = (value, limit) => typeof value === 'string' && value.trim().length > limit;
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': CORS_ORIGIN,
@@ -19,6 +28,22 @@ const json = (statusCode, body) => ({
   headers: { 'Content-Type': 'application/json', ...corsHeaders },
   body: JSON.stringify(body),
 });
+
+const isCloudFrontOriginSecretConfigured = () =>
+  typeof process.env.CLOUDFRONT_ORIGIN_SECRET === 'string'
+  && Buffer.byteLength(process.env.CLOUDFRONT_ORIGIN_SECRET, 'utf8') >= 32;
+
+const hasTrustedCloudFrontOrigin = (event) => {
+  const expected = process.env.CLOUDFRONT_ORIGIN_SECRET;
+  const supplied = Object.entries(event.headers ?? {})
+    .find(([name]) => name.toLowerCase() === CLOUDFRONT_ORIGIN_HEADER)?.[1];
+  if (!isCloudFrontOriginSecretConfigured() || typeof supplied !== 'string') return false;
+
+  const expectedBytes = Buffer.from(expected, 'utf8');
+  const suppliedBytes = Buffer.from(supplied, 'utf8');
+  return suppliedBytes.length === expectedBytes.length
+    && timingSafeEqual(suppliedBytes, expectedBytes);
+};
 
 const sanitize = (value) =>
   typeof value === 'string' ? value.trim().replace(/\s+/g, ' ').slice(0, 2000) : '';
@@ -76,26 +101,6 @@ const renderTemplate = (template, context) =>
     ? template.replace(/\{\{\s*(\w+)\s*\}\}/g, (_, key) =>
         typeof context[key] === 'string' ? context[key] : '')
     : '';
-
-const verifyRecaptcha = async (token) => {
-  if (!process.env.RECAPTCHA_SECRET) return { success: true };
-  if (!token) return { success: false, error: 'Missing reCAPTCHA token.' };
-  try {
-    const res = await fetch('https://www.google.com/recaptcha/api/siteverify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({ secret: process.env.RECAPTCHA_SECRET, response: token }),
-    });
-    const result = await res.json();
-    if (!result.success) return { success: false, error: 'reCAPTCHA verification failed.' };
-    if (typeof result.score === 'number' && result.score < RECAPTCHA_MIN_SCORE)
-      return { success: false, error: 'Suspicious activity detected.' };
-    return { success: true };
-  } catch (err) {
-    console.error('[contact] reCAPTCHA error:', err);
-    return { success: false, error: 'Unable to verify reCAPTCHA token.' };
-  }
-};
 
 const sendEmail = async ({ from, to, cc, replyTo, subject, text, html }) => {
   const cmd = new SendEmailCommand({
@@ -168,14 +173,29 @@ export const handler = async (event) => {
     return { statusCode: 204, headers: corsHeaders, body: '' };
   }
 
+  if (!isCloudFrontOriginSecretConfigured()) {
+    console.error('[contact] CLOUDFRONT_ORIGIN_SECRET is missing or too short.');
+    return json(503, { ok: false, error: 'Contact service is not configured.' });
+  }
+  if (!hasTrustedCloudFrontOrigin(event)) {
+    return json(403, { ok: false, error: 'Request could not be verified.' });
+  }
+
   let body;
   try {
+    if (typeof event.body === 'string' && Buffer.byteLength(event.body, 'utf8') > MAX_REQUEST_BYTES) {
+      return json(413, { ok: false, error: 'Request is too large.' });
+    }
     body = typeof event.body === 'string' ? JSON.parse(event.body) : (event.body ?? {});
   } catch {
     return json(400, { ok: false, error: 'Invalid request body.' });
   }
 
-  const { name, email, phone, message, recaptchaToken, _honey, company, source, formId, serviceType } = body;
+  if (!body || typeof body !== 'object' || Array.isArray(body)) {
+    return json(400, { ok: false, error: 'Invalid request body.' });
+  }
+
+  const { name, email, phone, message, turnstileToken, _honey, company, source, formId, serviceType } = body;
 
   if (_honey || company) return json(400, { ok: false, error: 'Spam detected.' });
 
@@ -185,15 +205,28 @@ export const handler = async (event) => {
   if (isSpam(cleanEmail, cleanName)) return json(400, { ok: false, error: 'We were unable to process your request.' });
   const cleanPhone = sanitize(phone);
   const cleanMessage = sanitize(message);
+  const cleanServiceType = sanitize(serviceType);
 
   if (!cleanName || !cleanEmail || !cleanPhone || !cleanMessage)
     return json(400, { ok: false, error: 'Please fill out your name, email, phone number, and a short message.' });
 
+  if (exceedsLimit(name, MAX_NAME_LENGTH) || exceedsLimit(email, MAX_EMAIL_LENGTH)
+    || exceedsLimit(phone, MAX_PHONE_LENGTH) || exceedsLimit(message, MAX_MESSAGE_LENGTH)
+    || exceedsLimit(serviceType, MAX_SERVICE_TYPE_LENGTH)
+    || cleanName.length > MAX_NAME_LENGTH || cleanEmail.length > MAX_EMAIL_LENGTH
+    || cleanPhone.length > MAX_PHONE_LENGTH || cleanMessage.length > MAX_MESSAGE_LENGTH
+    || cleanServiceType.length > MAX_SERVICE_TYPE_LENGTH)
+    return json(400, { ok: false, error: 'One or more fields exceed the allowed length.' });
+
   if (!isValidEmail(cleanEmail))
     return json(400, { ok: false, error: 'Please provide a valid email address.' });
 
-  const captcha = await verifyRecaptcha(recaptchaToken);
-  if (!captcha.success) return json(400, { ok: false, error: captcha.error });
+  const phoneDigits = cleanPhone.replace(/\D/g, '');
+  if (phoneDigits.length < 7 || phoneDigits.length > 15)
+    return json(400, { ok: false, error: 'Please provide a valid phone number.' });
+
+  const captcha = await verifyTurnstile(turnstileToken);
+  if (!captcha.success) return json(captcha.statusCode, { ok: false, error: captcha.error });
 
   try {
     const recipients = (process.env.MAIL_TO ?? '').split(',').map((a) => a.trim()).filter(Boolean);
@@ -202,7 +235,7 @@ export const handler = async (event) => {
 
     const { subject, text, html } = buildNotificationEmail({
       name: cleanName, email: cleanEmail, phone: cleanPhone, message: cleanMessage,
-      source, formId: sanitize(formId), serviceType: sanitize(serviceType),
+      source, formId: sanitize(formId), serviceType: cleanServiceType,
     });
 
     await sendEmail({

@@ -130,6 +130,11 @@
     center / cover no-repeat;
 }
 
+.svc-hero .section-tag,
+.svc-cta .section-tag {
+  color: var(--color-white);
+}
+
 .svc-hero-inner {
   max-width: 740px;
 }
@@ -482,6 +487,16 @@
 @media (max-width: 640px) {
   .svc-hero { padding: 72px 24px 60px; }
   .svc-hero h1 { font-size: 1.8rem; }
+
+  .cost-list li {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .cost-list li span {
+    white-space: normal;
+  }
 
   .svc-highlights-inner {
     grid-template-columns: 1fr 1fr;

@@ -1,0 +1,14 @@
+{
+  "logGroupName": "/aws/lambda/red-remodels-contact-handler",
+  "filterName": "redremodels-turnstile-rejections",
+  "filterPattern": "\"Turnstile verification rejected.\" -\"invalid-input-secret\" -\"missing-input-secret\" -\"internal-error\"",
+  "metricTransformations": [
+    {
+      "metricName": "TurnstileRejected",
+      "metricNamespace": "RedRemodels/Contact",
+      "metricValue": "1",
+      "defaultValue": 0,
+      "unit": "Count"
+    }
+  ]
+}

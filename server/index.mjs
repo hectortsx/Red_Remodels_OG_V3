@@ -4,6 +4,7 @@ import rateLimit from 'express-rate-limit';
 import cors from 'cors';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
+import { verifyTurnstile } from '../lambda/contact-handler/turnstile.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -15,7 +16,6 @@ const CONTACT_ERROR_MESSAGE = process.env.CONTACT_ERROR_MESSAGE ?? 'We were unab
 const PORT = Number(process.env.PORT ?? process.env.SERVER_PORT ?? 4173);
 const HOST = process.env.HOST ?? '0.0.0.0';
 const RATE_LIMIT_MAX = Number(process.env.RATE_LIMIT_MAX ?? 10);
-const RECAPTCHA_MIN_SCORE = Number(process.env.RECAPTCHA_MIN_SCORE ?? 0.5);
 const MAIL_CONFIRMATION_ENABLED = process.env.MAIL_CONFIRMATION_ENABLED !== 'false';
 
 const REQUIRED_MAIL_ENV = ['SMTP_HOST', 'SMTP_PORT', 'SMTP_USER', 'SMTP_PASS', 'MAIL_TO'];
@@ -47,14 +47,13 @@ app.use(
         defaultSrc: ["'self'"],
         scriptSrc: [
           "'self'",
-          'https://www.google.com/recaptcha/',
-          'https://www.gstatic.com/recaptcha/'
+          'https://challenges.cloudflare.com'
         ],
         styleSrc: ["'self'", 'https://fonts.googleapis.com', "'unsafe-inline'"],
         fontSrc: ["'self'", 'https://fonts.gstatic.com'],
-        imgSrc: ["'self'", 'data:', 'https://www.google.com', 'https://www.gstatic.com'],
-        connectSrc: ["'self'", 'https://www.google.com/recaptcha/'],
-        frameSrc: ["'self'", 'https://www.google.com/recaptcha/']
+        imgSrc: ["'self'", 'data:'],
+        connectSrc: ["'self'"],
+        frameSrc: ["'self'", 'https://challenges.cloudflare.com']
       }
     }
   })
@@ -156,43 +155,6 @@ const formatAddress = (name, email) => {
   return trimmedName ? `${trimmedName} <${trimmedEmail}>` : trimmedEmail;
 };
 
-const verifyRecaptcha = async (token) => {
-  if (!process.env.RECAPTCHA_SECRET) {
-    return { success: true, skipped: true };
-  }
-
-  if (!token) {
-    return { success: false, error: 'Missing reCAPTCHA token.' };
-  }
-
-  try {
-    const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: new URLSearchParams({
-        secret: process.env.RECAPTCHA_SECRET,
-        response: token
-      })
-    });
-
-    const result = await response.json();
-    if (!result.success) {
-      return { success: false, error: 'reCAPTCHA verification failed.' };
-    }
-
-    if (typeof result.score === 'number' && result.score < RECAPTCHA_MIN_SCORE) {
-      return { success: false, error: 'Suspicious activity detected.' };
-    }
-
-    return { success: true };
-  } catch (error) {
-    console.error('[contact-api] Failed to verify reCAPTCHA:', error);
-    return { success: false, error: 'Unable to verify reCAPTCHA token.' };
-  }
-};
-
 const buildEmailPayload = ({ name, email, phone, message, source, formId, serviceType }) => {
   const leadSource = sanitize(source) || 'website';
   const submittedAt = new Date().toLocaleString();
@@ -287,7 +249,7 @@ app.post(CONTACT_ROUTE, async (req, res) => {
     email,
     phone,
     message,
-    recaptchaToken,
+    turnstileToken,
     _honey,
     company,
     source,
@@ -319,9 +281,9 @@ app.post(CONTACT_ROUTE, async (req, res) => {
     return res.status(400).json({ ok: false, error: 'Please provide a valid email address.' });
   }
 
-  const recaptchaResult = await verifyRecaptcha(recaptchaToken);
-  if (!recaptchaResult.success) {
-    return res.status(400).json({ ok: false, error: recaptchaResult.error });
+  const verification = await verifyTurnstile(turnstileToken);
+  if (!verification.success) {
+    return res.status(verification.statusCode).json({ ok: false, error: verification.error });
   }
 
   if (!mailTransporter) {

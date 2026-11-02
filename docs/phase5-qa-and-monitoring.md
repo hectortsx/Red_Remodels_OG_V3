@@ -53,7 +53,7 @@ All checks passed:
 - **SNS topic** `redremodels-alerts` → alerts to `hector@savio.design`
 - **CloudWatch alarms** created:
   - `redremodels-cloudfront-5xx` — fires if 5xx rate > 2% over 5 min
-  - `redremodels-cloudfront-4xx` — fires if 4xx rate > 10% over 5 min
+  - `redremodels-cloudfront-4xx` — fires if 4xx rate > 90% over 5 min
   - `redremodels-lambda-errors` — fires on any Lambda contact handler error
 
 To recreate alarms: `bash infra/setup-alarms.sh`

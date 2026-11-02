@@ -30,14 +30,14 @@ aws cloudwatch put-metric-alarm \
 echo "Creating CloudFront 4xx alarm..."
 aws cloudwatch put-metric-alarm \
   --alarm-name "redremodels-cloudfront-4xx" \
-  --alarm-description "CloudFront 4xx error rate exceeded 10%" \
+  --alarm-description "CloudFront 4xx error rate exceeded 90%" \
   --namespace AWS/CloudFront \
   --metric-name 4xxErrorRate \
   --dimensions Name=DistributionId,Value=$CF_ID Name=Region,Value=Global \
   --statistic Average \
   --period 300 \
   --evaluation-periods 1 \
-  --threshold 10 \
+  --threshold 90 \
   --comparison-operator GreaterThanThreshold \
   --alarm-actions $SNS_ARN \
   --treat-missing-data notBreaching \

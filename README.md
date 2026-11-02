@@ -31,12 +31,14 @@ A local dev server is included for previewing the site and testing the contact f
 ### Setup
 
 ```bash
-cp .env.example .env   # fill in RECAPTCHA_SECRET and email settings
+cp .env.example .env   # configure TURNSTILE_SECRET_KEY, allowed hostnames, and test-only email settings
 npm install
 npm start              # http://localhost:4173
 ```
 
-The local server uses Nodemailer/SMTP for email. In production, Lambda uses AWS SES — behaviour is identical from the front-end's perspective.
+Configure the public widget sitekey in `public/assets/js/contact-form-config.js`. A blank sitekey or missing secret/hostname allowlist keeps submissions closed. Google reCAPTCHA is not a fallback. Use official Turnstile test keys and mocked/test-only email handling in isolated tests; do not use test keys in production. Run `npm run test:contact` for the network-free frontend/Lambda checks.
+
+The local server uses Nodemailer/SMTP for email, and a successful submission can send real email if SMTP credentials are configured. In production, Lambda uses AWS SES. See the [Turnstile migration runbook](docs/AWS_WAF_CAPTCHA_IMPLEMENTATION.md) for account setup, deployment, and owner-approved email testing.
 
 ---
 

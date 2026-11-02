@@ -1,0 +1,75 @@
+[
+  {
+    "name": "unrelated",
+    "message": "INFO request finished",
+    "matches": []
+  },
+  {
+    "name": "configuration",
+    "message": "ERROR [contact] Turnstile configuration is missing or invalid.",
+    "matches": [
+      "configuration"
+    ]
+  },
+  {
+    "name": "invalid-secret",
+    "message": "WARN [contact] Turnstile verification rejected. {\"codes\":[\"invalid-input-secret\"]}",
+    "matches": [
+      "configuration"
+    ]
+  },
+  {
+    "name": "missing-secret",
+    "message": "WARN [contact] Turnstile verification rejected. {\"codes\":[\"missing-input-secret\"]}",
+    "matches": [
+      "configuration"
+    ]
+  },
+  {
+    "name": "network",
+    "message": "WARN [contact] Turnstile verification unavailable.",
+    "matches": [
+      "unavailable"
+    ]
+  },
+  {
+    "name": "http",
+    "message": "WARN [contact] Turnstile verification service returned an HTTP error.",
+    "matches": [
+      "unavailable"
+    ]
+  },
+  {
+    "name": "internal",
+    "message": "WARN [contact] Turnstile verification rejected. {\"codes\":[\"internal-error\"]}",
+    "matches": [
+      "unavailable"
+    ]
+  },
+  {
+    "name": "invalid-token",
+    "message": "WARN [contact] Turnstile verification rejected. {\"codes\":[\"invalid-input-response\"]}",
+    "matches": [
+      "rejections"
+    ]
+  },
+  {
+    "name": "replayed-token",
+    "message": "WARN [contact] Turnstile verification rejected. {\"codes\":[\"timeout-or-duplicate\"]}",
+    "matches": [
+      "rejections"
+    ]
+  },
+  {
+    "name": "hostname-action",
+    "message": "WARN [contact] Turnstile verification rejected. {\"codes\":[]}",
+    "matches": [
+      "rejections"
+    ]
+  },
+  {
+    "name": "frontend-console",
+    "message": "[contact-form] Verification (more-info): widget-error; code=200500",
+    "matches": []
+  }
+]

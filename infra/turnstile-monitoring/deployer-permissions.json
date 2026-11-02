@@ -1,0 +1,40 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "TurnstileMetricFiltersOnly",
+      "Effect": "Allow",
+      "Action": [
+        "logs:DescribeMetricFilters",
+        "logs:PutMetricFilter",
+        "logs:DeleteMetricFilter"
+      ],
+      "Resource": [
+        "arn:aws:logs:us-east-1:365608889294:log-group:/aws/lambda/red-remodels-contact-handler",
+        "arn:aws:logs:us-east-1:365608889294:log-group:/aws/lambda/red-remodels-contact-handler:*"
+      ]
+    },
+    {
+      "Sid": "TestMetricPatternsWithoutIngestingLogs",
+      "Effect": "Allow",
+      "Action": [
+        "logs:TestMetricFilter"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "us-east-1"
+        }
+      }
+    },
+    {
+      "Sid": "TurnstileAlarmsOnly",
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:PutMetricAlarm",
+        "cloudwatch:DeleteAlarms"
+      ],
+      "Resource": "arn:aws:cloudwatch:us-east-1:365608889294:alarm:redremodels-turnstile-*"
+    }
+  ]
+}

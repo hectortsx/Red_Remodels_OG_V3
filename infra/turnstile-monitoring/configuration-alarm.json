@@ -1,0 +1,18 @@
+{
+  "AlarmName": "redremodels-turnstile-configuration",
+  "AlarmDescription": "Missing/invalid Turnstile server settings or rejected secret; investigate immediately.",
+  "ActionsEnabled": true,
+  "AlarmActions": [
+    "arn:aws:sns:us-east-1:365608889294:redremodels-alerts"
+  ],
+  "Namespace": "RedRemodels/Contact",
+  "MetricName": "TurnstileConfigurationErrors",
+  "Statistic": "Sum",
+  "Unit": "Count",
+  "Period": 300,
+  "EvaluationPeriods": 1,
+  "DatapointsToAlarm": 1,
+  "Threshold": 1,
+  "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+  "TreatMissingData": "notBreaching"
+}

@@ -31,3 +31,6 @@ build/
 # Deployment artifacts
 red-remodels-site.zip
 .superpowers/
+
+# Private AWS migration snapshots (contain Lambda environment/origin secrets)
+.local/waf-baselines/
