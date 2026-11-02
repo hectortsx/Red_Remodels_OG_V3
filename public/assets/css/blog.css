@@ -104,7 +104,7 @@ body {
 }
 .post-breadcrumb a { color: var(--red); text-decoration: underline; text-underline-offset: .15em; }
 .post-breadcrumb a:hover { text-decoration: underline; }
-.post-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.post-tags { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 16px; padding: 0; list-style: none; }
 .post-header h1 {
   font-family: 'Montserrat', sans-serif;
   font-size: 2rem; font-weight: 700;

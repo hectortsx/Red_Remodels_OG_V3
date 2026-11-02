@@ -102,7 +102,7 @@ for (const post of files) {
   const { slug, data, content } = post;
   const html   = marked(content);
   const url    = `${SITE_URL}/blog/${slug}`;
-  const tags   = (data.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
+  const tags   = (data.tags || []).map(t => `<li class="tag">${t}</li>`).join('');
   const image  = data.image || '/assets/images/redRemodelsOpenGraph.png';
   const imageWidth = data.imageWidth || 1200;
   const imageHeight = data.imageHeight || 630;
@@ -158,7 +158,7 @@ for (const post of files) {
   <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
 
   ${SHARED_HEAD}
-  <link rel="stylesheet" href="/assets/css/blog.css?v=20261102-1" />
+  <link rel="stylesheet" href="/assets/css/blog.css?v=20261102-2" />
   <link rel="stylesheet" href="/assets/css/liquid-glass.css" />
   <link rel="icon" type="image/svg+xml" href="/assets/images/favicon-light.svg" />
 </head>
@@ -187,7 +187,7 @@ for (const post of files) {
         <p class="post-breadcrumb">
           <a href="/">Home</a> &rsaquo; <a href="/blog">Tips &amp; Ideas</a> &rsaquo; ${data.title}
         </p>
-        ${tags ? `<div class="post-tags">${tags}</div>` : ''}
+        ${tags ? `<ul class="post-tags" aria-label="Tags">${tags}</ul>` : ''}
         <h1>${data.title}</h1>
         <p class="post-meta">By ${data.author || 'Red Remodels'} &nbsp;&middot;&nbsp; ${formatDate(data.date)}</p>
         ${data.updated ? `<p class="post-meta">Updated ${formatDate(data.updated)}${data.reviewed ? ` &nbsp;&middot;&nbsp; Cost estimates reviewed by Red Remodels` : ''}.</p>` : ''}
@@ -277,7 +277,7 @@ const indexPage = `<!DOCTYPE html>
   <script type="application/ld+json">${JSON.stringify(blogJsonLd)}</script>
 
   ${SHARED_HEAD}
-  <link rel="stylesheet" href="/assets/css/blog.css?v=20261102-1" />
+  <link rel="stylesheet" href="/assets/css/blog.css?v=20261102-2" />
   <link rel="stylesheet" href="/assets/css/liquid-glass.css" />
   <link rel="icon" type="image/svg+xml" href="/assets/images/favicon-light.svg" />
 </head>
