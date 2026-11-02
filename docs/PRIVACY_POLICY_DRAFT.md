@@ -60,7 +60,7 @@ We may also disclose information if required by law or to protect our rights, or
 
 - **Contact form messages:** [OWNER and COUNSEL: no retention structure exists yet. Suggested starting point for counsel to confirm: inquiries from people who do not hire us are deleted after 2 years; customer correspondence is kept for the project plus the warranty period plus the tax-record period counsel or the accountant advises. Do not publish until the business can actually follow it in Google Workspace and in the designer's copy.]
 - **Server and error logs:** up to 90 days.
-- **Analytics data:** [OWNER: read Admin → Data collection and modification → Data retention in Google Analytics — 2 or 14 months — and put that number here.]
+- **Analytics data (only if you accepted):** Google Analytics keeps detailed visit records for 2 months and information linked to your browser's analytics cookie for up to 14 months after your last visit. After that, only totals that do not identify you remain.
 - **Your cookie choice:** 180 days in your browser.
 
 ### Your choices and rights
@@ -95,13 +95,13 @@ Questions or requests: **hello@redremodels.com** or **(720) 519-2606**.
 2. **`hector@savio.design` copy:** the website designer; receives form messages only to verify the form works. Kept for now. Consider stopping the copy once monitoring alerts are trusted, and have the designer delete old copies on the same schedule as the business mailbox.
 3. **Marketing use:** form contacts are not added to a CRM, mailing list or ad audience.
 4. **Retention:** no structure yet. Suggested starting point is in the policy text above for counsel to confirm.
-5. **Google Analytics** (screenshots of Admin → Data collection): Google Signals off; user-provided data collection off; granular location and device data on; ads personalization allowed in 307 of 307 regions; the User Data Collection Acknowledgement has not been clicked. Still to check: Data retention period and Product links (Google Ads).
+5. **Google Analytics** (screenshots of Admin → Data collection): Google Signals off; user-provided data collection off; granular location and device data on; ads personalization allowed in 307 of 307 regions; the User Data Collection Acknowledgement has not been clicked. Data retention (screenshot): event data 2 months; user data 14 months; reset on new user activity on. Still to check: Product links (Google Ads).
 6. **Phone number:** stays required. Project type: unchanged (optional).
 7. **Privacy requests:** Juan Rojas, owner of Red Remodels, answers requests sent to `hello@redremodels.com`.
 
 **Still open for the owner**
 - Turn off ads personalization in Google Analytics (recommended — the site does not advertise with Analytics data, and this lets the policy say plainly that data is not used for ads).
-- Read the Data retention period and check Product links.
+- Check Product links → Google Ads links is empty.
 - Click "I acknowledge" on the User Data Collection Acknowledgement only after the Privacy Policy is published, since it confirms the site has the required disclosures.
 
 ## Counsel questions (short list)
