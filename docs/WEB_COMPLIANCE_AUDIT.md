@@ -28,6 +28,9 @@ _Last updated: November 2, 2026. Detailed evidence is in the work register below
 
 The change reaches visitors within a few minutes. The `.local/` folder is private and not in git; if it is ever missing, re-apply the report-only header saved in git history (commit `22b23b3`, file `infra/cloudfront-response-headers-policy.json`) to CloudFront response headers policy `7517fc76-39c0-4019-a1c7-7fe40fc2f038`.
 
+**Waiting for the owner to upload**
+- Contact-form log cleanup (November 2, 2026). When an email failed to send — which happens to most visitor confirmation emails while Amazon's email service is in its restricted sandbox mode — the error log recorded the visitor's name and email address. It now records only the kind of error. Three new tests cover it. Upload: `.local/waf-baselines/log-trim-d6d548c1/deploy.sh` (undo: `rollback.sh` in the same folder). Old log entries expire on their own within 90 days.
+
 **Left — can be done by engineering**
 - Accessibility: hands-on VoiceOver test on a Mac and an iPhone using [SCREEN_READER_TEST_PLAN.md](./SCREEN_READER_TEST_PLAN.md) (about 75 minutes, no technical background needed). The automated scan, contrast measurements, keyboard checks and screen-reader dry run are done.
 - Add the Privacy Policy link check to `npm run check:release` once the policy page exists.

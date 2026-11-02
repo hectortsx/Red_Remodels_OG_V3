@@ -118,6 +118,12 @@ const sendEmail = async ({ from, to, cc, replyTo, subject, text, html }) => {
   return ses.send(cmd);
 };
 
+// SES error messages can quote recipient names and addresses, so log only the error type and HTTP status.
+const errorSummary = (err) => JSON.stringify({
+  name: /^\w{1,64}$/.test(err?.name ?? '') ? err.name : 'Error',
+  status: Number.isInteger(err?.$metadata?.httpStatusCode) ? err.$metadata.httpStatusCode : undefined,
+});
+
 const buildNotificationEmail = ({ name, email, phone, message, source, formId, serviceType }) => {
   const leadSource = sanitize(source) || 'website';
   const submittedAt = new Date().toLocaleString();
@@ -255,13 +261,13 @@ export const handler = async (event) => {
           subject: cs, text: ct, html: ch,
         });
       } catch (err) {
-        console.warn('[contact] Confirmation email failed:', err);
+        console.warn('[contact] Confirmation email failed.', errorSummary(err));
       }
     }
 
     return json(200, { ok: true, message: CONTACT_SUCCESS_MESSAGE });
   } catch (err) {
-    console.error('[contact] Send failed:', err);
+    console.error('[contact] Send failed.', errorSummary(err));
     return json(500, { ok: false, error: CONTACT_ERROR_MESSAGE });
   }
 };
