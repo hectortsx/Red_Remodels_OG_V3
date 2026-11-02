@@ -44,7 +44,7 @@ The form also records which form you used and when you sent it, so we can route 
 
 ### How we share information
 
-We do not sell your personal information, and we do not share it for targeted advertising. [OWNER: before publishing, turn off "Ads personalization" in Google Analytics (Admin → Data collection → Advanced settings to allow for ads personalization) and confirm Product links shows no Google Ads link. Google Signals is already off. If either cannot be done, counsel must revise this sentence.]
+We do not sell your personal information, and we do not share it for targeted advertising. [OWNER: before publishing, turn off "Ads personalization" in Google Analytics (Admin → Data collection → Advanced settings to allow for ads personalization) (no Google Ads account is linked and Google Signals is off, both confirmed November 2, 2026). If it cannot be turned off, counsel must revise this sentence.]
 
 We share information only with service providers who help us run the website and respond to you:
 
@@ -95,13 +95,12 @@ Questions or requests: **hello@redremodels.com** or **(720) 519-2606**.
 2. **`hector@savio.design` copy:** the website designer; receives form messages only to verify the form works. Kept for now. Consider stopping the copy once monitoring alerts are trusted, and have the designer delete old copies on the same schedule as the business mailbox.
 3. **Marketing use:** form contacts are not added to a CRM, mailing list or ad audience.
 4. **Retention:** no structure yet. Suggested starting point is in the policy text above for counsel to confirm.
-5. **Google Analytics** (screenshots of Admin → Data collection): Google Signals off; user-provided data collection off; granular location and device data on; ads personalization allowed in 307 of 307 regions; the User Data Collection Acknowledgement has not been clicked. Data retention (screenshot): event data 2 months; user data 14 months; reset on new user activity on. Still to check: Product links (Google Ads).
+5. **Google Analytics** (screenshots of Admin → Data collection): Google Signals off; user-provided data collection off; granular location and device data on; ads personalization allowed in 307 of 307 regions; the User Data Collection Acknowledgement has not been clicked. Data retention (screenshot): event data 2 months; user data 14 months; reset on new user activity on. Product links: no Google Ads links (screenshot).
 6. **Phone number:** stays required. Project type: unchanged (optional).
 7. **Privacy requests:** Juan Rojas, owner of Red Remodels, answers requests sent to `hello@redremodels.com`.
 
 **Still open for the owner**
 - Turn off ads personalization in Google Analytics (recommended — the site does not advertise with Analytics data, and this lets the policy say plainly that data is not used for ads).
-- Check Product links → Google Ads links is empty.
 - Click "I acknowledge" on the User Data Collection Acknowledgement only after the Privacy Policy is published, since it confirms the site has the required disclosures.
 
 ## Counsel questions (short list)
