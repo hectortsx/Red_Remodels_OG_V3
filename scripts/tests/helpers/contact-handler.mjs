@@ -9,7 +9,7 @@ export const configuredEnv = { CLOUDFRONT_ORIGIN_SECRET: secret, TURNSTILE_SECRE
 export const eventFor = (body = validBody) => ({ requestContext: { http: { method: 'POST' } }, headers: { [header]: secret }, body: JSON.stringify(body) });
 
 // Execute real source with isolated environment, mocked Siteverify and SES.
-export const loadHandler = async (env = {}, provider = { success: true, hostname: 'www.redremodels.com', action: 'contact' }) => {
+export const loadHandler = async (env = {}, provider = { success: true, hostname: 'www.redremodels.com', action: 'contact' }, sesSend = async () => {}) => {
   const calls = { ses: 0, captcha: 0, logs: [], requests: [] };
   const context = createContext({
     Buffer, URLSearchParams, AbortSignal,
@@ -24,7 +24,7 @@ export const loadHandler = async (env = {}, provider = { success: true, hostname
   });
   const crypto = new SyntheticModule(['timingSafeEqual'], function () { this.setExport('timingSafeEqual', timingSafeEqual); }, { context });
   const sdk = new SyntheticModule(['SESClient', 'SendEmailCommand'], function () {
-    this.setExport('SESClient', class { async send() { calls.ses++; } });
+    this.setExport('SESClient', class { async send(command) { calls.ses++; return sesSend(command, calls.ses); } });
     this.setExport('SendEmailCommand', class { constructor(input) { this.input = input; } });
   }, { context });
   const verifier = new SourceTextModule(await readFile(new URL('../../../lambda/contact-handler/turnstile.mjs', import.meta.url), 'utf8'), { context });

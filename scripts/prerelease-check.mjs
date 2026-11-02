@@ -178,7 +178,7 @@ function fileChecks() {
 
   heading('Automated tests');
   for (const [label, cmd] of [
-    ['Contact form and Lambda tests', ['--experimental-vm-modules', '--test', 'scripts/tests/contact-origin-guard.test.mjs', 'scripts/tests/contact-turnstile.test.mjs', 'scripts/tests/contact-form-turnstile.test.mjs']],
+    ['Contact form and Lambda tests', ['--experimental-vm-modules', '--test', 'scripts/tests/contact-origin-guard.test.mjs', 'scripts/tests/contact-turnstile.test.mjs', 'scripts/tests/contact-form-turnstile.test.mjs', 'scripts/tests/contact-logging.test.mjs']],
     ['Cookie preference tests', ['--test', 'scripts/tests/cookie-preferences.test.mjs']],
     ['Redirect (CloudFront function) tests', ['--test', 'scripts/tests/cloudfront-url-rewrite.test.mjs']],
   ]) {

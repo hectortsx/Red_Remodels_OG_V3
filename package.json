@@ -9,7 +9,7 @@
     "dev": "node server/index.mjs",
     "build:blog": "node scripts/build-blog.js",
     "test:contact-guard": "node --experimental-vm-modules --test scripts/tests/contact-origin-guard.test.mjs",
-    "test:contact": "node --experimental-vm-modules --test scripts/tests/contact-origin-guard.test.mjs scripts/tests/contact-turnstile.test.mjs scripts/tests/contact-form-turnstile.test.mjs",
+    "test:contact": "node --experimental-vm-modules --test scripts/tests/contact-origin-guard.test.mjs scripts/tests/contact-turnstile.test.mjs scripts/tests/contact-form-turnstile.test.mjs scripts/tests/contact-logging.test.mjs",
     "test:privacy": "node --test scripts/tests/cookie-preferences.test.mjs",
     "waf:baseline": "node scripts/capture-waf-baseline.mjs",
     "check:release": "node scripts/prerelease-check.mjs",
