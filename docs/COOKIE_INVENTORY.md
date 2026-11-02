@@ -1,6 +1,6 @@
 # Cookies and browser-storage inventory
 
-Reviewed November 2, 2026 (clean-profile measurement). Earlier observations from October 27–28, 2026 are summarized under History.
+Reviewed November 2, 2026 (clean-profile measurement; Secure 180-day GA cookies verified live after release). Earlier observations from October 27–28, 2026 are summarized under History.
 
 ## Summary
 
