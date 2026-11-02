@@ -19,6 +19,10 @@ _Last updated: November 2, 2026. Detailed evidence is in the work register below
 **In progress**
 - Nothing in progress.
 
+**Before and after every update**
+- Before uploading: `npm run check:release` (about a minute; needs Google Chrome). It checks page titles/descriptions/share tags, menu current-page marks, skip links, inline code, broken file links, form limits, secrets, the automated tests, an accessibility scan of every page on phone and desktop, the security rules, keyboard and phone menu, page width, and cookie behavior before/after consent.
+- After the upload: `npm run check:live` runs the same browser checks on www.redremodels.com and confirms private files are not downloadable.
+
 **If the site breaks because of the security rules** (Content Security Policy) (forms, menus, analytics, or anything else stops working), undo it by running this from the project folder. It puts the rules back in test mode, where they only watch and never block:
 
 ```
@@ -29,8 +33,7 @@ The change reaches visitors within a few minutes. The `.local/` folder is privat
 
 **Left — can be done by engineering**
 - Accessibility: manual screen-reader testing (VoiceOver on Mac/iPhone, NVDA on Windows) on every page type. The automated scan, contrast measurements and keyboard checks are done.
-- Pre-release checklist (one command that runs the accessibility, security-rule, cookie and form checks before each update).
-- Pre-release checklist (accessibility, privacy links, forms, headers, exposed files).
+- Add the Privacy Policy link check to `npm run check:release` once the policy page exists.
 
 **Left — needs the owner, counsel, or an AWS admin**
 - Privacy Policy (counsel) and links next to every form and in the footer; finish the data inventory (mailbox owners, retention, deletion).
@@ -261,6 +264,7 @@ These controls are useful but do not establish legal compliance or complete secu
 <!-- Legacy source review (2026-10-27): All nine files have a title and one canonical link. The two mobile/tablet contact pages declare `noindex` but have no H1; the other seven have an H1 and no robots directive. Four legacy home/contact files contain forms (8 total form instances across variants); desktop home/contact load Google Fonts, and legacy pages load Google/reCAPTCHA/Analytics or Instagram scripts. This source inventory does not establish exact production crawler behavior, review every marketing claim/image right, or validate form handling. The CloudFront redirect change remains undeployed, so legacy pages may still be served until deployment and live verification. Legacy files were not edited. -->
 - [ ] Preserve any legacy URL that is still intentionally used, and document its owner, purpose, and privacy/security behavior.
 - [ ] Scan deployable public assets for secrets, private customer data, unpublished personal images, source maps, and test keys before each release.
+<!-- Automated (2026-11-02): npm run check:release scans public/ for AWS keys, private keys, Turnstile-secret-shaped strings, and .map/.env/.pem/.key/.bak/.zip files; check:live confirms /.DS_Store, /assets/.DS_Store, /.env, /.git/config and /package.json are not downloadable. First live run found /.DS_Store and /assets/.DS_Store publicly served (HTTP 200, macOS Finder metadata listing folder contents) because aws s3 sync uploaded them; deleted 2026-11-02 (verified not downloadable) and CLAUDE.md's sync command now uses --exclude "*.DS_Store". Customer data in images and image rights still need human review, so this item stays open. -->
 <!-- Scan note (2026-10-26): A pattern scan across all of public/ found no private-key, AWS access-key, or Google API-key markers; no source maps or environment files were found. This does not verify customer-data exposure or image rights and does not replace repeating the scan before releases. -->
 
 ### P1 — Substantiate advertising and business claims
@@ -297,7 +301,9 @@ These controls are useful but do not establish legal compliance or complete secu
 
 - [ ] Assign a site/privacy owner and a business/legal owner for the register below.
 - [ ] Keep a vendor/subprocessor inventory and review Google, AWS, email, and any future marketing providers' terms, security settings, and data-processing terms annually and when services change.
-- [ ] Add pre-release checks for accessibility, privacy links, form operation, security headers, external scripts, metadata, and exposed files.
+- [x] Add pre-release checks for accessibility, privacy links, form operation, security headers, external scripts, metadata, and exposed files.
+<!-- Pre-release checker (2026-11-02): scripts/prerelease-check.mjs, run as npm run check:release (release candidate: file checks, unit tests, then Chrome via pinned playwright-core 1.56.1 loading public/ at the production origin with the production CSP from infra/cloudfront-response-headers-policy.json) and npm run check:live (browser checks against production plus private-file and CSP-header checks). 23 release checks / 12 live checks: metadata (title, description, one canonical, og:image tags, lang), unique titles/descriptions, menu aria-current, skip link/main/H1, no inline scripts/handlers/styles, shared scripts present and no Google Fonts/direct GTM, local file references exist, form maxlength equals Lambda limits plus fallback text, secret/private-file scan, CSP without unsafe-inline/eval, blog HTML matches Markdown, contact/privacy/redirect tests, axe WCAG 2.2 AA at 375 and 1280 px, zero CSP violations, skip link and phone-menu keyboard behavior, no horizontal overflow, no same-origin 4xx, cookies before choice/after reject/after accept (Secure, 180 days)/after withdrawal, Turnstile loads on form focus. Analytics collection and /api/* are blocked; no form is submitted. The first runs found: homepage and blog pages lacked a current-page menu mark (fixed: Home on the homepage, Tips & Ideas with aria-current=page on the blog index and aria-current=true on posts) and publicly served .DS_Store files (see above). The privacy-link check is pending a Privacy Policy page. CLAUDE.md deploy steps now run check:release before and check:live after. -->
+<!-- Deployment (2026-11-02): Owner ran .local/waf-baselines/nav-current-3dfd7f40/deploy.sh: homepage and four blog pages uploaded (S3 ETags match source), /.DS_Store and /assets/.DS_Store deleted from the bucket (none remain), invalidation I1N25O18LBTZY72WGVF2N0KM0F Completed. npm run check:live: 12 of 12 checks pass, including private files not downloadable; live menus show aria-current on Home (homepage) and Tips & Ideas (blog). -->
 - [ ] Reassess privacy-law thresholds, geographic reach, data practices, accessibility issues, and legal notices at least annually and after material business/site changes.
 - [ ] Keep dated test results, approvals, user requests, consent records (if applicable), and remediation evidence in an access-controlled location.
 

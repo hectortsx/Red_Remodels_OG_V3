@@ -11,7 +11,9 @@
     "test:contact-guard": "node --experimental-vm-modules --test scripts/tests/contact-origin-guard.test.mjs",
     "test:contact": "node --experimental-vm-modules --test scripts/tests/contact-origin-guard.test.mjs scripts/tests/contact-turnstile.test.mjs scripts/tests/contact-form-turnstile.test.mjs",
     "test:privacy": "node --test scripts/tests/cookie-preferences.test.mjs",
-    "waf:baseline": "node scripts/capture-waf-baseline.mjs"
+    "waf:baseline": "node scripts/capture-waf-baseline.mjs",
+    "check:release": "node scripts/prerelease-check.mjs",
+    "check:live": "node scripts/prerelease-check.mjs --live"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -24,6 +26,7 @@
   "devDependencies": {
     "axe-core": "4.10.3",
     "gray-matter": "^4.0.3",
-    "marked": "^17.0.4"
+    "marked": "^17.0.4",
+    "playwright-core": "1.56.1"
   }
 }
