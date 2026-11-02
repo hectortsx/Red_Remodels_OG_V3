@@ -91,6 +91,8 @@ test('acceptance persists only version/choice/time and starts one sanitized anal
   assert.equal(config[2].page_referrer, 'https://www.redremodels.com/');
   assert.equal(config[2].allow_google_signals, false);
   assert.equal(config[2].allow_ad_personalization_signals, false);
+  assert.equal(config[2].cookie_flags, 'SameSite=Lax;Secure');
+  assert.equal(config[2].cookie_expires, 180 * 24 * 60 * 60);
   assert.equal(f.window.dataLayer[0][2].ad_storage, 'denied');
   f.settings.click();
   f.accept.click();

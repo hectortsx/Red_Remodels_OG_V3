@@ -69,6 +69,9 @@
       page_referrer: cleanUrl(document.referrer),
       allow_google_signals: false,
       allow_ad_personalization_signals: false,
+      // HTTPS-only cookies that expire with the consent record, not GA's 2-year default.
+      cookie_flags: 'SameSite=Lax;Secure',
+      cookie_expires: MAX_AGE / 1000,
     });
     tag = document.createElement('script');
     tag.async = true;
