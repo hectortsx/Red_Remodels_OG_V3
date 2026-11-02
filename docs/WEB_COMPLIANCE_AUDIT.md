@@ -5,6 +5,40 @@
 **Scope:** Public marketing site, blog, contact forms, and the related web-serving code in this repository.
 **Status:** Findings and required follow-up; not a legal opinion or a certification of compliance.
 
+## Progress at a glance
+
+_Last updated: November 2, 2026. Detailed evidence is in the work register below._
+
+**Done and live**
+- Contact forms: Cloudflare Turnstile spam protection, server-side limits, safe error messages, phone/email fallback, alerting on verification failures.
+- Analytics: Google Analytics only runs after a visitor accepts cookies; visitors can reject or change their choice later. Fonts are served from the site itself.
+- Accessibility fixes: skip-to-content link, keyboard-friendly menus (Escape closes them), better text contrast, narrow-screen layout fixes, reduced-motion support, form field limits. The cookie banner no longer covers the phone menu.
+- Security: security headers (HSTS, nosniff, frame, referrer, permissions), S3 public-access block, API rate limit, 90-day log retention, old Duda pages redirect to current pages.
+- Content Security Policy enforced (November 2, 2026): pages may only load code from the site itself, Cloudflare Turnstile, and Google Analytics/Tag Manager. Live checks on every page and all three forms passed with zero blocks.
+
+**In progress**
+- Nothing in progress.
+
+**If the site breaks because of the security rules** (Content Security Policy) (forms, menus, analytics, or anything else stops working), undo it by running this from the project folder. It puts the rules back in test mode, where they only watch and never block:
+
+```
+.local/waf-baselines/csp-enforce-6585b607/rollback.sh
+```
+
+The change reaches visitors within a few minutes. The `.local/` folder is private and not in git; if it is ever missing, re-apply the report-only header saved in git history (commit `22b23b3`, file `infra/cloudfront-response-headers-policy.json`) to CloudFront response headers policy `7517fc76-39c0-4019-a1c7-7fe40fc2f038`.
+
+**Left — can be done by engineering**
+- Full accessibility audit: automated scan plus manual screen-reader and keyboard testing on every page type.
+- Clean-browser cookie check before and after consent; review Google Analytics property settings.
+- Pre-release checklist (accessibility, privacy links, forms, headers, exposed files).
+
+**Left — needs the owner, counsel, or an AWS admin**
+- Privacy Policy (counsel) and links next to every form and in the footer; finish the data inventory (mailbox owners, retention, deletion).
+- Accessibility Statement and confirming the WCAG 2.2 AA target.
+- Evidence for marketing claims ("20+ years", "on time and on budget", licensing), photo/media rights.
+- Narrow the contact-form Lambda's email permissions; review deployer permissions and backups (AWS admin).
+- Retention schedule, privacy-request process, incident-response process, and a decision on Terms of Use.
+
 ## Executive summary
 
 The site is a public-facing U.S. home-remodeling business website. The production pages are static HTML and the contact forms send personal information to the business by email. Google Analytics 4 is used, maintained pages now serve fonts locally, and Cloudflare Turnstile now protects the maintained contact forms. Google reCAPTCHA was removed during the October 28 migration; older dated evidence below describes the prior state.
@@ -145,7 +179,9 @@ These controls are useful but do not establish legal compliance or complete secu
 - [x] Move maintained-page inline executable JavaScript into a same-origin file so CSP does not need `'unsafe-inline'` for scripts.
 <!-- Remediation note (2026-11-02): Analytics bootstrapping had already moved to cookie-preferences.js, leaving one inline script per page (footer year, mobile nav, dropdowns) in five textual variants with identical behavior. Moved the homepage version to public/assets/js/site-nav.js and replaced each inline block in the 11 hand-maintained pages and both build-blog.js templates with a non-deferred script tag at the same position; rebuilt the blog. A parser check finds zero inline executable scripts across the 15 maintained pages (JSON-LD data blocks remain and are not executed); no inline event handlers or style attributes exist. With the local Helmet CSP (script-src 'self' challenges.cloudflare.com, script-src-attr 'none') enforced, all 15 pages at 375px set the footer year, open/close the mobile nav and Services dropdown, close on item select, and close on Escape, with no CSP console errors; contact (59) and privacy (12) tests pass. Not deployed. Observation: at 375px the undismissed cookie preferences panel overlapped the opened mobile nav dropdown items. Fixed (2026-11-02): at widths up to 780px the panel and Cookie settings button are visibility-hidden while #site-nav is open (matching the existing tab-bar rule), and the stylesheet version is bumped to 20261102-1. Local checks on all 15 pages: the panel shows before the menu opens, is hidden while open, a real pointer click reaches the last dropdown item, and the panel returns after item selection and after Escape; desktop panel display is unchanged. -->
 - [x] Design, deploy in report-only mode, and test a Content Security Policy against actual site behavior, including dynamic reCAPTCHA resources and all image/media sources. Resolve inline script policy without unsafe broad allowances; do not enforce a policy that silently breaks forms or analytics.
-- [ ] After a report-only observation period with no unexplained violations, enforce the same policy (rename the header to `Content-Security-Policy`) and re-verify every page, form, and analytics consent flow.
+- [x] After a report-only observation period with no unexplained violations, enforce the same policy (rename the header to `Content-Security-Policy`) and re-verify every page, form, and analytics consent flow.
+<!-- Enforcement prepared (2026-11-02): Owner chose to proceed without a longer observation window; with no report collector, waiting would add little beyond the zero-violation live checks already recorded. The S3 bucket serves only the 15 maintained HTML pages outside legacy /pages/ (which redirect); there are no CloudFront custom error pages. The repo policy now sets SecurityHeadersConfig.ContentSecurityPolicy to the identical tested value and removes the report-only custom header. Release, rollback (restores the captured report-only config), and pre-change policy snapshot: .local/waf-baselines/csp-enforce-6585b607/. -->
+<!-- Enforcement deployed (2026-11-02): Owner ran the release script; response headers policy ETag E3UN6WX5RRO2AG; distribution reports Deployed. Content-Security-Policy is present and Content-Security-Policy-Report-Only absent on the homepage, contact page, a service page, the blog index, and /api/contact. Live browser checks on all 15 maintained pages at 375 and 1280 CSS pixels (30 combinations) had zero violations: footer year, local fonts, stylesheets and images load; menus and dropdowns open/close (Escape on mobile); GA loads after acceptance. All three maintained forms obtained a Turnstile token with zero violations (API request aborted in the test browser; no lead or email sent; GA collection requests aborted). Rollback instructions are in Progress at a glance. -->
 <!-- CSP design and pre-release test (2026-11-02): Policy recorded as a Content-Security-Policy-Report-Only custom header in infra/cloudfront-response-headers-policy.json: default-src 'self'; scripts from self, challenges.cloudflare.com and *.googletagmanager.com; styles and fonts self only; images self, data: and GA/GTM; connect self, GA/GTM and www.google.com/g/collect (GA4 sends a parallel page_view there after consent); frames challenges.cloudflare.com only; object-src 'none'; base-uri/form-action/frame-ancestors 'self'. No 'unsafe-inline' or 'unsafe-eval'. No report endpoint is configured yet, so violations appear only in browser consoles; collecting visitor reports would need a new endpoint and a logging/privacy decision. Pre-release test served the release-candidate files at the www.redremodels.com origin through browser request routing with this policy ENFORCED (stricter than report-only), real GA/Turnstile third parties, analytics collection requests and /api/* aborted: all 15 pages at 375px had zero violations with menu and dropdown working and GA loading after acceptance; all three maintained forms obtained a Turnstile token with zero violations (the API request was aborted, so no lead/email was sent). The only CSP console error came from Cloudflare's own policy inside the Turnstile iframe. Live CloudFront policy ETag E23ZP02F085DFQ matches the repo JSON apart from AWS-added empty fields. Release script and backups: .local/waf-baselines/csp-report-only-408c91d7/. -->
 <!-- Report-only deployment (2026-11-02): Owner ran the release script. All 17 S3 objects (15 pages, site-nav.js, cookie-preferences.css) match local source; response headers policy ETag ETVPDKIKX0DER carries the repo's custom headers; invalidation IEDUBZ5L75430D354NEN1RVGSB Completed and the distribution reports Deployed. Live checks: the Content-Security-Policy-Report-Only header is present on all 15 maintained pages; no inline executable scripts remain; at 375px the footer year renders, the cookie panel is hidden while the menu is open, a real tap reaches the last dropdown item, and GA loads after acceptance, with zero report-only violations on every page. All three maintained forms obtained a Turnstile token with zero violations (API request aborted in the test browser; no lead or email sent; GA collection requests also aborted). Next: keep report-only for an observation period, recheck, then switch the header name to Content-Security-Policy with owner approval. -->
 - [x] Set clickjacking protection with `X-Frame-Options: SAMEORIGIN`; add CSP `frame-ancestors` only after CSP compatibility testing.
