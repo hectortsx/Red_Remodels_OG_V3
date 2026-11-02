@@ -148,7 +148,8 @@
 
 .svc-breadcrumb a {
   color: rgba(255,255,255,0.85);
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 
 .svc-breadcrumb a:hover { color: #fff; }

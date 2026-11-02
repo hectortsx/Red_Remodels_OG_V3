@@ -48,14 +48,14 @@
     <link rel="stylesheet" href="/assets/css/desktop.css" />
     <link rel="stylesheet" href="/assets/css/accessibility.css" />
     <script src="/assets/js/nav-accessibility.js" defer></script>
-    <link rel="stylesheet" href="/pages/desktop/home/style.css" />
-  <link rel="stylesheet" href="/assets/css/blog.css" />
+    <link rel="stylesheet" href="/pages/desktop/home/style.css?v=20261102-1" />
+  <link rel="stylesheet" href="/assets/css/blog.css?v=20261102-1" />
   <link rel="stylesheet" href="/assets/css/liquid-glass.css" />
   <link rel="icon" type="image/svg+xml" href="/assets/images/favicon-light.svg" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
-  <div class="announcement-bar">
+  <div class="announcement-bar" role="region" aria-label="Announcement">
       <div class="container announcement-content">
         <span class="announcement-text"
           >Denver homeowners: lock in expert remodel plans with a free design session</span
@@ -127,7 +127,8 @@
     </a>
   </nav>
   <div class="page-wrap">
-    <header class="post-header">
+    <main id="main-content" tabindex="-1">
+    <div class="post-header">
       <div class="post-header-inner">
         <p class="post-breadcrumb">
           <a href="/">Home</a> &rsaquo; <a href="/blog">Tips &amp; Ideas</a> &rsaquo; What Are the Steps to Build a Custom Home in Colorado?
@@ -137,9 +138,9 @@
         <p class="post-meta">By Red Remodels &nbsp;&middot;&nbsp; March 20, 2026</p>
         <p class="post-meta">Updated October 22, 2026.</p>
       </div>
-    </header>
+    </div>
 
-    <main class="post-body" id="main-content" tabindex="-1">
+    <div class="post-body">
       <article class="post-content" itemscope itemtype="https://schema.org/BlogPosting">
         <meta itemprop="headline" content="What Are the Steps to Build a Custom Home in Colorado?" />
         <meta itemprop="datePublished" content="2026-03-20T00:00:00.000Z" />
@@ -169,6 +170,7 @@
         <p>Red Remodels serves the greater Denver metro area. Get a free, no-pressure estimate.</p>
         <a href="/contact-us">Get a Free Quote</a>
       </div>
+    </div>
     </main>
   </div>
   <footer class="main-footer">

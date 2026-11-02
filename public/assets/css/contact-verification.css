@@ -15,7 +15,8 @@ body [data-secure-form] .form-fallback {
   line-height: 1.5;
   color: #334155;
 }
-body .more-info [data-secure-form] .form-fallback {
+body .more-info [data-secure-form] .form-fallback,
+body .service-request [data-secure-form] .form-fallback {
   color: #fff;
 }
 .form-fallback a {

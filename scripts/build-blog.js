@@ -28,7 +28,7 @@ const homeHtml = fs.readFileSync(path.join(ROOT, 'public', 'index.html'), 'utf8'
 
 // Extract shared asset links but leave the homepage's business schema to the
 // homepage and each generated page's own structured data.
-const sharedHeadMatch = homeHtml.match(/<link rel="icon" type="image\/svg\+xml" href="\/assets\/images\/favicon-light\.svg" \/>[\s\S]*?<link rel="stylesheet" href="\/pages\/desktop\/home\/style\.css" \/>/);
+const sharedHeadMatch = homeHtml.match(/<link rel="icon" type="image\/svg\+xml" href="\/assets\/images\/favicon-light\.svg" \/>[\s\S]*?<link rel="stylesheet" href="\/pages\/desktop\/home\/style\.css(?:\?v=[^"]*)?" \/>/);
 if (!sharedHeadMatch) throw new Error('Could not find shared head assets in public/index.html');
 const SHARED_HEAD = sharedHeadMatch[0]
   .replace(/<link rel="canonical"[^>]*\/?>/g, '')
@@ -36,7 +36,7 @@ const SHARED_HEAD = sharedHeadMatch[0]
   .replace(/^[ \t]+$/gm, '');
 
 // Extract the header block from the homepage body
-const headerMatch = homeHtml.match(/<div class="announcement-bar">[\s\S]*?<\/header>/);
+const headerMatch = homeHtml.match(/<div class="announcement-bar"[^>]*>[\s\S]*?<\/header>/);
 if (!headerMatch) throw new Error('Could not find header block in public/index.html');
 // Rewrite homepage anchor links so they work from any page
 const SITE_HEADER = headerMatch[0]
@@ -154,7 +154,7 @@ for (const post of files) {
   <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
 
   ${SHARED_HEAD}
-  <link rel="stylesheet" href="/assets/css/blog.css" />
+  <link rel="stylesheet" href="/assets/css/blog.css?v=20261102-1" />
   <link rel="stylesheet" href="/assets/css/liquid-glass.css" />
   <link rel="icon" type="image/svg+xml" href="/assets/images/favicon-light.svg" />
 </head>
@@ -177,7 +177,8 @@ for (const post of files) {
     </a>
   </nav>
   <div class="page-wrap">
-    <header class="post-header">
+    <main id="main-content" tabindex="-1">
+    <div class="post-header">
       <div class="post-header-inner">
         <p class="post-breadcrumb">
           <a href="/">Home</a> &rsaquo; <a href="/blog">Tips &amp; Ideas</a> &rsaquo; ${data.title}
@@ -187,9 +188,9 @@ for (const post of files) {
         <p class="post-meta">By ${data.author || 'Red Remodels'} &nbsp;&middot;&nbsp; ${formatDate(data.date)}</p>
         ${data.updated ? `<p class="post-meta">Updated ${formatDate(data.updated)}${data.reviewed ? ` &nbsp;&middot;&nbsp; Cost estimates reviewed by Red Remodels` : ''}.</p>` : ''}
       </div>
-    </header>
+    </div>
 
-    <main class="post-body" id="main-content" tabindex="-1">
+    <div class="post-body">
       <article class="post-content" itemscope itemtype="https://schema.org/BlogPosting">
         <meta itemprop="headline" content="${data.title}" />
         <meta itemprop="datePublished" content="${formatDateISO(data.date)}" />
@@ -201,6 +202,7 @@ for (const post of files) {
         <p>Red Remodels serves the greater Denver metro area. Get a free, no-pressure estimate.</p>
         <a href="/contact-us">Get a Free Quote</a>
       </div>
+    </div>
     </main>
   </div>
   ${SITE_FOOTER}
@@ -271,7 +273,7 @@ const indexPage = `<!DOCTYPE html>
   <script type="application/ld+json">${JSON.stringify(blogJsonLd)}</script>
 
   ${SHARED_HEAD}
-  <link rel="stylesheet" href="/assets/css/blog.css" />
+  <link rel="stylesheet" href="/assets/css/blog.css?v=20261102-1" />
   <link rel="stylesheet" href="/assets/css/liquid-glass.css" />
   <link rel="icon" type="image/svg+xml" href="/assets/images/favicon-light.svg" />
 </head>
@@ -294,12 +296,12 @@ const indexPage = `<!DOCTYPE html>
     </a>
   </nav>
   <div class="page-wrap">
-    <header class="blog-hero">
+    <main id="main-content" tabindex="-1">
+    <div class="blog-hero">
       <h1>Tips &amp; Ideas</h1>
       <p>Remodeling guides, cost breakdowns, and inspiration for Denver homeowners.</p>
-    </header>
-    <main id="main-content" tabindex="-1">
-      <div class="post-grid" role="list">
+    </div>
+      <div class="post-grid">
         ${cards}
       </div>
     </main>

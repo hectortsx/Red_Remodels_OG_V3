@@ -34,3 +34,7 @@ red-remodels-site.zip
 
 # Private AWS migration snapshots (contain Lambda environment/origin secrets)
 .local/waf-baselines/
+
+# Local browser-automation scratch output
+.playwright-mcp/
+__pycache__/

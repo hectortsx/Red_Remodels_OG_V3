@@ -45,14 +45,14 @@
     <link rel="stylesheet" href="/assets/css/desktop.css" />
     <link rel="stylesheet" href="/assets/css/accessibility.css" />
     <script src="/assets/js/nav-accessibility.js" defer></script>
-    <link rel="stylesheet" href="/pages/desktop/home/style.css" />
-  <link rel="stylesheet" href="/assets/css/blog.css" />
+    <link rel="stylesheet" href="/pages/desktop/home/style.css?v=20261102-1" />
+  <link rel="stylesheet" href="/assets/css/blog.css?v=20261102-1" />
   <link rel="stylesheet" href="/assets/css/liquid-glass.css" />
   <link rel="icon" type="image/svg+xml" href="/assets/images/favicon-light.svg" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
-  <div class="announcement-bar">
+  <div class="announcement-bar" role="region" aria-label="Announcement">
       <div class="container announcement-content">
         <span class="announcement-text"
           >Denver homeowners: lock in expert remodel plans with a free design session</span
@@ -124,12 +124,12 @@
     </a>
   </nav>
   <div class="page-wrap">
-    <header class="blog-hero">
+    <main id="main-content" tabindex="-1">
+    <div class="blog-hero">
       <h1>Tips &amp; Ideas</h1>
       <p>Remodeling guides, cost breakdowns, and inspiration for Denver homeowners.</p>
-    </header>
-    <main id="main-content" tabindex="-1">
-      <div class="post-grid" role="list">
+    </div>
+      <div class="post-grid">
         <a href="/blog/bathroom-remodel-cost-denver-2026" class="post-card" aria-label="Bathroom Remodel Cost in Denver: What to Expect in 2026">
   <img class="post-card-img" src="/assets/images/pexels-photo-2988865.jpeg" alt="Freshly remodeled bathroom with modern fixtures and clean tile work" width="640" height="360" loading="lazy" decoding="async" />
   <div class="post-card-body">
