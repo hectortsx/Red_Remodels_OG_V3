@@ -1,0 +1,14 @@
+{
+  "logGroupName": "/aws/lambda/red-remodels-contact-handler",
+  "filterName": "redremodels-turnstile-unavailable",
+  "filterPattern": "?\"Turnstile verification unavailable.\" ?\"Turnstile verification service returned an HTTP error.\" ?\"internal-error\"",
+  "metricTransformations": [
+    {
+      "metricName": "TurnstileUnavailable",
+      "metricNamespace": "RedRemodels/Contact",
+      "metricValue": "1",
+      "defaultValue": 0,
+      "unit": "Count"
+    }
+  ]
+}

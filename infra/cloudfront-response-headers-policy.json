@@ -1,0 +1,33 @@
+{
+  "Comment": "Security headers for Red Remodels public pages and API responses",
+  "Name": "redremodels-security-headers",
+  "SecurityHeadersConfig": {
+    "StrictTransportSecurity": {
+      "Override": true,
+      "IncludeSubdomains": false,
+      "Preload": false,
+      "AccessControlMaxAgeSec": 31536000
+    },
+    "ContentTypeOptions": {
+      "Override": true
+    },
+    "FrameOptions": {
+      "Override": true,
+      "FrameOption": "SAMEORIGIN"
+    },
+    "ReferrerPolicy": {
+      "Override": true,
+      "ReferrerPolicy": "strict-origin-when-cross-origin"
+    }
+  },
+  "CustomHeadersConfig": {
+    "Quantity": 1,
+    "Items": [
+      {
+        "Header": "Permissions-Policy",
+        "Value": "camera=(), microphone=(), geolocation=()",
+        "Override": true
+      }
+    ]
+  }
+}

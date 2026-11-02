@@ -74,7 +74,7 @@ body {
 .tag {
   font-family: 'Montserrat', sans-serif;
   font-size: .7rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .5px; color: var(--red);
+  letter-spacing: .5px; color: var(--red-dk);
   background: rgba(192,57,43,.08);
   padding: 3px 8px; border-radius: 3px;
 }
@@ -87,7 +87,7 @@ body {
 .post-card p { font-size: .9rem; color: var(--gray); flex: 1; }
 .post-card-meta {
   margin-top: 16px;
-  font-size: .8rem; color: #888;
+  font-size: .8rem; color: #595959;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -100,7 +100,7 @@ body {
 .post-header-inner { max-width: var(--max-w); margin: 0 auto; }
 .post-breadcrumb {
   font-family: 'Montserrat', sans-serif;
-  font-size: .78rem; color: #888; margin-bottom: 16px;
+  font-size: .78rem; color: #595959; margin-bottom: 16px;
 }
 .post-breadcrumb a { color: var(--red); text-decoration: none; }
 .post-breadcrumb a:hover { text-decoration: underline; }
@@ -113,7 +113,7 @@ body {
 }
 .post-meta {
   font-family: 'Montserrat', sans-serif;
-  font-size: .82rem; color: #888;
+  font-size: .82rem; color: #595959;
 }
 
 .post-body { max-width: var(--max-w); margin: 0 auto; padding: 44px 24px 80px; }
@@ -190,7 +190,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-size: 1.35rem; font-weight: 700; margin-bottom: 10px;
 }
-.post-cta p { margin-bottom: 20px; opacity: .92; }
+.post-cta p { color: #fff; margin-bottom: 20px; opacity: .92; }
 .post-cta a {
   display: inline-block;
   background: #fff; color: var(--red);
@@ -208,7 +208,7 @@ body {
   text-align: center; padding: 28px 24px;
   font-size: .82rem; font-family: 'Montserrat', sans-serif;
 }
-.site-footer a { color: var(--red); text-decoration: none; }
+.site-footer a { color: #ff958d; text-decoration: none; }
 .site-footer a:hover { text-decoration: underline; }
 
 /* ── Video embed (responsive 16:9) ───────────────────────── */
@@ -232,6 +232,14 @@ body {
   .blog-hero { padding: 52px 24px 44px; }
   .blog-hero h1 { font-size: 1.7rem; }
   .post-header h1 { font-size: 1.5rem; }
+  .post-grid { grid-template-columns: minmax(0, 1fr); }
+  .post-card { min-width: 0; }
+  .post-content table { table-layout: fixed; }
+  .post-content th,
+  .post-content td {
+    overflow-wrap: anywhere;
+    padding: 8px 6px;
+  }
   .nav-links { display: none; }
   .post-cta { padding: 28px 20px; }
 }

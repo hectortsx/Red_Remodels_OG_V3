@@ -46,7 +46,7 @@ public/               # Everything deployed to S3
       blog.css        # Blog-specific styles
     images/           # All site images
     js/
-      contact-form.js # Form submission + reCAPTCHA handling
+      contact-form.js # Form submission + Turnstile handling
 pages/                # OLD Duda-builder pages — ignore, do not edit
 lambda/
   contact-handler/
@@ -74,9 +74,9 @@ Hero background image set via `.svc-hero--<slug>` CSS class in `services.css`.
 
 ## Lambda / contact form
 - Handler: `lambda/contact-handler/index.mjs`
-- Deploy: zip `index.mjs` + `package.json` → upload to Lambda `red-remodels-contact-handler`
+- Deploy: zip `index.mjs` + `turnstile.mjs` + `package.json` → upload to Lambda `red-remodels-contact-handler`
 - Spam filtering: keyword blocklist in `isSpam()` — add new keywords to `SPAM_EMAIL_KEYWORDS` or `SPAM_NAME_KEYWORDS`
-- reCAPTCHA v3 is enabled (site key in the HTML, secret in Lambda env vars)
+- Turnstile is deployed; the owner confirmed homepage/contact business notifications, contrast was fixed, and Google/test-page cleanup is complete. Set the public sitekey in `public/assets/js/contact-form-config.js`; Lambda requires `TURNSTILE_SECRET_KEY` and `TURNSTILE_ALLOWED_HOSTNAMES`. Preserve `CLOUDFRONT_ORIGIN_SECRET`. Google is not an approved fallback. See `docs/AWS_WAF_CAPTCHA_IMPLEMENTATION.md`.
 
 ## CSS conventions
 - CSS custom properties defined in `desktop.css` and `pages/desktop/home/style.css`
@@ -100,7 +100,7 @@ Every page must have:
 - CloudWatch alarm: `redremodels-cloudfront-4xx` (threshold: 90% — bot traffic is normal, don't lower this)
 - SNS topic for alerts: `arn:aws:sns:us-east-1:365608889294:redremodels-alerts`
 - Google Analytics: `G-SP8EDYP71R`
-- reCAPTCHA site key: `6Lffxv0rAAAAAKjd7Uad2BYO-Mnuc82m0k7j9w3Z`
+- Turnstile public sitekey: `0x4AAAAAAFqBe8etgytx9j6M` (hosts: `www.redremodels.com`, `redremodels.com`); never commit the Turnstile secret key
 
 ## Things to never do
 - Do not edit files in `public/pages/` (old Duda builder output — legacy, unused by real visitors)

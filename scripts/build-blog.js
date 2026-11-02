@@ -28,7 +28,7 @@ const homeHtml = fs.readFileSync(path.join(ROOT, 'public', 'index.html'), 'utf8'
 
 // Extract shared asset links but leave the homepage's business schema to the
 // homepage and each generated page's own structured data.
-const sharedHeadMatch = homeHtml.match(/<link rel="preconnect"[\s\S]*?<link rel="stylesheet" href="\/pages\/desktop\/home\/style\.css" \/>/);
+const sharedHeadMatch = homeHtml.match(/<link rel="icon" type="image\/svg\+xml" href="\/assets\/images\/favicon-light\.svg" \/>[\s\S]*?<link rel="stylesheet" href="\/pages\/desktop\/home\/style\.css" \/>/);
 if (!sharedHeadMatch) throw new Error('Could not find shared head assets in public/index.html');
 const SHARED_HEAD = sharedHeadMatch[0]
   .replace(/<link rel="canonical"[^>]*\/?>/g, '')
@@ -72,9 +72,8 @@ function formatDateISO(dateStr) {
 
 function ga() {
   return `
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-SP8EDYP71R"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SP8EDYP71R');</script>`.trim();
+<link rel="stylesheet" href="/assets/css/cookie-preferences.css?v=20261029-1" />
+<script src="/assets/js/cookie-preferences.js?v=20261029-1" defer></script>`.trim();
 }
 
 // ── Read posts ─────────────────────────────────────────────────────────────
@@ -160,6 +159,7 @@ for (const post of files) {
   <link rel="icon" type="image/svg+xml" href="/assets/images/favicon-light.svg" />
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   ${SITE_HEADER}
   <nav class="glass-tabbar" aria-label="Quick actions">
     <div class="glass-tabbar__indicator"></div>
@@ -189,7 +189,7 @@ for (const post of files) {
       </div>
     </header>
 
-    <main class="post-body" id="main-content">
+    <main class="post-body" id="main-content" tabindex="-1">
       <article class="post-content" itemscope itemtype="https://schema.org/BlogPosting">
         <meta itemprop="headline" content="${data.title}" />
         <meta itemprop="datePublished" content="${formatDateISO(data.date)}" />
@@ -276,6 +276,7 @@ const indexPage = `<!DOCTYPE html>
   <link rel="icon" type="image/svg+xml" href="/assets/images/favicon-light.svg" />
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   ${SITE_HEADER}
   <nav class="glass-tabbar" aria-label="Quick actions">
     <div class="glass-tabbar__indicator"></div>
@@ -297,7 +298,7 @@ const indexPage = `<!DOCTYPE html>
       <h1>Tips &amp; Ideas</h1>
       <p>Remodeling guides, cost breakdowns, and inspiration for Denver homeowners.</p>
     </header>
-    <main id="main-content">
+    <main id="main-content" tabindex="-1">
       <div class="post-grid" role="list">
         ${cards}
       </div>

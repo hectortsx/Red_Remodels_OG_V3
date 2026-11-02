@@ -1,14 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SP8EDYP71R"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-SP8EDYP71R');
-    </script>
+    <link rel="stylesheet" href="/assets/css/cookie-preferences.css?v=20261029-1" />
+<script src="/assets/js/cookie-preferences.js?v=20261029-1" defer></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Red Remodels | Denver Remodeling &amp; Handyman Experts</title>
@@ -41,7 +35,6 @@
       name="twitter:image"
       content="https://www.redremodels.com/assets/images/redRemodelsOpenGraph.png"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -83,11 +76,6 @@
         ]
       }
     </script>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Lato:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
     <link rel="icon" type="image/svg+xml" href="/assets/images/favicon-light.svg" />
     <link
       rel="icon"
@@ -103,15 +91,14 @@
     />
     <link rel="canonical" href="https://www.redremodels.com/" />
     <link rel="stylesheet" href="/assets/css/desktop.css" />
+    <link rel="stylesheet" href="/assets/css/accessibility.css" />
+    <script src="/assets/js/nav-accessibility.js" defer></script>
     <link rel="stylesheet" href="/pages/desktop/home/style.css" />
     <link rel="stylesheet" href="/assets/css/liquid-glass.css" />
-    <script
-      src="https://www.google.com/recaptcha/api.js?render=6Lffxv0rAAAAAKjd7Uad2BYO-Mnuc82m0k7j9w3Z"
-      async
-      defer
-    ></script>
+    <link rel="stylesheet" href="/assets/css/contact-verification.css?v=turnstile-20261028-3" />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <div class="announcement-bar">
       <div class="container announcement-content">
         <span class="announcement-text"
@@ -185,7 +172,7 @@
       </a>
     </nav>
 
-    <main>
+    <main id="main-content" tabindex="-1">
       <section class="hero" id="home">
         <div class="hero-overlay">
           <div class="container hero-content">
@@ -229,7 +216,7 @@
             <div class="form-row">
               <label>
                 <span>Name</span>
-                <input type="text" name="name" placeholder="Full name" autocomplete="name" required />
+                <input type="text" name="name" placeholder="Full name" autocomplete="name" maxlength="120" required />
               </label>
               <label>
                 <span>Email</span>
@@ -238,6 +225,7 @@
                   name="email"
                   placeholder="you@example.com"
                   autocomplete="email"
+                  maxlength="254"
                   required
                 />
               </label>
@@ -248,6 +236,7 @@
                   name="phone"
                   placeholder="(000) 000-0000"
                   autocomplete="tel"
+                  maxlength="40"
                   required
                 />
               </label>
@@ -259,6 +248,7 @@
                 name="serviceType"
                 placeholder="Kitchen remodel, basement finish…"
                 autocomplete="off"
+                maxlength="120"
               />
             </label>
             <label>
@@ -268,11 +258,17 @@
                 rows="3"
                 placeholder="Tell us about your remodel"
                 autocomplete="off"
+                maxlength="2000"
                 required
               ></textarea>
             </label>
+            <div class="contact-verification" data-turnstile role="group" aria-label="Security verification" hidden></div>
             <button class="btn btn--primary" type="submit" data-form-submit>Send Message</button>
             <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+            <p class="form-fallback">
+              If this form does not work, call <a href="tel:+17205192606">(720) 519-2606</a> or email
+              <a href="mailto:hello@redremodels.com">hello@redremodels.com</a>.
+            </p>
           </form>
         </div>
       </section>
@@ -483,11 +479,11 @@
             <div class="form-row">
               <label>
                 <span>Name</span>
-                <input type="text" name="name" placeholder="Full name" autocomplete="name" required />
+                <input type="text" name="name" placeholder="Full name" autocomplete="name" maxlength="120" required />
               </label>
               <label>
                 <span>Email</span>
-                <input type="email" name="email" placeholder="you@example.com" autocomplete="email" required />
+                <input type="email" name="email" placeholder="you@example.com" autocomplete="email" maxlength="254" required />
               </label>
               <label>
                 <span>Phone number</span>
@@ -496,6 +492,7 @@
                   name="phone"
                   placeholder="(000) 000-0000"
                   autocomplete="tel"
+                  maxlength="40"
                   required
                 />
               </label>
@@ -507,10 +504,16 @@
                 rows="3"
                 placeholder="How can we help?"
                 autocomplete="off"
+                maxlength="2000"
               ></textarea>
             </label>
+            <div class="contact-verification" data-turnstile role="group" aria-label="Security verification" hidden></div>
             <button class="btn btn--light" type="submit" data-form-submit>Send Message</button>
             <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+            <p class="form-fallback">
+              If this form does not work, call <a href="tel:+17205192606">(720) 519-2606</a> or email
+              <a href="mailto:hello@redremodels.com">hello@redremodels.com</a>.
+            </p>
           </form>
         </div>
       </section>
@@ -578,7 +581,8 @@
         <p>© <span id="year"></span> Red Remodels. All rights reserved.</p>
       </div>
     </footer>
-    <script src="/assets/js/contact-form.js" defer></script>
+    <script src="/assets/js/contact-form-config.js?v=turnstile-20261028-1" defer></script>
+    <script src="/assets/js/contact-form.js?v=turnstile-20261028-3" defer></script>
     <script>
       (function () {
         document.getElementById('year').textContent = new Date().getFullYear();

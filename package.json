@@ -7,7 +7,11 @@
   "scripts": {
     "start": "node server/index.mjs",
     "dev": "node server/index.mjs",
-    "build:blog": "node scripts/build-blog.js"
+    "build:blog": "node scripts/build-blog.js",
+    "test:contact-guard": "node --experimental-vm-modules --test scripts/tests/contact-origin-guard.test.mjs",
+    "test:contact": "node --experimental-vm-modules --test scripts/tests/contact-origin-guard.test.mjs scripts/tests/contact-turnstile.test.mjs scripts/tests/contact-form-turnstile.test.mjs",
+    "test:privacy": "node --test scripts/tests/cookie-preferences.test.mjs",
+    "waf:baseline": "node scripts/capture-waf-baseline.mjs"
   },
   "dependencies": {
     "cors": "^2.8.5",

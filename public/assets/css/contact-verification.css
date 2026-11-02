@@ -1,0 +1,56 @@
+/* Keep the managed widget inside both stacked and grid-based contact forms. */
+.contact-verification {
+  grid-column: 1 / -1;
+  min-width: 0;
+  width: 100%;
+  margin-block: 0.5rem;
+}
+.contact-verification[hidden] {
+  display: none;
+}
+body [data-secure-form] .form-fallback {
+  grid-column: 1 / -1;
+  margin-block: 0.75rem 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #334155;
+}
+body .more-info [data-secure-form] .form-fallback {
+  color: #fff;
+}
+.form-fallback a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* Opaque status panels stay readable on every form background. */
+body [data-secure-form] .form-status {
+  grid-column: 1 / -1;
+}
+body [data-secure-form] .form-status[hidden] {
+  display: none;
+}
+body [data-secure-form] .form-status[data-status='pending'] {
+  color: #1e3a8a;
+  background: #eff6ff;
+  border: 1px solid #1d4ed8;
+}
+body [data-secure-form] .form-status[data-status='error'] {
+  color: #7f1d1d;
+  background: #fef2f2;
+  border: 1px solid #991b1b;
+}
+body [data-secure-form] .form-status[data-status='error']::before {
+  color: #fff;
+  background: #991b1b;
+}
+body [data-secure-form] .form-status[data-status='success'] {
+  color: #14532d;
+  background: #ecfdf5;
+  border: 1px solid #166534;
+}
+body [data-secure-form] .form-status[data-status='success']::before {
+  color: #fff;
+  background: #166534;
+}

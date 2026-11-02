@@ -692,6 +692,10 @@ a.service-card {
   padding: 3.5rem 0 2.4rem;
 }
 
+.main-footer p {
+  color: rgba(255, 255, 255, 0.88);
+}
+
 .footer-top {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -701,6 +705,10 @@ a.service-card {
 
 .footer-brand p {
   margin-top: 1rem;
+}
+
+.footer-bottom p {
+  color: rgba(255, 255, 255, 0.76);
 }
 
 .footer-details ul {

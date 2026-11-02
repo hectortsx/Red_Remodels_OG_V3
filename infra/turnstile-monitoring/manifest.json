@@ -1,0 +1,24 @@
+{
+  "region": "us-east-1",
+  "accountId": "365608889294",
+  "logGroupName": "/aws/lambda/red-remodels-contact-handler",
+  "topicArn": "arn:aws:sns:us-east-1:365608889294:redremodels-alerts",
+  "estimatedMonthlyCustomMetricAndAlarmCostUsd": 1.2,
+  "items": [
+    {
+      "name": "configuration",
+      "filterFile": "configuration-filter.json",
+      "alarmFile": "configuration-alarm.json"
+    },
+    {
+      "name": "unavailable",
+      "filterFile": "unavailable-filter.json",
+      "alarmFile": "unavailable-alarm.json"
+    },
+    {
+      "name": "rejections",
+      "filterFile": "rejections-filter.json",
+      "alarmFile": "rejections-alarm.json"
+    }
+  ]
+}

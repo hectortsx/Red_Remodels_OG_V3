@@ -1,0 +1,18 @@
+{
+  "AlarmName": "redremodels-turnstile-rejections",
+  "AlarmDescription": "Sustained verification rejection volume: at least 10 per five-minute period for two periods; may indicate bots or integration/domain/action problems.",
+  "ActionsEnabled": true,
+  "AlarmActions": [
+    "arn:aws:sns:us-east-1:365608889294:redremodels-alerts"
+  ],
+  "Namespace": "RedRemodels/Contact",
+  "MetricName": "TurnstileRejected",
+  "Statistic": "Sum",
+  "Unit": "Count",
+  "Period": 300,
+  "EvaluationPeriods": 2,
+  "DatapointsToAlarm": 2,
+  "Threshold": 10,
+  "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+  "TreatMissingData": "notBreaching"
+}

@@ -1,0 +1,14 @@
+{
+  "logGroupName": "/aws/lambda/red-remodels-contact-handler",
+  "filterName": "redremodels-turnstile-configuration",
+  "filterPattern": "?\"Turnstile configuration is missing or invalid.\" ?\"invalid-input-secret\" ?\"missing-input-secret\"",
+  "metricTransformations": [
+    {
+      "metricName": "TurnstileConfigurationErrors",
+      "metricNamespace": "RedRemodels/Contact",
+      "metricValue": "1",
+      "defaultValue": 0,
+      "unit": "Count"
+    }
+  ]
+}
