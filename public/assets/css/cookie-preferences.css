@@ -46,4 +46,7 @@
   #rr-cookie-panel, #rr-cookie-settings { bottom: calc(88px + env(safe-area-inset-bottom)); }
   #rr-cookie-panel { padding: 16px; max-height: 65vh; }
   #rr-cookie-panel .rr-cookie-actions button { flex: 1 1 180px; }
+  /* Step aside while the mobile nav menu is open so it never covers menu items. */
+  body:has(#site-nav.is-open) #rr-cookie-panel,
+  body:has(#site-nav.is-open) #rr-cookie-settings { visibility: hidden; }
 }

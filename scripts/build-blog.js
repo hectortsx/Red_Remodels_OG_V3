@@ -72,7 +72,7 @@ function formatDateISO(dateStr) {
 
 function ga() {
   return `
-<link rel="stylesheet" href="/assets/css/cookie-preferences.css?v=20261029-1" />
+<link rel="stylesheet" href="/assets/css/cookie-preferences.css?v=20261102-1" />
 <script src="/assets/js/cookie-preferences.js?v=20261029-1" defer></script>`.trim();
 }
 
