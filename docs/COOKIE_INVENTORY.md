@@ -39,9 +39,9 @@ Before November 2 the GA cookies were measured at 400 days (the browser cap on G
 
 ## Open questions (owner / counsel)
 
-1. **Global Privacy Control.** Analytics is opt-in, so GPC users are not tracked unless they click Accept. Counsel should confirm whether anything more is required (for example, hiding the Accept option or treating GPC as a standing rejection) under the Colorado Privacy Act or other applicable law.
-2. **GA4 property settings** (in the Google Analytics account, not visible from the site): data retention period, data sharing settings, Google Signals and Ads links, enhanced measurement, and user-deletion process.
-3. **Privacy notice** must describe the analytics cookies, the preference record, and Turnstile security processing.
+1. **Global Privacy Control.** Analytics is opt-in, so GPC users are not tracked unless they click Accept. _Decided November 3, 2026 (owner, no counsel):_ no extra GPC handling; the owner judged the Colorado Privacy Act unlikely to apply. Recheck yearly or if the business grows or starts advertising.
+2. **GA4 property settings** (in the Google Analytics account, not visible from the site). _Checked November 2, 2026:_ Signals off, ads personalization off, no Google Ads link, event data 2 months / user data 14 months. Still open: enhanced measurement review and the user-deletion process.
+3. **Privacy notice** must describe the analytics cookies, the preference record, and Turnstile security processing. _Done November 3, 2026:_ all three are covered in [public/privacy-policy/index.html](../public/privacy-policy/index.html) (not yet uploaded).
 
 ## History
 

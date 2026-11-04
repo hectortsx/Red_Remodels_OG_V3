@@ -1,6 +1,8 @@
 # Privacy Policy — draft for owner and counsel review
 
-**Status:** Draft, November 2, 2026. Not legal advice and not approved. Do not publish until counsel signs off.
+**Status:** Superseded November 3, 2026. The owner has no counsel for this and approved the final wording themselves; the authoritative text is now the page at [public/privacy-policy/index.html](../public/privacy-policy/index.html). The placeholders below are kept as history only — see the November 3 notes in [WEB_COMPLIANCE_AUDIT.md](./WEB_COMPLIANCE_AUDIT.md) for how each was resolved. Not legal advice.
+
+**Original status:** Draft, November 2, 2026. Not legal advice and not approved. Do not publish until counsel signs off.
 
 **How to read this draft**
 - Text in plain paragraphs is proposed wording for the public page at `https://www.redremodels.com/privacy-policy/`.

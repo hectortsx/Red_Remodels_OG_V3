@@ -57,11 +57,11 @@ The [cookie inventory](./COOKIE_INVENTORY.md) records the previously observed `_
 | GA4 retention, enhanced measurement (especially form interactions), Signals, advertising integrations, sharing, deletion settings, and processing terms | GA4 property administrator | Completes provider-side analytics inventory; no new tag/consent behavior is selected here. |
 | Cloudflare terms, provider-side retention/deletion/request process and processing locations | Cloudflare account owner | Completes provider-side security processing record. |
 | Additional logging destinations, access to the log bucket, backups, and their retention | AWS administrator | The current CloudFront destination has a verified 90-day rule covering its prefix and no versioning; account-level logging/backup coverage is still unverified. |
-| Inquiry/mailbox/backup retention criteria and handling of holds | Business owner, mailbox admin, counsel | Previously deferred. Do not invent or publish a duration; confirm enforcement before adopting one. |
-| Whether phone must remain required and service type is needed | Business owner | Data-minimization decision; no field requirement changed in this review. |
+| Inquiry/mailbox/backup retention criteria and handling of holds | Business owner, mailbox admin | Decided November 3, 2026 (owner, no counsel): inquiry emails up to 2 years after last contact unless needed for a hired project, deleted by hand once a year from the business mailbox and the designer's copy. Backup retention still open. |
+| Whether phone must remain required and service type is needed | Business owner | Owner decided phone stays required (November 2, 2026). Service type remains optional; no change made. |
 | A verified deletion/request workflow covering primary/CC mail, archives/backups, analytics, and providers | Business owner and relevant admins | No complete process currently verified. Provider aggregate metrics may not identify a requester; document actual capabilities and limits. |
 
-The technical register is prepared. The full inventory remains open until these account/owner confirmations are recorded. The next privacy-notice task should use this register as input and receive the legal review already required by the audit before publication.
+The technical register is prepared. The full inventory remains open until these account/owner confirmations are recorded. The privacy notice was written from this register; on November 3, 2026 the owner approved it without counsel (no lawyer engaged for this). See [WEB_COMPLIANCE_AUDIT.md](./WEB_COMPLIANCE_AUDIT.md).
 
 ## Source references
 
